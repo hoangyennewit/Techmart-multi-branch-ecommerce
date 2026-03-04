@@ -1,6 +1,5 @@
 import {Smartphone, Laptop, Headphones, Tablet, Monitor } from "lucide-react";
 import { JSX } from "react";
-
 interface Category {
     id: number;
     name: string;
