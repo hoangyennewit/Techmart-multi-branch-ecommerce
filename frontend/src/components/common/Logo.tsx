@@ -2,7 +2,7 @@ import techLogo from "@/assets/logos/Icon-Logo.png";
 
 export const Logo = () => {
     return (
-        <div className="flex items-center gap-y-12">
+        <section className="flex items-center gap-y-12">
             <img
                 src={techLogo}
                 alt="TechStore Logo"
@@ -11,6 +11,6 @@ export const Logo = () => {
             <span className="font-bold text-[#1a3673] text-xl leading-none">
                 TechStore
             </span>
-        </div>
+        </section>
     );
 };
