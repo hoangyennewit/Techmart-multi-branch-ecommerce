@@ -1,3 +1,4 @@
+import {useNavigate} from "react-router-dom";
 import { ProductCard } from "../../../components/product/ProductCard";
 const fakeproducts = [
     {
@@ -74,13 +75,17 @@ const fakeproducts = [
     }
 ];
 export const FeaturedProducts = () => {
+    const navigate = useNavigate();
     return (
         <section>
             <div>
                 <h2 className="text-xl font-bold text-center text-amber-50 bg-orange-600 p-3 px-20 max-w-xl 
                 transition-all whitespace-nowrap shadow-sm uppercase rounded-r-full">Sản phẩm nổi bật</h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-5 px-40">
+            <div
+                key={fakeproducts[0].id}
+                onClick={() => navigate(`/products/${fakeproducts[0].id}`)}
+                className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-5 px-40">
                 {fakeproducts.map((item) => (
                     <ProductCard key={item.id} product={item} />
                 ))}
