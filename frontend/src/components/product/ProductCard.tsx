@@ -1,15 +1,8 @@
+//./src/components/product/ProductCard.tsx
 import {Star, Heart} from "lucide-react"
-
+import { Product } from "../../features/products/types";
 interface ProductProps {
-    product:{
-        id: number;
-        name: string;
-        price: number;
-        originalPrice: number;
-        imageUrl: string;
-        color: string[];
-        rating: number;
-    }
+    product: Product;
 }
 export const ProductCard = ({product}: ProductProps) => {
     const discount = product.originalPrice > product.price ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
