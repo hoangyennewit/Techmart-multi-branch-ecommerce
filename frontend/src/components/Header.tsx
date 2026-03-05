@@ -1,7 +1,9 @@
 import { Search, ShoppingCart, Bell, Mail} from "lucide-react";
 import { Logo } from "./common/Logo";
+import {useNavigate} from "react-router-dom";
 
 export const Header = () => {
+    const navigate = useNavigate();
     return (
         <header className="w-full bg-white border-b border-orange-200 shadow-sm">
             <div className="container px-10 py-2 flex items-center justify-between gap-5">
@@ -33,8 +35,13 @@ export const Header = () => {
                     <div className="relative cursor-pointer">
                         <ShoppingCart className="w-7 h-7 text-gray-600 hover:text-gray-800" />
                     </div>
-                    <div>
-                        <button className="bg-[#ee3124] text-white font-bold px-6 py-2 rounded-full text-xs hover:bg-orange-600 transition-all whitespace-nowrap shadow-sm uppercase tracking-wider">
+                    <div>                        
+                        <button 
+                            className="bg-[#ee3124] text-white font-bold px-6 py-2 rounded-full 
+                            text-xs hover:bg-green-600 transition-all whitespace-nowrap shadow-sm 
+                            uppercase tracking-wider"
+                            onClick={() => navigate("/login")}
+                        >
                             Đăng nhập
                         </button>
                     </div>
