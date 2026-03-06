@@ -9,12 +9,12 @@ interface Category {
 }
 
 const categories: Category[] = [
-    { id: 1, name: "Điện thoại", slug: "dien-thoai", icon: <Smartphone className="w-5 h-5" /> },
-    { id: 2, name: "Laptop",     slug: "laptop",     icon: <Laptop     className="w-5 h-5" /> },
-    { id: 3, name: "Âm thanh",  slug: "am-thanh",   icon: <Headphones className="w-5 h-5" /> },
-    { id: 4, name: "Tablet",    slug: "tablet",     icon: <Tablet     className="w-5 h-5" /> },
-    { id: 5, name: "Màn hình",  slug: "man-hinh",   icon: <Monitor    className="w-5 h-5" /> },
-    { id: 6, name: "TV",        slug: "tv",         icon: <Tv         className="w-5 h-5" /> },
+    { id: 1, name: "Điện thoại", slug: "dien-thoai", icon: <Smartphone className="w-6 h-6" /> },
+    { id: 2, name: "Laptop",     slug: "laptop",     icon: <Laptop     className="w-6 h-6" /> },
+    { id: 3, name: "Âm thanh",  slug: "am-thanh",   icon: <Headphones className="w-6 h-6" /> },
+    { id: 4, name: "Tablet",    slug: "tablet",     icon: <Tablet     className="w-6 h-6" /> },
+    { id: 5, name: "Màn hình",  slug: "man-hinh",   icon: <Monitor    className="w-6 h-6" /> },
+    { id: 6, name: "TV",        slug: "tv",         icon: <Tv         className="w-6 h-6" /> },
 ];
 
 export const CategoryBar = () => {
@@ -22,16 +22,16 @@ export const CategoryBar = () => {
 
     return (
         <nav className="w-full bg-white border-b border-gray-100 shadow-sm">
-            <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-12">
-                {/* Grid 6 cột cố định — đồng đều trên mọi kích thước */}
-                <ul className="grid grid-cols-6 py-1">
+            <div className="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-12">
+                {/* Horizontal scroll on mobile, grid on sm+ */}
+                <ul className="flex sm:grid sm:grid-cols-6 overflow-x-auto scrollbar-hide">
                     {categories.map((cat) => (
-                        <li key={cat.id}>
+                        <li key={cat.id} className="flex-shrink-0 sm:flex-shrink">
                             <button
                                 onClick={() => setActive(cat.id)}
-                                className={`w-full flex flex-col items-center justify-center gap-1
-                                            py-2.5 text-xs font-medium transition-all duration-150
-                                            border-b-2 
+                                className={`w-full min-w-[80px] sm:min-w-0 flex flex-col items-center justify-center gap-1.5
+                                            px-3 sm:px-2 py-4 text-xs font-semibold transition-all duration-150
+                                            border-b-2
                                             ${
                                                 active === cat.id
                                                     ? "border-orange-500 text-orange-600"
@@ -41,7 +41,7 @@ export const CategoryBar = () => {
                                 <span className={`transition-colors duration-150 ${active === cat.id ? "text-orange-500" : "text-gray-400"}`}>
                                     {cat.icon}
                                 </span>
-                                <span className="leading-tight text-center whitespace-nowrap text-[11px] sm:text-xs">
+                                <span className="leading-tight text-center whitespace-nowrap text-xs sm:text-sm">
                                     {cat.name}
                                 </span>
                             </button>
