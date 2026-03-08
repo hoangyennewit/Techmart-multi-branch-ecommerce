@@ -5,7 +5,8 @@ interface ProductProps {
     product: Product;
 }
 export const ProductCard = ({product}: ProductProps) => {
-    const discount = product.originalPrice > product.price ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
+    const discount = product.originalPrice && product.originalPrice > product.price 
+    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
     return (    
         <div className="border rounded-lg p-3 w-full">
             {discount > 0 && (
@@ -14,27 +15,31 @@ export const ProductCard = ({product}: ProductProps) => {
                 </span>
             )}
             <div className="mt-2">
-                <img src={product.imageUrl} alt={product.name} className="w-full h-60 object-cover mb-1 rounded-md" />
+                <img src={product.images[0].url} 
+                alt={product.name} 
+                className="w-full h-60 object-cover mb-1 rounded-md" />
             </div>
             <div>
                 <h4 className="text-lg font-semibold">{product.name}</h4>
             </div>
             <div className="flex items-center gap-2 mt-1">
                 <span className="text-orange-600 font-bold">{product.price.toLocaleString()} VND</span>
-                {discount > 0 && (
+                {discount > 0 && product.originalPrice && (
                     <span className="text-gray-500 line-through text-sm">{product.originalPrice.toLocaleString()} VND</span>
                 )}
             </div>
-            {/* Chọn thông số máy */}
             <div className="flex gap-2 mt-2">
-                {product.color.map((color: string, index: number) => (
-                    <button key={index} className="border rounded-full w-6 h-6" style={{ backgroundColor: color }}></button>
+                {product.colors.map((color) => (
+                    <button key={color.id}
+                        title = {color.name}
+                        className="border rounded-full w-6 h-6" 
+                        style={{ backgroundColor: color.hex }}></button>
                 ))}
             </div>
             <div className="flex justify-between gap-4 mt-2">
                 <div className="flex items-center">
                     <Star className="w-4 h-4 text-yellow-400" />
-                    <span className="text-sm text-gray-600 ml-1">{product.rating}</span>
+                    <span className="text-sm text-gray-600 ml-1">{product.rating??0}</span>
                 </div>
                 <div className="flex items-center">
                     <Heart className="w-4 h-4 text-red-500" />

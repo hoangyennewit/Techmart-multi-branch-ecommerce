@@ -19,10 +19,13 @@ export interface ProductSpec {
 }
 export interface ProductComment {
     id: string;
+    productId: string;
+    userId: string;
     userName: string;
+    userAvatar?: string;
     content: string;
-    stars: Number;
-    createAt: String;
+    stars: number;
+    createdAt: string;
 }
 export interface Product {
     id: string;
@@ -35,7 +38,7 @@ export interface Product {
     images: ProductImage[]; 
     colors: ProductColor[];
     variants: ProductVariant[];
-    specs: ProductSpec[]
+    specs: ProductSpec[];
 
     stock: number;
     rating: number;
