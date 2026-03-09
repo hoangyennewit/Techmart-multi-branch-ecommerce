@@ -15,11 +15,11 @@ export const products: Product[] = [
             },
             {
                 id: "img2",
-                url: "https://cdn.tgdd.vn/Products/Images/42/240259/iPhone-14-plus-thumb-xanh-600x600.jpg"
+                url: "https://bachlongstore.vn/vnt_upload/product/07_2023/iphone_14_plus_den_11.jpg"
             },
             {
                 id: "img3",
-                url: "https://cdn.tgdd.vn/Products/Images/42/240259/iPhone-14-plus-thumb-xanh-600x600.jpg"
+                url: "https://cdn.tgdd.vn/Products/Images/42/245545/Kit/iphone-14-plus-note-new.jpg"
             }
         ],
         colors: [
