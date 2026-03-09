@@ -1,5 +1,5 @@
-import { Product } from "../types";
-import {products} from "../../../data/products";
+import { Product } from "../../types";
+import {products} from "../../../../data/products";
 import ReviewForm from "./ReviewForm";
 type Props = {
     product: Product;
