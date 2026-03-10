@@ -10,7 +10,7 @@ export const ProductGallery = ({images}: Props) => {
     return (
         <div>
             <div className="rounded-lg p-1 border-1 border-gray-300 ">
-                <img src={selectedImage.url} className="w-auto h-auto object-cover" />
+                <img src={selectedImage.url} className="w-100 h-100 object-cover" />
             </div>
             <ProductThumbnails
                 images = {images}
