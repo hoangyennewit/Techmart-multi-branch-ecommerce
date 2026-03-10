@@ -16,7 +16,7 @@ export const ProductPage = () => {
             <div>
                 <Header />
             </div>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+            <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
                 {/* Sản phẩm */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     <div className="lg:col-span-4 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
