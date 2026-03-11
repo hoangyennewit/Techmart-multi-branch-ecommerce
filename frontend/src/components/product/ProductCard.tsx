@@ -1,51 +1,171 @@
-//./src/components/product/ProductCard.tsx
-import {Star, Heart} from "lucide-react"
+import { Star, Heart, ShoppingCart, Check } from "lucide-react";
 import { Product } from "../../features/products/types";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cart/cartSlice";
 interface ProductProps {
     product: Product;
 }
+const formatVND = (price: number) => price.toLocaleString("vi-VN") + "đ";
 export const ProductCard = ({product}: ProductProps) => {
-    const discount = product.originalPrice && product.originalPrice > product.price 
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
-    return (    
-        <div className="border rounded-lg p-3 w-full">
+        const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [selectedColor, setSelectedColor] = useState(product.color[0]);
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [added, setAdded] = useState(false);
+
+    const discount =
+        product.originalPrice > product.price
+            ? Math.round(
+                ((product.originalPrice - product.price) /
+                    product.originalPrice) *
+                100
+            )
+            : 0;
+            const handleAddToCart = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        dispatch(
+            addToCart({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                originalPrice: product.originalPrice,
+                imageUrl: product.imageUrl,
+                color: selectedColor,
+                quantity: 1,
+            })
+        );
+        setAdded(true);
+        setTimeout(() => setAdded(false), 1500);
+    };
+        return (
+        <article
+            className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100
+                       shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1
+                       cursor-pointer flex flex-col"
+            onClick={() => navigate(`/products/${product.id}`)}
+            onKeyDown={(e) => e.key === 'Enter' && navigate(`/products/${product.id}`)}
+            aria-label={product.name}
+        >
+            {/* Discount Badge */}
             {discount > 0 && (
-                <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                    -{discount} %
+                <span className="absolute top-3 left-3 z-10 bg-red-500 text-white text-xs font-bold
+                                 px-2 py-1 rounded-full shadow-sm">
+                    -{discount}%
                 </span>
             )}
-            <div className="mt-2">
-                <img src={product.images[0].url} 
-                alt={product.name} 
-                className="w-full h-60 object-cover mb-1 rounded-md" />
+            {/* Wishlist Button */}
+            <button
+                className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm
+                           flex items-center justify-center shadow-sm border border-gray-100
+                           hover:scale-110 transition-all duration-200"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setIsFavorite(!isFavorite);
+                }}
+                aria-label="Yêu thích"
+            >
+                <Heart
+                    className={`w-5 h-5 transition-colors duration-200 ${isFavorite ? "fill-red-500 text-red-500" : "text-gray-400"
+                        }`}
+                />
+            </button>
+
+            {/* Image */}
+            <div className="relative overflow-hidden bg-white aspect-square">
+                <img
+                    src={product.imageUrl}
+                    alt={product.name}
+                    className="w-full h-full object-contain p-4 mix-blend-multiply
+                               group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = "none";
+                    }}
+                />
             </div>
-            <div>
-                <h4 className="text-lg font-semibold">{product.name}</h4>
-            </div>
-            <div className="flex items-center gap-2 mt-1">
-                <span className="text-orange-600 font-bold">{product.price.toLocaleString()} VND</span>
-                {discount > 0 && product.originalPrice && (
-                    <span className="text-gray-500 line-through text-sm">{product.originalPrice.toLocaleString()} VND</span>
-                )}
-            </div>
-            <div className="flex gap-2 mt-2">
-                {product.colors.map((color) => (
-                    <button key={color.id}
-                        title = {color.name}
-                        className="border rounded-full w-6 h-6" 
-                        style={{ backgroundColor: color.hex }}></button>
-                ))}
-            </div>
-            <div className="flex justify-between gap-4 mt-2">
-                <div className="flex items-center">
-                    <Star className="w-4 h-4 text-yellow-400" />
-                    <span className="text-sm text-gray-600 ml-1">{product.rating??0}</span>
+
+            {/* Content */}
+            <div className="flex flex-col flex-1 p-4 gap-2">
+                {/* Product Name */}
+                <h4 className="text-sm font-semibold text-gray-800 leading-tight
+                               line-clamp-2 group-hover:text-orange-600 transition-colors duration-200">
+                    {product.name}
+                </h4>
+
+                {/* Rating */}
+                <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <Star
+                            key={star}
+                            className={`w-4 h-4 ${star <= Math.round(product.rating)
+                                ? "text-yellow-400 fill-yellow-400"
+                                : "text-gray-200 fill-gray-200"
+                                }`}
+                        />
+                    ))}
+                    <span className="text-xs text-gray-400 ml-1">
+                        ({product.rating})
+                    </span>
                 </div>
-                <div className="flex items-center">
-                    <Heart className="w-4 h-4 text-red-500" />
-                    <p className="text-sm text-black ml-1">Yêu thích</p>
+
+                {/* Price */}
+                <div className="flex flex-col gap-0.5 mt-auto">
+                    <span className="text-orange-600 font-bold text-lg leading-tight">
+                        {formatVND(product.price)}
+                    </span>
+                    {discount > 0 && (
+                        <span className="text-gray-400 line-through text-sm">
+                            {formatVND(product.originalPrice)}
+                        </span>
+                    )}
                 </div>
+
+                {/* Color Swatches */}
+                <div className="flex gap-2.5 items-center mt-1">
+                    {product.color.map((color) => (
+                        <button
+                            key={color}
+                            title={color}
+                            aria-label={`Màu ${color}`}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedColor(color);
+                            }}
+                            className={`w-6 h-6 rounded-full border-2 transition-all duration-150 hover:scale-110
+                                ${selectedColor === color
+                                    ? "border-orange-500 scale-110"
+                                    : "border-gray-200"
+                                }`}
+                            style={{ backgroundColor: color }}
+                        />
+                    ))}
+                </div>
+
+                {/* Add to Cart Button */}
+                <button
+                    onClick={handleAddToCart}
+                    className={`mt-2 w-full flex items-center justify-center gap-2 py-2.5 px-3
+                               font-semibold text-sm rounded-xl transition-all duration-200
+                               ${added
+                            ? "bg-green-500 text-white border-green-500 border"
+                            : "bg-orange-50 text-orange-600 border border-orange-200 hover:bg-orange-500 hover:text-white hover:border-orange-500"
+                        }`}
+                    aria-label="Thêm vào giỏ hàng"
+                >
+                    {added ? (
+                        <>
+                            <Check className="w-4 h-4" />
+                            Đã thêm!
+                        </>
+                    ) : (
+                        <>
+                            <ShoppingCart className="w-4 h-4" />
+                            Thêm vào giỏ
+                        </>
+                    )}
+                </button>
             </div>
-        </div>
+        </article>
     );
 };
