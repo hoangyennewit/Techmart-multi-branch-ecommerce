@@ -7,7 +7,34 @@ import { useState } from "react";
 type Props = {
     products: Product[];
 };
-<div className="flex items-center justify-between mb-5">
+type TabId = "all" | "phone" | "laptop";
+
+const tabs: { id: TabId; label: string; Icon: React.ComponentType<{ className?: string }> }[] = [
+    { id: "all", label: "Bán chạy", Icon: Flame },
+    { id: "phone", label: "Điện thoại", Icon: Smartphone },
+    { id: "laptop", label: "Laptop", Icon: Laptop },
+];
+export const FeaturedProducts = ({ products }: Props) => {
+    const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState("all");
+
+    const filtered = products.filter((item) => {
+        if (activeTab === "all") return true;
+        
+        const productName = item.name.toLowerCase();
+        if (activeTab === "phone") {
+            return productName.includes("iphone") || productName.includes("galaxy") || productName.includes("xiaomi") || productName.includes("oppo") || productName.includes("điện thoại");
+        }
+        if (activeTab === "laptop") {
+            return productName.includes("macbook") || productName.includes("dell") || productName.includes("asus") || productName.includes("lenovo") || productName.includes("laptop");
+        }
+        return true;
+    });
+
+    // 4. Render giao diện
+    return (
+        <section className="py-8 px-4 sm:px-6 lg:px-12 max-w-screen-xl mx-auto">
+        <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-3">
                     <div className="w-1 h-7 bg-orange-500 rounded-full" />
                     <h2 className="text-xl sm:text-2xl font-bold text-gray-800 uppercase tracking-tight">
