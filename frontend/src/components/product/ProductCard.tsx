@@ -1,5 +1,5 @@
 import { Star, Heart, ShoppingCart, Check } from "lucide-react";
-import { Product } from "../../features/products/types";
+import { Product, ProductColor } from "../../features/products/types";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -9,30 +9,31 @@ interface ProductProps {
 }
 const formatVND = (price: number) => price.toLocaleString("vi-VN") + "đ";
 export const ProductCard = ({product}: ProductProps) => {
-        const navigate = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [selectedColor, setSelectedColor] = useState(product.color[0]);
+    const [selectedColor, setSelectedColor] = useState<ProductColor | undefined>(product.colors?.[0]);
     const [isFavorite, setIsFavorite] = useState(false);
     const [added, setAdded] = useState(false);
 
     const discount =
-        product.originalPrice > product.price
+        product.originalPrice && product.originalPrice > product.price
             ? Math.round(
                 ((product.originalPrice - product.price) /
                     product.originalPrice) *
                 100
             )
             : 0;
-            const handleAddToCart = (e: React.MouseEvent) => {
+    const handleAddToCart = (e: React.MouseEvent) => {
         e.stopPropagation();
         dispatch(
             addToCart({
                 id: product.id,
                 name: product.name,
                 price: product.price,
-                originalPrice: product.originalPrice,
-                imageUrl: product.imageUrl,
-                color: selectedColor,
+                originalPrice: product.originalPrice || product.price,
+                // Lấy url của ảnh đầu tiên trong mảng images
+                imageUrl: product.images?.[0]?.url || "", 
+                color: selectedColor?.name || "",
                 quantity: 1,
             })
         );
@@ -75,7 +76,7 @@ export const ProductCard = ({product}: ProductProps) => {
             {/* Image */}
             <div className="relative overflow-hidden bg-white aspect-square">
                 <img
-                    src={product.imageUrl}
+                    src={product.images?.[0]?.url || ""}
                     alt={product.name}
                     className="w-full h-full object-contain p-4 mix-blend-multiply
                                group-hover:scale-105 transition-transform duration-500"
@@ -114,7 +115,8 @@ export const ProductCard = ({product}: ProductProps) => {
                     <span className="text-orange-600 font-bold text-lg leading-tight">
                         {formatVND(product.price)}
                     </span>
-                    {discount > 0 && (
+                    {/* Kiểm tra originalPrice tồn tại mới hiển thị */}
+                    {product.originalPrice && product.originalPrice > product.price && (
                         <span className="text-gray-400 line-through text-sm">
                             {formatVND(product.originalPrice)}
                         </span>
@@ -123,21 +125,21 @@ export const ProductCard = ({product}: ProductProps) => {
 
                 {/* Color Swatches */}
                 <div className="flex gap-2.5 items-center mt-1">
-                    {product.color.map((color) => (
+                    {product.colors?.map((color) => (
                         <button
-                            key={color}
-                            title={color}
-                            aria-label={`Màu ${color}`}
+                            key={color.id}
+                            title={color.name}
+                            aria-label={`Màu ${color.name}`}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedColor(color);
                             }}
                             className={`w-6 h-6 rounded-full border-2 transition-all duration-150 hover:scale-110
-                                ${selectedColor === color
+                                ${selectedColor?.id === color.id
                                     ? "border-orange-500 scale-110"
                                     : "border-gray-200"
                                 }`}
-                            style={{ backgroundColor: color }}
+                            style={{ backgroundColor: color.hex }}
                         />
                     ))}
                 </div>
