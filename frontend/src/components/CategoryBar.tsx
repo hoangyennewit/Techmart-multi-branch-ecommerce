@@ -6,11 +6,11 @@ interface Category {
     icon: JSX.Element;
 }
 const categories: Category[] = [
-    { id: 1, name: "Điện thoại", icon: <Smartphone className="w-5 h-5" /> },
-    { id: 2, name: "Laptop", icon: <Laptop className="w-5 h-5" /> },
-    { id: 3, name: "Âm thanh", icon: <Headphones className="w-5 h-5" /> },
-    { id: 4, name: "Tablet", icon: <Tablet className="w-5 h-5" /> },
-    { id: 5, name: "Màn hình, máy in", icon: <Monitor className="w-5 h-5" /> },
+    { id: 1, name: "Điện thoại", icon: <Smartphone className="w-6 h-6" /> },
+    { id: 2, name: "Laptop", icon: <Laptop className="w-6 h-6" /> },
+    { id: 3, name: "Âm thanh", icon: <Headphones className="w-6 h-6" /> },
+    { id: 4, name: "Tablet", icon: <Tablet className="w-6 h-6" /> },
+    { id: 5, name: "Màn hình, máy in", icon: <Monitor className="w-6 h-6" /> },
 ];
 export const CategoryBar = () => {
     return (
