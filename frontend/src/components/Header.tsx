@@ -61,6 +61,7 @@ export const Header = () => {
 
                         {/* Cart */}
                         <button
+                            onClick={() => navigate("/cart")}
                             className="relative p-2.5 rounded-full hover:bg-orange-50 transition-colors"
                             aria-label="Giỏ hàng"
                         >
