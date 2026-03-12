@@ -1,4 +1,4 @@
-import { Search, ShoppingCart, Bell, Menu, X, Phone, Laptop, Headphones, Tablet, Monitor, Tv, Home, User } from "lucide-react";
+import { Search, ShoppingCart, Bell, Menu, X, Phone, Laptop, Headphones, Tablet, Monitor, Tv, Home, User, Package } from "lucide-react";
 import { Logo } from "./common/Logo";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -80,6 +80,15 @@ export const Header = () => {
                             aria-label="Thông báo"
                         >
                             <Bell className="w-6 h-6 text-gray-600" />
+                        </button>
+
+                        {/* Orders - Package */}
+                        <button
+                            onClick={() => navigate("/orders")}
+                            className="hidden sm:flex p-2.5 rounded-full hover:bg-orange-50 transition-colors"
+                            aria-label="Đơn hàng của tôi"
+                        >
+                            <Package className="w-6 h-6 text-gray-600" />
                         </button>
 
                         {/* Login Button */}
@@ -173,6 +182,14 @@ export const Header = () => {
                         </button>
                     ))}
                     <div className="mx-4 my-1 border-t border-gray-100" />
+                    <button
+                        onClick={() => { navigate("/orders"); setMenuOpen(false); }}
+                        className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
+                                   text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                    >
+                        <Package className="w-4 h-4 text-orange-400" />
+                        Đơn hàng của tôi
+                    </button>
                     <button
                         onClick={() => { navigate("/login"); setMenuOpen(false); }}
                         className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
