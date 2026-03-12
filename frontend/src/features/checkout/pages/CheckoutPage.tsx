@@ -8,6 +8,7 @@ import {
     selectCartTotal,
     clearCart,
 } from "../../cart/cartSlice";
+import { placeOrder } from "../../orders/orderSlice";
 
 const formatPrice = (price: number) => price.toLocaleString("vi-VN") + "đ";
 
@@ -42,7 +43,26 @@ export const CheckoutPage = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Giả lập đặt hàng thành công
+        
+        // Dispatch create order action
+        dispatch(placeOrder({
+            id: `ORD${Date.now()}`,
+            items: items.map(i => ({
+                id: i.id,
+                name: i.name,
+                price: i.price,
+                color: i.color,
+                quantity: i.quantity,
+                imageUrl: i.imageUrl
+            })),
+            totalAmount: total,
+            shippingFee: shippingFee,
+            shippingInfo: formData,
+            paymentMethod,
+            status: "pending",
+            createdAt: new Date().toISOString()
+        }));
+
         setIsSuccess(true);
         dispatch(clearCart());
         window.scrollTo(0, 0);
@@ -61,10 +81,16 @@ export const CheckoutPage = () => {
                     <p className="text-gray-500 max-w-md mb-8 text-lg">
                         Cảm ơn bạn đã mua sắm tại TechMart. Đơn hàng của bạn đang được xử lý và sẽ sớm được giao.
                     </p>
-                    <div className="flex gap-4">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <button
+                            onClick={() => navigate("/orders")}
+                            className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-orange-200 transition-all active:scale-95"
+                        >
+                            Theo dõi đơn hàng
+                        </button>
                         <button
                             onClick={() => navigate("/")}
-                            className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-orange-200 transition-all active:scale-95"
+                            className="bg-white hover:bg-gray-50 text-gray-700 font-bold py-3 px-8 rounded-full shadow-sm border border-gray-200 transition-all active:scale-95"
                         >
                             Tiếp tục mua sắm
                         </button>
