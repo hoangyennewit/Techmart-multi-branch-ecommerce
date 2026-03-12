@@ -19,20 +19,21 @@ export const ProductPage = () => {
             <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
                 {/* Sản phẩm */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    <div className="lg:col-span-4 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                    <div className="lg:col-span-5 bg-white p-4 rounded-xl border border-gray-200 shadow-sm sticky top-24">
                         <ProductGallery images={product.images} />
                     </div>
-                    <div className="lg:col-span-4">
+                    <div className="lg:col-span-7 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
                         <ProductInfo product={product}/>
-                    </div>
-                {/* Chi tiết thông số sản phẩm */}
-                    <div className="lg:col-span-4 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                        {product && <ProductSpecs product={product} />}
                     </div>
                 </div>
 
+                {/* Chi tiết thông số sản phẩm */}
+                <div className="mt-8 bg-white p-6 lg:p-10 rounded-xl border border-gray-200 shadow-sm">
+                    {product && <ProductSpecs product={product} />}
+                </div>
+
                 {/* Bình Luận */}
-                <div className="mt-12 bg-[#e5e5e5] rounded-xl p-10 min-h-[400px] flex flex-col items-center">
+                <div className="mt-8 flex flex-col items-center">
                     {product && <ProductComments product={product} />}
                 </div>
             </div>
