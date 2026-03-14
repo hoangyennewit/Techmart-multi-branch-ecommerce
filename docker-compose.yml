@@ -1,16 +1,18 @@
-version: '3.8'
 
 services:
 # Dịch vụ Database
   db:
     image: postgres:15-alpine
     container_name: postgres_db
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
   
   #Dịch vụ Backend (Node.js)
   backend:
