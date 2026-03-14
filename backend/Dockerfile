@@ -1,5 +1,5 @@
 #chon image base nhe va on dinh
-FROM node:18-alpine
+FROM node:22-alpine
 #tao thu muc lam viec trong container
 WORKDIR /app
 #copy file quan ly thu vien de tan dung Docker cache
