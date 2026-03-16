@@ -6,8 +6,8 @@ export default function ReviewForm({onSubmit}: {onSubmit: (data: {comment: strin
     const [rating, setRating] = useState(0);
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(!rating || !comment) {
-            alert("Vui lòng nhập đầy đủ thông tin đánh giá");
+        if(!rating || !comment.trim()) {
+            alert("Vui lòng chọn số sao và nhập nội dung đánh giá của bạn.");
             return;
         }
         onSubmit({comment, rating});
@@ -15,23 +15,32 @@ export default function ReviewForm({onSubmit}: {onSubmit: (data: {comment: strin
         setRating(0);
     }
     return (
-        <form onSubmit = {handleSubmit} className="space-y-4">
-            {/* Ten Nguoi dung danh gia */} 
-            <div className = "flex items-center space-x-2">
-                {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} size={24} 
-                    className={`cursor-pointer ${star <= rating ? "text-yellow-500 fill-yellow-500" : "text-gray-300"}`} 
-                    onClick={() => setRating(star)} />
-                ))}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+                <span className="text-sm font-semibold text-gray-700">Chất lượng sản phẩm:</span>
+                <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <Star 
+                            key={star} 
+                            className={`w-7 h-7 cursor-pointer transition-colors ${star <= rating ? "fill-orange-400 text-orange-400 hover:scale-110" : "fill-gray-200 text-gray-200 hover:fill-orange-200"}`} 
+                            onClick={() => setRating(star)} 
+                        />
+                    ))}
+                </div>
+                {rating > 0 && <span className="text-sm font-medium text-orange-500 ml-2 animate-pulse">{rating} Sao</span>}
             </div>
             <textarea
-                value = {comment}
+                value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                placeholder = "Viết đánh giá của bạn tại đây..."
-                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Mời bạn chia sẻ thêm cảm nhận về sản phẩm..."
+                rows={3}
+                className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 transition-all resize-none shadow-inner"
             />
-            <div className="text-right">
-                <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+            <div className="flex justify-end">
+                <button 
+                    type="submit" 
+                    className="px-6 py-2.5 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 shadow-md shadow-orange-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                     Gửi đánh giá
                 </button>
             </div>
