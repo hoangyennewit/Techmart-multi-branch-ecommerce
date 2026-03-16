@@ -19,6 +19,9 @@ export const LoginPage = () => {
         setError("");
         navigate("/");
     };
+    const handleGoogleLogin = () => {
+        window.location.href = "http://localhost:5000/api/auth/google";
+    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-100 flex flex-col">
@@ -132,6 +135,7 @@ export const LoginPage = () => {
                                 </button>
                                 <button
                                     type="button"
+                                    onClick={handleGoogleLogin}
                                     className="flex-1 flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-3
                                                hover:bg-red-50 hover:border-red-200 transition-all text-sm font-semibold text-gray-600"
                                 >
