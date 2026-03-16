@@ -4,6 +4,7 @@ services:
   db:
     image: postgres:15-alpine
     container_name: postgres_db
+    restart: always
     ports:
       - "5432:5432"
     environment:
@@ -22,8 +23,16 @@ services:
     container_name: nodejs_backend
     ports:
       - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - ./.env:/app/.env
     environment:
-      DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+    env_file:
+      - .env
     depends_on:
       - db
 
@@ -34,7 +43,12 @@ services:
       dockerfile: Dockerfile
     container_name: web_frontend
     ports:
-      - "80:80"
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_PORT=5173
     depends_on:
       - backend
 
