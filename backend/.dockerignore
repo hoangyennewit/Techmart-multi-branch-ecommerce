@@ -1,0 +1,35 @@
+#Dependencies
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+#Docker files
+Dockerfile
+docker-composr.yml
+.dockerignore
+
+#Git
+.git
+.gitignore
+
+#Environment & Secrets
+.env
+.env.local
+.env.development
+.env.production
+
+#Build folders
+dist
+build
+
+#Test files
+tests
+spec
+.jest
+
+#Logs & Temporaty files
+logs
+*.log
+npm-debug.log*
+.DS_Store
