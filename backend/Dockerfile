@@ -11,4 +11,4 @@ COPY . .
 #Mo cong Node.js chay
 EXPOSE 5000 
 #khoi tao ung dung
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
