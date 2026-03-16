@@ -1,7 +1,8 @@
 --1 Vai trò(Roles)
 CREATE TABLE IF NOT EXISTS vai_tro(
     ma_vai_tro SERIAL PRIMARY KEY,
-    ten_vai_tro VARCHAR(50) UNIQUE NOT FULL,
+    ten_vai_tro VARCHAR(50) UNIQUE NOT NULL,
+    ten_hien_thi VARCHAR(100) NOT NULL,
     mo_ta TEXT
 );
 
@@ -10,12 +11,14 @@ CREATE TABLE IF NOT EXISTS nguoi_dung (
     ma_nguoi_dung SERIAL PRIMARY KEY,
     ho_ten VARCHAR(150) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
-    mat_khau VARCHAR(255) NOT NULL,
-    so_dien_thoai VARCHAR(20) NULL
-    dia_chi TEXT,
-    ma_vai_tro INT REFERENCES vai_tro(ma_vai_tro),
+    mat_khau VARCHAR(255) NULL,
+    google_id VARCHAR(255) UNIQUE NULL,
+    kieu_dang_nhap VARCHAR(20) DEFAULT 'local',
+    so_dien_thoai VARCHAR(20) NULL,
+    dia_chi TEXT NULL,
+    ma_vai_tro INT REFERENCES vai_tro(ma_vai_tro) DEFAULT 8, -- Mặc định là vai trò Khách hàng
     trang_thai BOOLEAN DEFAULT TRUE,
-    ngay_tao TIMESTAMPTS DEFAULT NOW()
+    ngay_tao TIMESTAMP DEFAULT NOW()
 );
 
 -- 4. Chèn danh sách các vai trò bạn cần (Seed Data)

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCartCount } from "../features/cart/cartSlice";
+import { useAuth } from "../features/auth/store/AuthContext";
 
 const navCategories = [
     { name: "Điện thoại", slug: "dien-thoai", Icon: Phone },
@@ -19,6 +20,7 @@ export const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
     const cartCount = useSelector(selectCartCount);
+    const { user, logout } = useAuth();
 
     return (
         <>
@@ -81,7 +83,25 @@ export const Header = () => {
                             <Bell className="w-6 h-6 text-gray-600" />
                         </button>
 
-                        {/* Login Button */}
+                        {/* Login/logout Button */}
+                        {user ? (
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm font-semibold text-gray-700 hidden sm:inline">
+                            {user.ho_ten || user.email}
+                            </span>
+                            <button
+                            className="bg-gray-300 text-gray-800 font-bold px-4 sm:px-6 py-2.5 rounded-full
+                                                        text-sm hover:bg-gray-400 active:scale-95 transition-all
+                                                        whitespace-nowrap shadow-md uppercase tracking-wider"
+                            onClick={() => {
+                                logout();
+                                navigate("/");
+                            }}
+                            >
+                            Đăng xuất
+                            </button>
+                        </div>
+                        ) : (
                         <button
                             className="bg-[#ee3124] text-white font-bold px-4 sm:px-6 py-2.5 rounded-full
                                        text-sm hover:bg-orange-600 active:scale-95 transition-all
@@ -90,6 +110,7 @@ export const Header = () => {
                         >
                             Đăng nhập
                         </button>
+            )}
 
                         {/* Hamburger — mobile only */}
                         <button
