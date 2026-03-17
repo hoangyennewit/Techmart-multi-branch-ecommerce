@@ -1,5 +1,6 @@
 import { Smartphone, Laptop, Headphones, Tablet, Monitor, Tv } from "lucide-react";
-import { JSX, useState } from "react";
+import { JSX, use, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 interface Category {
     id: number;
@@ -18,35 +19,38 @@ const categories: Category[] = [
 ];
 
 export const CategoryBar = () => {
-    const [active, setActive] = useState<number | null>(null);
-
+    //const [active, setActive] = useState<number | null>(null);
+    const location = useLocation();
     return (
         <nav className="w-full bg-white border-b border-gray-100 shadow-sm">
             <div className="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-12">
                 {/* Horizontal scroll on mobile, grid on sm+ */}
                 <ul className="flex sm:grid sm:grid-cols-6 overflow-x-auto scrollbar-hide">
-                    {categories.map((cat) => (
-                        <li key={cat.id} className="flex-shrink-0 sm:flex-shrink">
-                            <button
-                                onClick={() => setActive(cat.id)}
-                                className={`w-full min-w-[80px] sm:min-w-0 flex flex-col items-center justify-center gap-1.5
-                                            px-3 sm:px-2 py-4 text-xs font-semibold transition-all duration-150
-                                            border-b-2
-                                            ${
-                                                active === cat.id
-                                                    ? "border-orange-500 text-orange-600"
-                                                    : "border-transparent text-gray-500 hover:text-orange-500 hover:border-orange-300"
-                                            }`}
-                            >
-                                <span className={`transition-colors duration-150 ${active === cat.id ? "text-orange-500" : "text-gray-400"}`}>
-                                    {cat.icon}
-                                </span>
-                                <span className="leading-tight text-center whitespace-nowrap text-xs sm:text-sm">
-                                    {cat.name}
-                                </span>
-                            </button>
-                        </li>
-                    ))}
+                    {categories.map((cat) => {
+                        const isActive = location.pathname.includes(`/category/${cat.slug}`);
+                        return (
+                            <li key={cat.id} className="flex-shrink-0 sm:flex-shrink">
+                                <Link
+                                    to={`/category/${cat.slug}`}
+                                    className={`w-full min-w-[80px] sm:min-w-0 flex flex-col items-center justify-center gap-1.5
+                                                px-3 sm:px-2 py-4 text-xs font-semibold transition-all duration-150
+                                                border-b-2
+                                                ${
+                                                    isActive
+                                                        ? "border-orange-500 text-orange-600"
+                                                        : "border-transparent text-gray-500 hover:text-orange-500 hover:border-orange-300"
+                                                }`}
+                                >
+                                    <span className={`transition-colors duration-150 ${isActive ? "text-orange-500" : "text-gray-400"}`}>
+                                        {cat.icon}
+                                    </span>
+                                    <span className="leading-tight text-center whitespace-nowrap text-xs sm:text-sm">
+                                        {cat.name}
+                                    </span>
+                                </Link>
+                            </li>
+                        )
+                    })}
                 </ul>
             </div>
         </nav>
