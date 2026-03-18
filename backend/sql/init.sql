@@ -21,6 +21,36 @@ CREATE TABLE IF NOT EXISTS nguoi_dung (
     ngay_tao TIMESTAMP DEFAULT NOW()
 );
 
+--3 Danh mục
+CREATE TABLE IF NOT EXISTS danh_muc (
+    ma_danh_muc SERIAL PRIMARY KEY,
+    ten_danh_muc VARCHAR(100) NOT NULL,
+    slug VARCHAR(255) UNIQUE,
+    mo_ta TEXT NULL,
+    trang_thai TINYINT DEFAULT 1
+);
+
+--5 Sản phẩm (Product)
+CREATE TABLE IF NOT EXISTS san_pham (
+    id SERIAL PRIMARY KEY,
+    ma_code VARCHAR(50) UNIQUE,
+    slug VARCHAR(255) UNIQUE,
+    ten_san_pham VARCHAR(255) NOT NULL,
+    ma_hang INT REFERENCES hang(ma_hang),
+    ma_danh_muc INT REFERENCES danh_muc(ma_danh_muc),
+    gia_ban NUMERIC (12, 0) NOT NULL,
+    gia_goc NUMERIC (12, 0),
+    phan_tram_giam INT DEFAULT 0 CHECK(phan_tram_giam > 0 AND phan_tram_giam <=100),
+    so_luong_ton INT DEFAULT 0,
+    so_luot_xem INT DEFAULT 0,
+    diem_danh_gia NUMERIC(2, 1) DEFAULT 0,
+    hinh_anh_dai_dien TEXT,
+    mo_ta_ngan TEXT,
+    nam_ra_mat INT,
+    ngay_tao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    trang_thai BOOLEAN DEFAULT TRUE
+);
+
 -- 4. Chèn danh sách các vai trò bạn cần (Seed Data)
 INSERT INTO vai_tro (ten_vai_tro, ten_hien_thi, mo_ta) VALUES 
 ('ADMIN', 'Kỹ thuật viên', 'Quản trị hệ thống và kỹ thuật'),
