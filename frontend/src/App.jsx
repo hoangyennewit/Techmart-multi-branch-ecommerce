@@ -1,13 +1,8 @@
-import { AppRoutes } from "./routes";
-import { AuthProvider } from "./features/auth/store/AuthContext";
-import { BrowserRouter } from "react-router-dom";
+import { AdminHistory } from './features/AdminHistory';
+
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </BrowserRouter>
+    <AdminHistory />
   )
-};
+}
 export default App;
