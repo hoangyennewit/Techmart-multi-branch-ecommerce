@@ -1,8 +1,7 @@
-import { AdminHistory } from './features/AdminHistory';
+import { AdminLogin } from './features/auth/AdminLogin';
 
 function App() {
-  return (
-    <AdminHistory />
-  )
+  return <AdminLogin />
 }
+
 export default App;

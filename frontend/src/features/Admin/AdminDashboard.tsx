@@ -1,8 +1,8 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Calendar } from 'lucide-react';
-import { AdminHeader } from '../components/AdminHeader';
-import { StatCard } from '../components/StatCard';
+import { AdminHeader } from '../../components/Admin/AdminHeader';
+import { StatCard } from '../../components/Admin/StatCard';
 
 // Dữ liệu giả lập cho biểu đồ
 const chartData = [
