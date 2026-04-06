@@ -1,6 +1,14 @@
 import React from 'react';
 
-export const StatCard = ({ title, value, percentage, isPositive }) => {
+// Khai báo kiểu dữ liệu (gọi là interface)
+interface StatCardProps {
+  title: string;
+  value: string;
+  percentage: string;
+  isPositive: boolean;
+}
+
+export const StatCard = ({ title, value, percentage, isPositive }: StatCardProps) => {
   return (
     <div className="bg-white border border-gray-100 p-5 rounded-2xl shadow-sm flex flex-col justify-center">
       <p className="text-gray-500 text-sm mb-2 font-medium">{title}</p>
