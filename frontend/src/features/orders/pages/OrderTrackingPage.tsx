@@ -1,11 +1,27 @@
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Header } from "../../../components/Header";
-import { selectAllOrders } from "../orderSlice";
-import { Package, Truck, CheckCircle, Clock } from "lucide-react";
+import { Package, Truck, CheckCircle, Clock, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { getMyOrdersAPI } from "../../orders/api/orderApi";
 
 export const OrderTrackingPage = () => {
-    const orders = useSelector(selectAllOrders);
+    const [orders, setOrders] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const data = await getMyOrdersAPI();
+                setOrders(data);
+            }
+            catch (error) {
+                console.error("Error fetching orders:", error);
+            }
+            finally {
+                setIsLoading(false);
+            }
+        }
+        fetchOrders();
+    }, []);
 
     const formatPrice = (price: number) => price.toLocaleString("vi-VN") + "đ";
 
@@ -21,6 +37,17 @@ export const OrderTrackingPage = () => {
                 return { label: "Đã đặt hàng", color: "text-orange-500", bg: "bg-orange-500", icon: Clock, step: 1 };
         }
     };
+
+    if(isLoading) {
+        return (
+            <div className="min-h-screen bg-gray-50 flex flex-col">
+                <Header />
+                <div className="flex-1 flex justify-center items-center">
+                    <Loader2 className="w-10 h-10 text-orange-500 animate-spin" />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-gray-50 pb-16">
@@ -102,7 +129,7 @@ export const OrderTrackingPage = () => {
                                             <StatusIcon className={`w-5 h-5 ${statusInfo.color}`} />
                                             Trạng thái: <span className={statusInfo.color}>{statusInfo.label}</span>
                                         </h3>
-                                        {order.items.map((item, index) => (
+                                        {order.items?.map((item: any, index: number) => (
                                             <div key={`${item.id}-${index}`} className="flex gap-4 items-center bg-white p-3 rounded-lg border border-gray-100">
                                                 <div className="w-16 h-16 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0">
                                                     <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain p-2" />
