@@ -2,22 +2,21 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-
+import { useAuth } from "../../auth/store/AuthContext";
 // Import các Component con đã tách
 import { CheckoutSuccess } from "../components/CheckoutSuccess";
 import { ShippingForm, CheckoutFormData } from "../components/ShippingForm";
 import { OrderSummary } from "../components/OrderSummary";
 import { Header } from "../../../components/Header";
-
 // Import Redux actions
 import { selectCartItems, selectCartTotal, clearCart } from "../../cart/cartSlice";
-import { placeOrder } from "../../orders/orderSlice";
-
+// Import API function
 import { createPayment } from "../../payments/api/paymentApi";
-
+import { createOrder } from "../../orders/api/orderApi";
 export const CheckoutPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { user } = useAuth();
     
     // Dữ liệu từ Redux
     const items = useSelector(selectCartItems);
@@ -50,44 +49,43 @@ export const CheckoutPage = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const orderId = `ORD${Date.now()}`;
-        dispatch(placeOrder({
-            id: orderId,
-            items: items.map(i => ({
-                id: i.id,
-                name: i.name,
-                price: i.price,
-                color: i.color,
-                quantity: i.quantity,
-                imageUrl: i.imageUrl
-            })),
-            totalAmount: total,
-            shippingFee: shippingFee,
-            shippingInfo: formData,
-            paymentMethod,
-            status: "pending",
-            createdAt: new Date().toISOString()
-        }));
+        try {
+            const orderPayload = {
+                items: items, 
+                totalAmount: total,
+                shippingFee: shippingFee,
+                shippingInfo: formData,
+                paymentMethod: paymentMethod,
+                userId: user?.ma_nguoi_dung // NÂNG CẤP CHẶN KHÁCH VÃNG LAI CHƯA ĐĂNG NHẬP, CÓ THỂ LÀM SAO ĐÓ KHÁC ĐỂ VẪN CHO PHÉP KHÁCH VÃNG LAI MUA HÀNG NHƯ TRƯỚC ĐÂY
+            };
+            const dbResponse = await createOrder(orderPayload);
+            const realOrderId = dbResponse.orderId || `ORDER${Date.now()}`;
 
-        if(paymentMethod === "transfer") {
-            try {
-                const data = await createPayment({
-                    amount: grandTotal,
-                    orderId: orderId
-                });
-                if(data && data.url) {
-                    window.location.href = data.url; // Chuyển hướng người dùng đến trang thanh toán của VNPAY
+            
+            if(paymentMethod === "transfer") {
+                try {
+                    const data = await createPayment({
+                        amount: grandTotal,
+                        orderId: realOrderId.toString(),
+                    });
+                    if(data && data.url) {
+                        window.location.href = data.url; // Chuyển hướng người dùng đến trang thanh toán của VNPAY
+                    }
+                }
+                catch (error) {
+                    console.error("Error creating payment:", error);
+                    alert("Đã có lỗi xảy ra khi tạo thanh toán. Vui lòng thử lại.");
                 }
             }
-            catch (error) {
-                console.error("Error creating payment:", error);
-                alert("Đã có lỗi xảy ra khi tạo thanh toán. Vui lòng thử lại.");
+            else {
+                setIsSuccess(true);
+                dispatch(clearCart());
+                window.scrollTo(0, 0);
             }
         }
-        else {
-            setIsSuccess(true);
-            dispatch(clearCart());
-            window.scrollTo(0, 0);
+        catch (error) {
+            console.error("Error creating order:", error);
+            alert("Đã có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại.");
         }
     };
 
