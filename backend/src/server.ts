@@ -4,12 +4,14 @@ dotenv.config();
 import app from './app';
 import {connectDB} from './config/database';
 import authRoutes from './routes/authRoutes';
+import paymentRouter from './routes/paymentRoute';
 import passport from 'passport';
 import './config/passport';
+import './models';
 
 app.use(passport.initialize());
 app.use('/api/auth', authRoutes);
-
+app.use('/api/payments', paymentRouter);
 
 const PORT = process.env.PORT || 5000;
 const start = async() => {
