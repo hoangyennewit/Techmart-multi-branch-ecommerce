@@ -76,6 +76,15 @@ export const Header = () => {
                             )}
                         </button>
 
+                        {/* Order */}
+                        <button 
+                            onClick={() => navigate("/orders")}
+                            className="hidden sm:flex p-2.5 rounded-full hover:bg-orange-50 transition-colors group"
+                            title="Đơn hàng của tôi"
+                        >
+                            <Package className="w-6 h-6 text-gray-600 group-hover:text-orange-500 transition-colors" />
+                        </button>
+
                         {/* Bell — hidden on xs */}
                         <button
                             className="hidden sm:flex p-2.5 rounded-full hover:bg-orange-50 transition-colors"
