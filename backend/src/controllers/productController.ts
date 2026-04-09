@@ -9,7 +9,9 @@ export class ProductController {
 
     public getAllProducts = async (req: Request, res: Response): Promise<void> => {
         try {
-            const products = await this.productService.getAllProducts();
+            const categoryId = req.query.categoryId ? Number(req.query.categoryId) : undefined;
+            const products = await this.productService.getAllProducts(categoryId);
+
             res.status(200).json(products);
         } catch (error) {
             console.error("Lỗi ở ProductController - getAllProducts:", error);
