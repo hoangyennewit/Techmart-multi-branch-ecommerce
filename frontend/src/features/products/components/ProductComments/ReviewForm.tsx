@@ -38,7 +38,8 @@ export default function ReviewForm({onSubmit}: {onSubmit: (data: {comment: strin
             />
             <div className="flex justify-end">
                 <button 
-                    type="submit" 
+                    type="submit"
+                    disabled={!rating || !comment.trim()}
                     className="px-6 py-2.5 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 shadow-md shadow-orange-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Gửi đánh giá

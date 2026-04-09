@@ -1,20 +1,39 @@
 import axios from "axios";
 import {Product} from "../types";
 
-const API_URL = 'http://localhost:5000/api/products';
+const apiClient = axios.create({
+  baseURL: "http://localhost:5000/api",
+});
 
-export const productApi = {
-    getByCategory: async (slug: string): Promise<Product[]> => {
+export const ProductAPI = {
+    getAll: async (categoryId?: number): Promise<Product[]> => {
         try {
-            const response = await axios.get(`${API_URL}/category/${slug}`);
+            const url = categoryId ? `/products?categoryId=${categoryId}` : `/products`;
+            const response = await apiClient.get(url);
             return response.data;
-        } catch (error){
-            console.error("Lỗi khi lấy Api danh mục sản phẩm", error);
+        } catch (error) {
+            console.error("Lỗi khi lấy danh sách sản phẩm:", error);
             return [];
         }
     },
-    getAllProducts: async(slug: string): Promise<Product[]> => {
-        const response = await axios.get(API_URL);
-        return response.data;
+
+    getByCategory: async (slug: string): Promise<Product[]> => {
+        try {
+            const response = await apiClient.get(`/products/category/${slug}`);
+            return response.data;
+        } catch (error) {
+            console.error(`Lỗi khi lấy sản phẩm của danh mục ${slug}:`, error);
+            return [];
+        }
+    },
+
+    getById: async (id: string | number): Promise<Product | null> => {
+        try {
+            const response = await apiClient.get(`/products/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error("Lỗi khi lấy chi tiết sản phẩm:", error);
+            return null;
+        }
     }
 };
