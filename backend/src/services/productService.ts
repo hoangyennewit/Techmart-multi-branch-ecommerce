@@ -7,6 +7,7 @@ export class ProductService {
             let query =
                 `SELECT
                     ma_san_pham AS id,
+                    ma_danh_muc AS categoryId,
                     ten_san_pham AS name,
                     mo_ta_ngan AS description,
                     gia_ban AS price,
@@ -33,6 +34,7 @@ export class ProductService {
             
             const formattedProducts = products.map((p: any) => ({
                 id: p.id,
+                categoryId: p.categoryId,
                 name: p.name,
                 description: p.description,
                 price: p.price,
@@ -57,6 +59,51 @@ export class ProductService {
         } catch (error) {
             console.error("Lỗi ở ProductService - getAllProducts:", error);
             throw new Error("Error fetching products");
+        }
+    }
+
+    public getProductsByCategory = async (slug: string) => {
+        try {
+            const products: any = await sequelize.query(
+                `SELECT
+                    sp.ma_san_pham AS id,
+                    sp.ten_san_pham AS name,
+                    sp.gia_ban AS price,
+                    sp.gia_goc AS "originalPrice",
+                    sp.phan_tram_giam AS discount,
+                    sp.hinh_anh_dai_dien AS image
+                    sp.mo_ta_ngan AS description,
+                    sp.diem_danh_gia AS rating,
+                    sp.so_luong_xem AS sold
+                FROM san_pham sp
+                JOIN danh_muc dm ON sp.ma_danh_muc = dm.ma_danh_muc
+                WHERE dm.slug = $1 AND sp.trang_thai = 1
+                ORDER BY sp.ngay_tao DESC`,
+                {
+                    bind: [slug],
+                    type: QueryTypes.SELECT
+                }
+            );  
+            
+            return products.map((p: any) => ({
+                id: p.id,
+                name: p.name,
+                price: p.price,
+                originalPrice: p.originalPrice,
+                discount: p.discount,
+                image: [
+                    {
+                        id: p.id,
+                        url: p.image
+                    }
+                ],
+                colors: [],
+                variants: [],
+                specs: []
+            }));
+        } catch (error) {
+            console.error("Lỗi ở ProductService - getProductsByCategory:", error);
+            throw new Error("Error fetching products by category");
         }
     }
 }
