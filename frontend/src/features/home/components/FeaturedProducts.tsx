@@ -7,28 +7,20 @@ import { useState } from "react";
 type Props = {
     products: Product[];
 };
-type TabId = "all" | "phone" | "laptop";
+type TabId = "all" | number;
 
 const tabs: { id: TabId; label: string; Icon: React.ComponentType<{ className?: string }> }[] = [
     { id: "all", label: "Bán chạy", Icon: Flame },
-    { id: "phone", label: "Điện thoại", Icon: Smartphone },
-    { id: "laptop", label: "Laptop", Icon: Laptop },
+    { id: 1, label: "Điện thoại", Icon: Smartphone },
+    { id: 2, label: "Laptop", Icon: Laptop },
 ];
 export const FeaturedProducts = ({ products }: Props) => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState("all");
+    const [activeTab, setActiveTab] = useState<TabId>("all");
 
     const filtered = products.filter((item) => {
         if (activeTab === "all") return true;
-        
-        const productName = item.name.toLowerCase();
-        if (activeTab === "phone") {
-            return productName.includes("iphone") || productName.includes("galaxy") || productName.includes("xiaomi") || productName.includes("oppo") || productName.includes("điện thoại");
-        }
-        if (activeTab === "laptop") {
-            return productName.includes("macbook") || productName.includes("dell") || productName.includes("asus") || productName.includes("lenovo") || productName.includes("laptop");
-        }
-        return true;
+        return item.categoryId === activeTab;
     });
 
     // 4. Render giao diện

@@ -1,13 +1,48 @@
 import {useParams} from "react-router-dom";
 import {Header} from "../../../components/Header";
 import {ProductSpecs} from "../components/ProductSpecs";
-import { products } from "../../../data/products";
 import {ProductComments} from "../components/ProductComments/ProductComments";
 import { ProductGallery } from "../components/ProductGallery/ProductGallery";
 import { ProductInfo } from "../components/ProductInfo";
+import { Product } from "../../products/types";
+import { ProductAPI } from "../../products/api/productApi";
+import { useState, useEffect } from "react";
+
 export const ProductPage = () => {
-    const {id} = useParams();
-    const product = products.find((p) => p.id === id);
+    const { id } = useParams<{ id: string }>();    
+    const [product, setProduct] = useState<Product | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    
+    useEffect(() => {
+        const fetchProduct = async () => {
+            if(!id) return;
+            setIsLoading(true);
+            try {
+                const data = await ProductAPI.getById(id);
+                setProduct(data);
+            }
+            catch (error) {
+                console.error("Lỗi khi lấy chi tiết sản phẩm:", error);
+            }
+            finally {
+                setIsLoading(false);
+            }
+        };
+        fetchProduct();
+        window.scrollTo(0, 0);
+    }, [id]);
+    
+    if(isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-gray-500 font-medium">Đang tải thông tin sản phẩm...</p>
+                </div>
+            </div>
+        );
+    }
+    
     if (!product) {
         return <div className="text-center mt-20 text-2xl font-bold">Sản phẩm không tồn tại</div>;
     }

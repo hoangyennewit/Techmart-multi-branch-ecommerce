@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Product, ProductComment } from "../../types";
 import ReviewForm from "./ReviewForm";
 import RatingSummary from "./RatingSumary";
@@ -13,7 +13,10 @@ type Props = {
 export const ProductComments = ({ product }: Props) => {
     const [comments, setComments] = useState<ProductComment[]>(product.comments || []);
     const [filterRating, setFilterRating] = useState<number>(0);
-
+    useEffect(() => {
+        setComments(product.comments || []);
+        setFilterRating(0);
+    }, [product.id, product.comments]);
     const totalReviews = comments.length;
     
     // Calculate Average Rating
@@ -41,8 +44,12 @@ export const ProductComments = ({ product }: Props) => {
             createdAt: new Date().toISOString()
         };
         
-        // Prepend new review to the top
-        setComments([newReview, ...comments]);
+        try {
+            setComments([newReview, ...comments]); 
+        }
+        catch (error) {
+            console.error("Lỗi khi thêm đánh giá mới:", error);
+        }
     };
 
     // Filter comments
