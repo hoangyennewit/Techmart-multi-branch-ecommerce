@@ -15,7 +15,7 @@ export class ProductService {
                     phan_tram_giam AS discount,
                     so_luong_ton AS stock,
                     diem_danh_gia AS rating,
-                    so_luong_xem AS sold,
+                    so_luot_xem AS sold,
                     ngay_tao AS createdAt,
                     hinh_anh_dai_dien AS image
                 FROM san_pham
@@ -71,10 +71,10 @@ export class ProductService {
                     sp.gia_ban AS price,
                     sp.gia_goc AS "originalPrice",
                     sp.phan_tram_giam AS discount,
-                    sp.hinh_anh_dai_dien AS image
+                    sp.hinh_anh_dai_dien AS image,
                     sp.mo_ta_ngan AS description,
                     sp.diem_danh_gia AS rating,
-                    sp.so_luong_xem AS sold
+                    sp.so_luot_xem AS sold
                 FROM san_pham sp
                 JOIN danh_muc dm ON sp.ma_danh_muc = dm.ma_danh_muc
                 WHERE dm.slug = $1 AND sp.trang_thai = 1
