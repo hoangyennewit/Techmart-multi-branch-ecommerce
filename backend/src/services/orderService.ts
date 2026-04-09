@@ -3,6 +3,7 @@ import sequelize from "../config/database";
 
 export class OrderService {
     public createOrder = async (orderData: any) => {
+        console.log("🔥 Payload từ Frontend:", JSON.stringify(orderData, null, 2));
         const {items, totalAmount, shippingFee, shippingInfo, paymentMethod, userId} = orderData;
         const tongTien = totalAmount + shippingFee;
 
