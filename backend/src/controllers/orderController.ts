@@ -10,7 +10,17 @@ export class OrderController {
 
     public async createOrder(req: Request, res: Response): Promise<void> {
         try {
-            const orderData = req.body;
+            const user = (req as any).user;
+            const userId = user ?.id || user?.ma_nguoi_dung;
+            if(!userId) {
+                res.status(401).json({
+                    message: "Không tìm thấy thông tin người dùng. Vui lòng đăng nhập để tiếp tục."
+                })
+            }
+            const orderData = {
+                ...req.body,
+                userId: userId
+            }
             if (!orderData.items || orderData.items.length === 0) {
                 res.status(400).json({ message: "Giỏ hàng trống!" });
                 return;
@@ -32,7 +42,14 @@ export class OrderController {
 
     public getMyOrdersService = async (req: Request, res: Response): Promise<void> => {
         try {
-            const userId = req.query.userId;
+            const user = (req as any).user;
+            const userId = user ?.id || user?.ma_nguoi_dung;
+            if (!userId) {
+                res.status(401).json({
+                    message: "Không tìm thấy thông tin người dùng. Vui lòng đăng nhập để tiếp tục."
+                });
+                return;
+            }
             const orders = await this.orderService.getMyOrdersService(Number(userId));
             res.status(200).json(orders);
         }
