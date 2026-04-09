@@ -2,9 +2,9 @@ import { QueryTypes } from "sequelize";
 import sequelize from "../config/database";
 
 export class ProductService {
-    public getAllProducts = async () => {
+    public getAllProducts = async (categoryId?: number) => {
         try {
-            const products: any = await sequelize.query(
+            let query =
                 `SELECT
                     ma_san_pham AS id,
                     ten_san_pham AS name,
@@ -18,12 +18,18 @@ export class ProductService {
                     ngay_tao AS createdAt,
                     hinh_anh_dai_dien AS image
                 FROM san_pham
-                WHERE trang_thai = 1
-                ORDER BY ngay_tao DESC`,
-                {
+                WHERE trang_thai = 1`;
+            
+            const bindParams: any[] = [];
+            if (categoryId) {
+                query += ` AND ma_danh_muc = $1`;
+                bindParams.push(categoryId);
+            }
+            const products: any = await
+                sequelize.query(query, {
+                    bind: bindParams, // chống hack SQL injection
                     type: QueryTypes.SELECT
-                }
-            );
+                });
             
             const formattedProducts = products.map((p: any) => ({
                 id: p.id,
