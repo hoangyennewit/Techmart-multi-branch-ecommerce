@@ -1,4 +1,4 @@
-import { AdminLogin } from './features/auth/AdminLogin';
+import { AdminLogin } from './features/auth/pages/AdminLogin';
 
 function App() {
   return <AdminLogin />
