@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { AdminHeader } from '../../components/Admin/AdminHeader';
 import { HistoryCard } from '../../components/Admin/HistoryCard';
 
@@ -21,10 +22,12 @@ const fallbackHistory: HistoryItem[] = [
 ];
 
 export const AdminHistory = () => {
+  const location = useLocation();
+  const path = location.pathname;
+
   const [historyItems, setHistoryItems] = useState<HistoryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // GỌI API LẤY LỊCH SỬ
   useEffect(() => {
     const fetchHistory = async () => {
       try {
@@ -47,13 +50,16 @@ export const AdminHistory = () => {
       <div className="max-w-7xl mx-auto">
         <AdminHeader />
         
-        <div className="flex gap-4 mb-8 overflow-x-auto pb-2">
-          <button className="px-6 py-2 bg-white border border-gray-200 text-gray-600 rounded-full hover:bg-gray-100 whitespace-nowrap">Tổng quan Doanh thu</button>
-          <button className="px-6 py-2 bg-white border border-gray-200 text-gray-600 rounded-full hover:bg-gray-100 whitespace-nowrap">Phê duyệt Khuyến mãi</button>
-          <button className="px-6 py-2 bg-white border border-gray-200 text-gray-600 rounded-full hover:bg-gray-100 whitespace-nowrap">Phê duyệt điều phối</button>
-          
-          {/* Active Tab */}
-          <button className="px-6 py-2 bg-purple-700 text-white font-medium rounded-full shadow-md whitespace-nowrap">Lịch sử</button>
+        {/* THANH MENU TABS CÓ ROUTER */}
+        <div className="flex gap-4 mb-8 border-b border-gray-200 pb-4 overflow-x-auto">
+          <Link to="/admin" className={`px-6 py-2.5 rounded-full font-bold shadow-sm transition-all whitespace-nowrap ${path === '/admin' ? 'bg-purple-700 text-white' : 'bg-white text-gray-500 hover:text-purple-700 border border-gray-200 hover:bg-gray-50'}`}>Tổng quan Doanh thu</Link>
+          <Link to="/admin/promo" className={`px-6 py-2.5 rounded-full font-bold shadow-sm transition-all whitespace-nowrap flex gap-1 items-center ${path === '/admin/promo' ? 'bg-purple-700 text-white' : 'bg-white text-gray-500 hover:text-purple-700 border border-gray-200 hover:bg-gray-50'}`}>
+            Phê duyệt Khuyến mãi <span className="bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center ml-1">4</span>
+          </Link>
+          <Link to="/admin/dispatch" className={`px-6 py-2.5 rounded-full font-bold shadow-sm transition-all whitespace-nowrap flex gap-1 items-center ${path === '/admin/dispatch' ? 'bg-purple-700 text-white' : 'bg-white text-gray-500 hover:text-purple-700 border border-gray-200 hover:bg-gray-50'}`}>
+            Phê duyệt điều phối <span className="bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center ml-1">2</span>
+          </Link>
+          <Link to="/admin/history" className={`px-6 py-2.5 rounded-full font-bold shadow-sm transition-all whitespace-nowrap ${path === '/admin/history' ? 'bg-purple-700 text-white' : 'bg-white text-gray-500 hover:text-purple-700 border border-gray-200 hover:bg-gray-50'}`}>Lịch sử</Link>
         </div>
 
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-8 min-h-[300px]">

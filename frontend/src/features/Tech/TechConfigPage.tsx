@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { UserCircle } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { TechConfigCard, TechConfigItem } from '../../components/Tech/TechConfigCard';
 
 export const TechConfigPage = () => {
-  // Dữ liệu mô phỏng giống y hệt như lưới 3x3 trong hình ảnh của bạn
+  const location = useLocation();
+  const path = location.pathname;
+
   const [configs, setConfigs] = useState<TechConfigItem[]>([
     { id: '1', title: 'Thanh toán VN Pay', apiKey: 'vnpay_1234567890abcdef', isConnected: true },
     { id: '2', title: 'Thanh toán MOMO', apiKey: 'momo_1234567890abcdef', isConnected: false },
@@ -16,7 +19,6 @@ export const TechConfigPage = () => {
     { id: '9', title: 'Thanh toán MOMO', apiKey: 'momo_1029384756abcdef', isConnected: false },
   ]);
 
-  // Hàm xử lý khi bấm nút Connect / Disconnect
   const handleStatusChange = (id: string, isConnected: boolean) => {
     setConfigs(configs.map(config => 
       config.id === id ? { ...config, isConnected } : config
@@ -42,34 +44,21 @@ export const TechConfigPage = () => {
           </div>
         </div>
 
-        {/* --- THANH MENU TABS --- */}
+        {/* --- THANH MENU TABS CÓ ROUTER --- */}
         <div className="flex gap-3 mb-6 border-b border-gray-200 pb-4">
-          <button className="px-6 py-2.5 text-gray-500 hover:text-purple-700 font-semibold rounded-full hover:bg-white transition-all border border-transparent">
-            Tài khoản
-          </button>
-          <button className="px-6 py-2.5 text-gray-500 hover:text-purple-700 font-semibold rounded-full hover:bg-white transition-all border border-transparent">
-            Phân quyền
-          </button>
-          {/* Tab Cấu hình đang Active */}
-          <button className="px-6 py-2.5 bg-white text-purple-700 font-bold rounded-full shadow-sm border border-purple-200 relative">
+          <Link to="/tech" className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${path === '/tech' ? 'bg-purple-700 text-white shadow-md' : 'text-gray-500 hover:text-purple-700 hover:bg-white border border-transparent'}`}>Quản lý tài khoản</Link>
+          <Link to="/tech/permissions" className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${path === '/tech/permissions' ? 'bg-purple-700 text-white shadow-md' : 'text-gray-500 hover:text-purple-700 hover:bg-white border border-transparent'}`}>Phân quyền</Link>
+          <Link to="/tech/config" className={`relative px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${path === '/tech/config' ? 'bg-purple-700 text-white shadow-md' : 'text-gray-500 hover:text-purple-700 hover:bg-white border border-transparent'}`}>
             Cấu hình
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white">5</span>
-          </button>
-          <button className="px-6 py-2.5 text-gray-500 hover:text-purple-700 font-semibold rounded-full hover:bg-white transition-all border border-transparent">
-            Bảo mật
-          </button>
+            <span className="absolute top-0 right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">5</span>
+          </Link>
+          <Link to="/tech/security" className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${path === '/tech/security' ? 'bg-purple-700 text-white shadow-md' : 'text-gray-500 hover:text-purple-700 hover:bg-white border border-transparent'}`}>Bảo mật & Log</Link>
         </div>
 
-        {/* --- GRID HIỂN THỊ CÁC THẺ CẤU HÌNH --- */}
         <div className="bg-gray-100/60 p-8 rounded-[3rem] border border-gray-200 min-h-[500px]">
-          {/* Lưới 3 cột giống hệt thiết kế */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {configs.map(config => (
-              <TechConfigCard 
-                key={config.id} 
-                item={config} 
-                onStatusChange={handleStatusChange} 
-              />
+              <TechConfigCard key={config.id} item={config} onStatusChange={handleStatusChange} />
             ))}
           </div>
         </div>
