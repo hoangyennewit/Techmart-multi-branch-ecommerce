@@ -1,51 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
-const roles = [
-  { id: 'director', label: 'Giám đốc', path: '/admin' }, 
-  { id: 'tech', label: 'Bộ phận kỹ thuật', path: '/tech' },
-  { id: 'store_manager', label: 'Quản lý cửa hàng', path: '/store' },
-  { id: 'product_manager', label: 'Quản lý sản phẩm', path: '/product' },
-  { id: 'employee', label: 'Nhân viên', path: '/employee' },
-];
+import { useNavigate } from 'react-router-dom';
+import { UserCircle } from 'lucide-react';
 
 export const RoleSelection = () => {
+  const navigate = useNavigate();
+
+  const handleRoleClick = (rolePath: string) => {
+    // Truyền thêm object state chứa vai trò đã chọn
+    navigate('/login', { state: { selectedRole: rolePath } });
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-8 font-sans">
-      
-      {/* Khu vực Logo */}
-      <div className="flex flex-col items-center text-center mb-10">
-        <div className="mb-4 flex flex-col items-center">
-          <div className="w-20 h-20 bg-purple-100 rounded-full mb-2 border border-purple-200 shadow-sm"></div>
-          <div className="w-32 h-10 bg-purple-100 rounded-t-[2rem] rounded-b-xl border border-purple-200 shadow-sm"></div>
-        </div>
-        
-        <h1 className="text-5xl font-bold text-purple-700 mb-2 tracking-wide">
-          TechStore
-        </h1>
-        <p className="text-gray-500 font-medium tracking-wider">
-          Nâng tầm cuộc sống số
-        </p>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center font-sans">
+      <div className="text-center mb-10 flex flex-col items-center animate-in slide-in-from-top-4 duration-500">
+        <UserCircle size={80} className="text-purple-300 mb-2" />
+        <h1 className="text-6xl font-bold text-purple-800 tracking-wide mb-2">TechStore</h1>
+        <p className="text-gray-500 font-medium text-lg">Nâng tầm cuộc sống số</p>
       </div>
 
-      {/* Khung chọn vai trò */}
-      <div className="bg-white border border-gray-200 p-8 rounded-[2.5rem] shadow-xl w-full max-w-sm flex flex-col items-center transition-all">
-        <h2 className="text-gray-500 font-medium mb-6">Bạn là ai ?</h2>
+      <div className="bg-white border border-gray-200 rounded-[3rem] p-10 shadow-xl w-full max-w-sm flex flex-col gap-4 animate-in zoom-in-95 duration-500">
+        <h2 className="text-center text-gray-400 font-bold mb-4 uppercase tracking-widest text-sm">Bạn là ai ?</h2>
         
-        <div className="w-full flex flex-col gap-3.5">
-          {/* Đã xóa dòng comment gây lỗi ở đây */}
-          {roles.map((role) => (
-            <Link
-              key={role.id}
-              to={role.path}
-              className="w-full py-3.5 px-6 rounded-full border border-purple-200 text-purple-700 bg-purple-50/50 hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all font-medium text-sm shadow-sm flex justify-center items-center"
-            >
-              {role.label}
-            </Link>
-          ))}
-        </div>
+        {/* Truyền đúng từ khóa role để LoginPage nhận diện */}
+        <button onClick={() => handleRoleClick('admin')} className="w-full py-3.5 px-6 rounded-full border-2 border-gray-100 font-bold text-gray-600 hover:border-purple-400 hover:text-purple-700 hover:bg-purple-50 transition-all shadow-sm">Giám đốc</button>
+        <button onClick={() => handleRoleClick('tech')} className="w-full py-3.5 px-6 rounded-full border-2 border-gray-100 font-bold text-gray-600 hover:border-purple-400 hover:text-purple-700 hover:bg-purple-50 transition-all shadow-sm">Bộ phận kỹ thuật</button>
+        <button onClick={() => handleRoleClick('manager')} className="w-full py-3.5 px-6 rounded-full border-2 border-gray-100 font-bold text-gray-600 hover:border-purple-400 hover:text-purple-700 hover:bg-purple-50 transition-all shadow-sm">Quản lý cửa hàng</button>
+        <button onClick={() => handleRoleClick('product')} className="w-full py-3.5 px-6 rounded-full border-2 border-gray-100 font-bold text-gray-600 hover:border-purple-400 hover:text-purple-700 hover:bg-purple-50 transition-all shadow-sm">Quản lý sản phẩm</button>
+        <button onClick={() => handleRoleClick('staff')} className="w-full py-3.5 px-6 rounded-full border-2 border-gray-100 font-bold text-gray-600 hover:border-purple-400 hover:text-purple-700 hover:bg-purple-50 transition-all shadow-sm">Nhân viên</button>
       </div>
-      
     </div>
   );
 };
