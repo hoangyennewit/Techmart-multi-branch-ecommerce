@@ -1,12 +1,15 @@
 import React from 'react';
 import { UserCircle, Printer, Eye } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // Import 2 component con
 import { InventoryProductTable } from '../../components/Manager/InventoryProductTable';
 import { InventorySidebar } from '../../components/Manager/InventorySidebar';
 
 export const ManagerInventoryPage = () => {
+  const location = useLocation();
+  const path = location.pathname;
+
   return (
     <div className="min-h-screen bg-gray-50 p-8 font-sans text-gray-800">
       <div className="max-w-7xl mx-auto relative">
@@ -26,17 +29,11 @@ export const ManagerInventoryPage = () => {
           </div>
         </div>
 
-        {/* --- MAIN MENU (DÙNG ROUTER LINK) --- */}
-        <div className="flex gap-3 mb-6 border-b border-gray-200 pb-4">
-          <Link to="/store" className="px-6 py-2.5 text-gray-500 hover:text-purple-700 font-semibold rounded-full hover:bg-white transition-all border border-transparent">
-            Doanh thu & Báo cáo
-          </Link>
-          <Link to="/store/hr" className="px-6 py-2.5 text-gray-500 hover:text-purple-700 font-semibold rounded-full hover:bg-white transition-all border border-transparent">
-            Nhân sự & HR
-          </Link>
-          <div className="px-6 py-2.5 bg-purple-700 text-white font-bold rounded-full shadow-md cursor-default">
-            Kho
-          </div>
+        {/* --- MAIN MENU TABS --- */}
+        <div className="flex gap-3 mb-6 border-b border-gray-200 pb-4 overflow-x-auto">
+          <Link to="/store" className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${path === '/store' ? 'bg-purple-700 text-white shadow-md' : 'text-gray-500 hover:text-purple-700 hover:bg-white border border-transparent'}`}>Doanh thu & Báo cáo</Link>
+          <Link to="/store/hr" className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${path === '/store/hr' ? 'bg-purple-700 text-white shadow-md' : 'text-gray-500 hover:text-purple-700 hover:bg-white border border-transparent'}`}>Nhân sự & HR</Link>
+          <Link to="/store/inventory" className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${path === '/store/inventory' ? 'bg-purple-700 text-white shadow-md' : 'text-gray-500 hover:text-purple-700 hover:bg-white border border-transparent'}`}>Kho</Link>
           
           {/* Nút In ấn đẩy sang bên phải */}
           <div className="ml-auto flex gap-3">

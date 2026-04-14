@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserCircle, Printer, Eye } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // Import 3 component nhỏ
 import { HrScheduleTab } from '../../components/Manager/HrScheduleTab';
@@ -8,6 +8,9 @@ import { HrSalaryTab } from '../../components/Manager/HrSalaryTab';
 import { HrRecordsTab } from '../../components/Manager/HrRecordsTab';
 
 export const ManagerHRPage = () => {
+  const location = useLocation();
+  const path = location.pathname;
+  
   // Quản lý Tab con (Lịch / Lương / Hồ sơ)
   const [activeSubTab, setActiveSubTab] = useState<'schedule' | 'salary' | 'records'>('schedule');
 
@@ -30,17 +33,11 @@ export const ManagerHRPage = () => {
           </div>
         </div>
 
-        {/* --- MAIN MENU (DÙNG ROUTER LINK) --- */}
-        <div className="flex gap-3 mb-6">
-          <Link to="/store" className="px-6 py-2.5 text-gray-500 hover:text-purple-700 font-semibold rounded-full hover:bg-white transition-all border border-transparent">
-            Doanh thu & Báo cáo
-          </Link>
-          <div className="px-6 py-2.5 bg-purple-700 text-white font-bold rounded-full shadow-md cursor-default">
-            Nhân sự & HR
-          </div>
-          <Link to="/store/inventory" className="px-6 py-2.5 text-gray-500 hover:text-purple-700 font-semibold rounded-full hover:bg-white transition-all border border-transparent">
-            Kho
-          </Link>
+        {/* --- MAIN MENU TABS --- */}
+        <div className="flex gap-3 mb-6 overflow-x-auto pb-2">
+          <Link to="/store" className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${path === '/store' ? 'bg-purple-700 text-white shadow-md' : 'text-gray-500 hover:text-purple-700 hover:bg-white border border-transparent'}`}>Doanh thu & Báo cáo</Link>
+          <Link to="/store/hr" className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${path === '/store/hr' ? 'bg-purple-700 text-white shadow-md' : 'text-gray-500 hover:text-purple-700 hover:bg-white border border-transparent'}`}>Nhân sự & HR</Link>
+          <Link to="/store/inventory" className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${path === '/store/inventory' ? 'bg-purple-700 text-white shadow-md' : 'text-gray-500 hover:text-purple-700 hover:bg-white border border-transparent'}`}>Kho</Link>
         </div>
 
         {/* --- KHU VỰC NỘI DUNG CHÍNH CỦA HR --- */}
