@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { VNPayService } from "../services/vnpayService";
+import { VNPayService } from "../services/payment/vnpayService";
 import { CreatePaymentEntity } from "../models/Payment";
 
 export class PaymentController {
