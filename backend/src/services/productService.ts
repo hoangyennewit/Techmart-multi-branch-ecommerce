@@ -43,7 +43,7 @@ export class ProductService {
                 stock: p.stock,
                 rating: p.rating,
                 sold: p.sold,
-                createdAt: new Date(p.createdAt).toISOString(),
+                createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : new Date().toISOString(),
                 image: [
                     {
                         id: p.id,
@@ -104,6 +104,49 @@ export class ProductService {
         } catch (error) {
             console.error("Lỗi ở ProductService - getProductsByCategory:", error);
             throw new Error("Error fetching products by category");
+        }
+    }
+
+    public getProductById = async (id: number) => {
+        try {
+            const productResult: any = await sequelize.query(
+                `SELECT
+                    ma_san_pham AS id,
+                    ma_danh_muc AS categoryId,
+                    ten_san_pham AS name,
+                    mo_ta_ngan AS description,
+                    gia_ban AS price,
+                    gia_goc AS "originalPrice",
+                    phan_tram_giam AS discount,
+                    hinh_anh_dai_dien AS image
+                FROM san_pham
+                WHERE ma_san_pham = $1 AND trang_thai = 1`,
+                {
+                    bind: [id],
+                    type: QueryTypes.SELECT,
+                    plain: true // chỉ lấy 1 sản phẩm duy nhất
+                }
+            );
+            if(!productResult) {
+                console.log(`Không tìm thấy sản phẩm với id: ${id}`);
+                return null;
+            }
+            return {
+                ...productResult,
+                images: [
+                    {
+                        id: productResult.id,
+                        url: productResult.image
+                    }
+                ],
+                colors: [],
+                variants: [],
+                specs: [],
+                comments: []
+            };
+        }
+        catch (error) {            
+            throw new Error("Lỗi ở ProductService - getProductById: " + error);
         }
     }
 }

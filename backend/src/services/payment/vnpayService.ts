@@ -1,10 +1,10 @@
 import crypto from "crypto"; // Xây dựng mã băm để bảo mật dữ liệu
 import moment from "moment"; // Thư viện để xử lý thời gian, giúp tạo timestamp và định dạng ngày tháng
 import qs from "qs"; // Thư viện để chuyển đổi đối tượng thành chuỗi truy vấn, giúp tạo URL cho VNPAY
-import { VNPayParams } from "../interfaces/vnpayInterface";
-import { vnpayConfig } from "../config/vnpay";
-import { Payment } from "../models/Payment";
-import { CreatePaymentEntity } from "../models/Payment";
+import { VNPayParams } from "../../interfaces/vnpayInterface";
+import { vnpayConfig } from "../../config/vnpay";
+import { Payment } from "../../models/Payment";
+import { CreatePaymentEntity } from "../../models/Payment";
 
 export class VNPayService {   
 
