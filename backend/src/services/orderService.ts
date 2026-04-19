@@ -2,6 +2,8 @@ import { QueryTypes } from "sequelize";
 import sequelize from "../config/database";
 import { CODService } from "./payment/codService";
 import { VNPayService } from "./payment/vnpayService";
+import { CODService } from "./payment/codService";
+import { VNPayService } from "./payment/vnpayService";
 
 export class OrderService {
   private codService: CODService;
