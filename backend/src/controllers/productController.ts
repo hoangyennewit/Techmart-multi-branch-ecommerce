@@ -35,4 +35,22 @@ export class ProductController {
             });
         }
     }
+
+    public getProductById = async (req: Request, res: Response): Promise<void> => {
+        try {
+            const id = Number(req.params.id);
+            const product = await this.productService.getProductById(id);
+            if(!product) {
+                res.status(404).json({ error: "Sản phẩm không tồn tại" });
+                return;
+            }
+            res.status(200).json(product);
+        }
+        catch (error) {
+            console.error("Lỗi ở ProductController - getProductById:", error);
+            res.status(500).json({
+                error: "Lỗi khi lấy thông tin sản phẩm"
+            });
+        }
+    }
 }

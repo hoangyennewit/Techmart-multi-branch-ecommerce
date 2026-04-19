@@ -33,7 +33,7 @@ export class OrderController {
             });
         }
         catch (error) {
-            console.error("Lỗi khi tạo đơn hàng:", error);
+            console.error("Lỗi ở OrderController - createOrder:", error);
             res.status(500).json({
                 message: "Đã có lỗi Server xảy ra khi tạo đơn hàng. Vui lòng thử lại sau."
             })
@@ -54,7 +54,7 @@ export class OrderController {
             res.status(200).json(orders);
         }
         catch (error) {
-            console.error("Lỗi khi lấy đơn hàng của người dùng:", error);
+            console.error("Lỗi ở OrderController - getMyOrdersService:", error);
             res.status(500).json({
                 message: "Đã có lỗi Server xảy ra khi lấy đơn hàng của người dùng. Vui lòng thử lại sau."
             })
