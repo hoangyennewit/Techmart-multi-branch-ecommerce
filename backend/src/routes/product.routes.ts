@@ -1,10 +1,15 @@
-import { Router } from "express";
+import { Router } from "express"; 
 import upload from "../middlewares/uploadCloud";
-// Sửa dòng này để khớp chính xác với tên file product.controller.ts
-import { uploadProductImage, getImagesByProduct } from "../controllers/product.controller";
+import { 
+    uploadProductImage, 
+    getImagesByProduct, 
+    getAllProducts 
+} from "../controllers/product.controller";
 
-const router = Router();
+const router = Router(); 
 
+router.get("/category/:slug", getAllProducts); 
+router.get("/", getAllProducts); 
 router.post("/upload-image", upload.single("image"), uploadProductImage);
 router.get("/:ma_san_pham", getImagesByProduct);
 
