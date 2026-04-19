@@ -897,3 +897,17 @@ ADD CHECK (trang_thai IN ('cho_duyet', 'da_duyet'));
 ALTER TABLE lich_su_tra_gop
 ADD CHECK (trang_thai IN ('da_tra', 'chua_tra'));
 
+<<<<<<< HEAD
+=======
+-- Thông tin giao hàng
+CREATE TABLE thong_tin_giao_hang (
+    ma_giao_hang SERIAL PRIMARY KEY,
+    ma_don_hang INT NOT NULL 
+        REFERENCES don_hang(ma_don_hang) 
+        ON DELETE CASCADE,        
+    ten_nguoi_nhan VARCHAR(150) NOT NULL,
+    so_dien_thoai VARCHAR(20) NOT NULL,
+    dia_chi_giao_hang TEXT NOT NULL,
+    ghi_chu TEXT
+);
+>>>>>>> 8bfa151bfb027663958871149c8efa1305b85f90
