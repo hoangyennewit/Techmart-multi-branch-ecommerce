@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dangnhap
 
 env:
   AWS_REGION: ap-southeast-1
