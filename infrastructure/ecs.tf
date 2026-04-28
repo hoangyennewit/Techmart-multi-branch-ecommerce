@@ -58,8 +58,20 @@ resource "aws_ecs_task_definition" "backend" {
       ]
       environment = [
         {
-          name  = "DATABASE_URL"
-          value = "postgres://${var.db_username}:${var.db_password}@${aws_db_instance.main.endpoint}/techmart_db"
+          name  = "DB_HOST"
+          value = aws_db_instance.main.address
+        },
+        {
+          name  = "DB_USER"
+          value = var.db_username
+        },
+        {
+          name  = "DB_PASSWORD"
+          value = var.db_password
+        },
+        {
+          name  = "DB_NAME"
+          value = "techmart_db"
         },
         {
           name  = "GOOGLE_CLIENT_ID"
