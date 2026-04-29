@@ -12,7 +12,7 @@ export class VNPayService {
     private buildQuery(obj: Record<string, any>): string {
         return Object.keys(obj)
             .sort()
-            .map(key => `${key}=${obj[key]}`)  // KHÔNG encode gì cả
+            .map(key => `${key}=${obj[key]}`)
             .join("&");
     }
 
@@ -20,42 +20,40 @@ export class VNPayService {
     // CREATE PAYMENT URL
     // =========================
     public createdPaymentUrl(amount: number, ip: string, txnRef: string): string {
-    const createDate = moment().format("YYYYMMDDHHmmss");
+        const createDate = moment().format("YYYYMMDDHHmmss");
 
-    const vnp_Params: Record<string, any> = {
-        vnp_Version:    "2.1.0",
-        vnp_Command:    "pay",
-        vnp_TmnCode:    vnpayConfig.tmnCode,
-        vnp_Locale:     "vn",
-        vnp_CurrCode:   "VND",
-        vnp_TxnRef:     txnRef,
-        vnp_OrderInfo:  "Thanh toan don hang",
-        vnp_OrderType:  "other",
-        vnp_Amount:     amount * 100,
-        vnp_ReturnUrl:  vnpayConfig.returnUrl,
-        vnp_IpAddr:     ip,
-        vnp_CreateDate: createDate,
-    };
+        const vnp_Params: Record<string, any> = {
+            vnp_Version:    "2.1.0",
+            vnp_Command:    "pay",
+            vnp_TmnCode:    vnpayConfig.tmnCode,
+            vnp_Locale:     "vn",
+            vnp_CurrCode:   "VND",
+            vnp_TxnRef:     txnRef,
+            vnp_OrderInfo:  "Thanh toan don hang",
+            vnp_OrderType:  "other",
+            vnp_Amount:     amount * 100,
+            vnp_ReturnUrl:  vnpayConfig.returnUrl,
+            vnp_IpAddr:     ip,
+            vnp_CreateDate: createDate,
+        };
 
-    // ✅ Hash dùng chuỗi KHÔNG encode
-    const signData = this.buildQuery(vnp_Params);
-    const secureHash = crypto
-        .createHmac("sha512", vnpayConfig.hashSecret.trim())
-        .update(signData, "utf-8")
-        .digest("hex");
+        const signData = this.buildQuery(vnp_Params);
+        const secureHash = crypto
+            .createHmac("sha512", vnpayConfig.hashSecret.trim())
+            .update(signData, "utf-8")
+            .digest("hex");
 
-    console.log("===== VNPAY CREATE =====");
-    console.log("SIGN DATA:", signData);
-    console.log("HASH:", secureHash);
+        console.log("===== VNPAY CREATE =====");
+        console.log("SIGN DATA:", signData);
+        console.log("HASH:", secureHash);
 
-    // ✅ URL thực tế dùng qs để encode đúng cho browser
-    const queryString = require("qs").stringify(
-        { ...vnp_Params, vnp_SecureHash: secureHash },
-        { encode: true }
-    );
+        const queryString = require("qs").stringify(
+            { ...vnp_Params, vnp_SecureHash: secureHash },
+            { encode: true }
+        );
 
-    return `${vnpayConfig.vnpUrl}?${queryString}`;
-}
+        return `${vnpayConfig.vnpUrl}?${queryString}`;
+    }
 
     // =========================
     // VERIFY RETURN / IPN
@@ -66,7 +64,6 @@ export class VNPayService {
         delete params.vnp_SecureHash;
         delete params.vnp_SecureHashType;
 
-        // ✅ Hash dùng chuỗi KHÔNG encode (giống lúc tạo)
         const signData = this.buildQuery(params);
         const signed = crypto
             .createHmac("sha512", vnpayConfig.hashSecret.trim())
@@ -86,7 +83,6 @@ export class VNPayService {
     // IPN PROCESS
     // =========================
     public async processIpn(vnpayParams: any): Promise<any> {
-        // verifyReturn đã clone nội bộ, không cần spread ở đây nữa
         const isValid = this.verifyReturn(vnpayParams);
 
         if (!isValid) {
@@ -143,8 +139,7 @@ export class VNPayService {
             {
                 trang_thai: status,
                 ma_giao_dich: transactionCode,
-                ngay_thanh_toan:
-                    status === "thanh_cong" ? new Date() : null,
+                ngay_thanh_toan: status === "thanh_cong" ? new Date() : null,
             },
             {
                 where: { ma_don_hang: orderId },

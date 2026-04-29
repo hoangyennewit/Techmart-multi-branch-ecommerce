@@ -192,7 +192,7 @@ export class PaymentController {
       });
     }
   }
-
+      
   public getPaymentHistory = async (
     req: Request,
     res: Response,
