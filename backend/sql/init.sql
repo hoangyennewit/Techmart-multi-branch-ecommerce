@@ -570,6 +570,31 @@ JOIN loai_thong_so lts ON ts.ma_loai_ts = lts.ma_loai_ts
 ORDER BY sp.ma_san_pham, lts.thu_tu_hien_thi;
 
 -- 15 THANH TOÁN
+-- CREATE TABLE thanh_toan (
+--     ma_thanh_toan SERIAL PRIMARY KEY,
+
+--     ma_don_hang INT NOT NULL
+--         REFERENCES don_hang(ma_don_hang)
+--         ON DELETE CASCADE,
+
+--     phuong_thuc VARCHAR(50) NOT NULL
+--         CHECK (phuong_thuc IN ('COD', 'VNPAY', 'MOMO')),
+
+--     trang_thai VARCHAR(50) NOT NULL
+--         CHECK (trang_thai IN ('cho_xu_ly', 'thanh_cong', 'that_bai')),
+
+--     ma_giao_dich VARCHAR(150) DEFAULT 
+--         ('GD' || FLOOR(RANDOM()*1000000000)::TEXT),
+
+--     so_tien INT NOT NULL,
+
+--     ngay_thanh_toan TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+-- -- Mỗi đơn chỉ có 1 thanh toán
+-- ALTER TABLE thanh_toan
+-- ADD CONSTRAINT unique_don_hang UNIQUE (ma_don_hang);
+
+-- 15 THANH TOÁN
 CREATE TABLE thanh_toan (
     ma_thanh_toan SERIAL PRIMARY KEY,
 
@@ -578,7 +603,7 @@ CREATE TABLE thanh_toan (
         ON DELETE CASCADE,
 
     phuong_thuc VARCHAR(50) NOT NULL
-        CHECK (phuong_thuc IN ('COD', 'VNPAY', 'MOMO')),
+        CHECK (phuong_thuc IN ('COD', 'VNPAY', 'MOMO', 'ZALOPAY')),
 
     trang_thai VARCHAR(50) NOT NULL
         CHECK (trang_thai IN ('cho_xu_ly', 'thanh_cong', 'that_bai')),
@@ -586,9 +611,13 @@ CREATE TABLE thanh_toan (
     ma_giao_dich VARCHAR(150) DEFAULT 
         ('GD' || FLOOR(RANDOM()*1000000000)::TEXT),
 
+    vnp_response_code VARCHAR(10),
+
     so_tien INT NOT NULL,
 
-    ngay_thanh_toan TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ngay_tao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    ngay_thanh_toan TIMESTAMP DEFAULT NULL
 );
 -- Mỗi đơn chỉ có 1 thanh toán
 ALTER TABLE thanh_toan
