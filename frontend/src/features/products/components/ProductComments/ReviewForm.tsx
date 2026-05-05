@@ -22,25 +22,25 @@ export default function ReviewForm({onSubmit}: {onSubmit: (data: {comment: strin
                     {[1, 2, 3, 4, 5].map((star) => (
                         <Star 
                             key={star} 
-                            className={`w-7 h-7 cursor-pointer transition-colors ${star <= rating ? "fill-orange-400 text-orange-400 hover:scale-110" : "fill-gray-200 text-gray-200 hover:fill-orange-200"}`} 
+                            className={`w-7 h-7 cursor-pointer transition-colors ${star <= rating ? "fill-purple-500 text-purple-500 hover:scale-110" : "fill-gray-200 text-gray-200 hover:fill-purple-200"}`} 
                             onClick={() => setRating(star)} 
                         />
                     ))}
                 </div>
-                {rating > 0 && <span className="text-sm font-medium text-orange-500 ml-2 animate-pulse">{rating} Sao</span>}
+                {rating > 0 && <span className="text-sm font-medium text-purple-600 ml-2 animate-pulse">{rating} Sao</span>}
             </div>
             <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder="Mời bạn chia sẻ thêm cảm nhận về sản phẩm..."
                 rows={3}
-                className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400 transition-all resize-none shadow-inner"
+                className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none shadow-inner"
             />
             <div className="flex justify-end">
                 <button 
                     type="submit"
                     disabled={!rating || !comment.trim()}
-                    className="px-6 py-2.5 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 shadow-md shadow-orange-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-6 py-2.5 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 shadow-md shadow-purple-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Gửi đánh giá
                 </button>
@@ -48,3 +48,4 @@ export default function ReviewForm({onSubmit}: {onSubmit: (data: {comment: strin
         </form>
     );
 };
+
