@@ -74,15 +74,15 @@ export const ShippingForm = ({ formData, paymentMethod, onChangeForm, onChangePa
                     <Package className={`w-6 h-6 ${paymentMethod === "cod" ? "text-purple-600" : "text-gray-400"}`} />
                 </div>
 
-                {/* Chuyển khoản */}
+                {/* ZaloPay */}
                 <div onClick={() => onChangePayment("transfer")} className={`flex items-center justify-between p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentMethod === "transfer" ? "border-purple-600 bg-purple-50 ring-1 ring-purple-600" : "border-gray-200 hover:border-purple-200"}`}>
                     <div className="flex items-center gap-3">
                         <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${paymentMethod === "transfer" ? "border-purple-600" : "border-gray-300"}`}>
                             {paymentMethod === "transfer" && <div className="w-2.5 h-2.5 rounded-full bg-purple-600" />}
                         </div>
                         <div>
-                            <p className="font-semibold text-gray-800">Chuyển khoản ngân hàng</p>
-                            <p className="text-sm text-gray-500">Thực hiện thanh toán vào tài khoản ngân hàng</p>
+                            <p className="font-semibold text-gray-800">Thanh toán qua ZaloPay</p>
+                            <p className="text-sm text-gray-500">Thanh toán an toàn qua ví điện tử ZaloPay</p>
                         </div>
                     </div>
                     <CreditCard className={`w-6 h-6 ${paymentMethod === "transfer" ? "text-purple-600" : "text-gray-400"}`} />
