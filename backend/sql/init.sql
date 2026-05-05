@@ -926,8 +926,7 @@ ADD CHECK (trang_thai IN ('cho_duyet', 'da_duyet'));
 ALTER TABLE lich_su_tra_gop
 ADD CHECK (trang_thai IN ('da_tra', 'chua_tra'));
 
-<<<<<<< HEAD
-=======
+
 -- Thông tin giao hàng
 CREATE TABLE thong_tin_giao_hang (
     ma_giao_hang SERIAL PRIMARY KEY,
@@ -939,4 +938,9 @@ CREATE TABLE thong_tin_giao_hang (
     dia_chi_giao_hang TEXT NOT NULL,
     ghi_chu TEXT
 );
->>>>>>> 8bfa151bfb027663958871149c8efa1305b85f90
+
+-- Kích hoạt extension hỗ trợ AI vector
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- Thêm cột embedding để lưu 768 con số từ Gemini
+ALTER TABLE san_pham ADD COLUMN IF NOT EXISTS embedding vector(768);
