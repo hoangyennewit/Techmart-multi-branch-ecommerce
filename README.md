@@ -4,5 +4,4 @@ E-commerce platform for digital devices featuring multi-branch RBAC management a
 
 ## Live Demo
 
-- **Frontend:** [http://13.212.205.51/iGVQ3p](http://13.212.205.51/iGVQ3p)
-- **Backend API:** [http://13.212.205.51/MYyZER](http://13.212.205.51/MYyZER)
+Currently live at: https://techmartvn.xyz/
