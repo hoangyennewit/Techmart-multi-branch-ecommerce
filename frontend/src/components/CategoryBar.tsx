@@ -22,7 +22,7 @@ export const CategoryBar = () => {
     //const [active, setActive] = useState<number | null>(null);
     const location = useLocation();
     return (
-        <nav className="w-full bg-white border-b border-gray-100 shadow-sm">
+        <nav className="w-full bg-[#1A122E] border-b border-white/10 shadow-sm">
             <div className="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-12">
                 {/* Horizontal scroll on mobile, grid on sm+ */}
                 <ul className="flex sm:grid sm:grid-cols-6 overflow-x-auto scrollbar-hide">
@@ -37,11 +37,11 @@ export const CategoryBar = () => {
                                                 border-b-2
                                                 ${
                                                     isActive
-                                                        ? "border-orange-500 text-orange-600"
-                                                        : "border-transparent text-gray-500 hover:text-orange-500 hover:border-orange-300"
+                                                        ? "border-purple-500 text-cyan-400"
+                                                        : "border-transparent text-gray-500 hover:text-cyan-400 hover:border-purple-400/50"
                                                 }`}
                                 >
-                                    <span className={`transition-colors duration-150 ${isActive ? "text-orange-500" : "text-gray-400"}`}>
+                                    <span className={`transition-colors duration-150 ${isActive ? "text-purple-400" : "text-gray-500"}`}>
                                         {cat.icon}
                                     </span>
                                     <span className="leading-tight text-center whitespace-nowrap text-xs sm:text-sm">
