@@ -15,7 +15,7 @@ export class ZaloPayService {
     });
 
     const embed_data = {
-        redirecturl: "http://localhost:5173/orders",
+        redirecturl: (process.env.FRONTEND_URL || "http://localhost:5173") + "/orders",
     };
 
     const items: any[] = [];

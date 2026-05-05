@@ -80,6 +80,10 @@ resource "aws_ecs_task_definition" "backend" {
         {
           name  = "GOOGLE_CLIENT_SECRET"
           value = var.google_client_secret
+        },
+        {
+          name  = "FRONTEND_URL"
+          value = "http://${aws_s3_bucket.frontend.bucket}.s3-website-${var.aws_region}.amazonaws.com"
         }
       ]
       logConfiguration = {
