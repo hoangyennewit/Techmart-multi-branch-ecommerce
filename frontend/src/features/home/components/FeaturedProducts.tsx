@@ -29,13 +29,13 @@ export const FeaturedProducts = ({ products }: Props) => {
         <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-3">
                     <div className="w-1 h-7 bg-gradient-to-b from-cyan-400 to-purple-600 rounded-full" />
-                    <h2 className="text-xl sm:text-2xl font-bold text-white uppercase tracking-tight">
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-800 uppercase tracking-tight">
                         Sản phẩm nổi bật
                     </h2>
                 </div>
                 <button
                     onClick={() => navigate("/products")}
-                    className="flex items-center gap-1.5 text-base font-semibold text-cyan-400
+                    className="flex items-center gap-1.5 text-base font-semibold text-purple-600
                                hover:text-purple-400 transition-colors duration-200 group"
                 >
                     Xem tất cả
@@ -53,7 +53,7 @@ export const FeaturedProducts = ({ products }: Props) => {
                                     whitespace-nowrap border transition-all duration-200
                                     ${activeTab === id
                                 ? "bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/40"
-                                : "bg-white/5 text-gray-400 border-white/10 hover:border-purple-400 hover:text-cyan-400"
+                                : "bg-white text-gray-500 border-gray-200 hover:border-purple-300 hover:text-purple-600"
                             }`}
                     >
                         <Icon className="w-5 h-5" />
@@ -71,3 +71,4 @@ export const FeaturedProducts = ({ products }: Props) => {
         </section>
     );
 };
+

@@ -69,8 +69,8 @@ export const OrderTrackingPage = () => {
       default: // pending
         return {
           label: "Đã đặt hàng",
-          color: "text-orange-500",
-          bg: "bg-orange-500",
+          color: "text-purple-600",
+          bg: "bg-purple-600",
           icon: Clock,
           step: 1,
         };
@@ -82,7 +82,7 @@ export const OrderTrackingPage = () => {
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Header />
         <div className="flex-1 flex justify-center items-center">
-          <Loader2 className="w-10 h-10 text-orange-500 animate-spin" />
+          <Loader2 className="w-10 h-10 text-purple-600 animate-spin" />
         </div>
       </div>
     );
@@ -108,7 +108,7 @@ export const OrderTrackingPage = () => {
             </p>
             <Link
               to="/"
-              className="inline-block bg-orange-500 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-orange-200 hover:bg-orange-600 transition-colors"
+              className="inline-block bg-purple-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-purple-200 hover:bg-purple-700 transition-colors"
             >
               Bắt đầu mua sắm
             </Link>
@@ -146,7 +146,7 @@ export const OrderTrackingPage = () => {
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-gray-500 mb-1">Tổng tiền</p>
-                      <p className="font-black text-orange-500 text-lg">
+                      <p className="font-black text-purple-600 text-lg">
                         {formatPrice(order.totalAmount + order.shippingFee)}
                       </p>
                     </div>
@@ -157,7 +157,7 @@ export const OrderTrackingPage = () => {
                     <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-100 -translate-y-1/2 rounded-full z-0"></div>
 
                     <div
-                      className="absolute top-1/2 left-0 h-1 bg-orange-500 -translate-y-1/2 rounded-full z-0 transition-all duration-500"
+                      className="absolute top-1/2 left-0 h-1 bg-purple-600 -translate-y-1/2 rounded-full z-0 transition-all duration-500"
                       style={{ width: `${(statusInfo.step - 1) * 33.33}%` }}
                     ></div>
 
@@ -177,7 +177,7 @@ export const OrderTrackingPage = () => {
                                                         ${
                                                           statusInfo.step >=
                                                           s.step
-                                                            ? "bg-orange-500 border-orange-100 text-white"
+                                                            ? "bg-purple-600 border-purple-100 text-white"
                                                             : "bg-white border-gray-100 text-gray-400"
                                                         }`}
                           >
@@ -241,3 +241,4 @@ export const OrderTrackingPage = () => {
     </div>
   );
 };
+
