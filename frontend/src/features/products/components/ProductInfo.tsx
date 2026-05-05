@@ -100,7 +100,7 @@ export const ProductInfo = ({ product }: Props) => {
       </h1>
 
       <div className="flex flex-wrap items-end gap-4 pb-6 border-b border-gray-100">
-        <span className="text-3xl text-orange-500 font-black">
+        <span className="text-3xl text-purple-600 font-black">
           {formatPrice(displayPrice)}
         </span>
         {!!product.originalPrice && product.originalPrice > displayPrice && (
@@ -126,8 +126,8 @@ export const ProductInfo = ({ product }: Props) => {
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl border-2 transition-all 
                                     ${
                                       selectedColor === color.id
-                                        ? "border-orange-500 bg-orange-50 ring-1 ring-orange-500 text-orange-700 font-semibold"
-                                        : "border-gray-200 hover:border-orange-200 text-gray-600 bg-white"
+                                        ? "border-purple-600 bg-purple-50 ring-1 ring-purple-600 text-purple-800 font-semibold"
+                                        : "border-gray-200 hover:border-purple-200 text-gray-600 bg-white"
                                     }`}
               >
                 <span
@@ -153,8 +153,8 @@ export const ProductInfo = ({ product }: Props) => {
                 onClick={() => setSelectedVariant(variant.id)}
                 className={`flex flex-col items-center justify-center px-5 py-3 rounded-xl border-2 transition-all min-w-[120px] ${
                   selectedVariant === variant.id
-                    ? "border-orange-500 text-orange-700 bg-orange-50 ring-1 ring-orange-500"
-                    : "border-gray-200 bg-white text-gray-600 hover:border-orange-200"
+                    ? "border-purple-600 text-purple-800 bg-purple-50 ring-1 ring-purple-600"
+                    : "border-gray-200 bg-white text-gray-600 hover:border-purple-200"
                 }`}
               >
                 <span className="font-bold text-sm">{variant.name}</span>
@@ -193,7 +193,7 @@ export const ProductInfo = ({ product }: Props) => {
                          ${
                            isOutOfStock
                              ? "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
-                             : "bg-orange-500 hover:bg-orange-600 text-white shadow-orange-200 active:scale-95"
+                             : "bg-purple-600 hover:bg-purple-700 text-white shadow-purple-200 active:scale-95"
                          }`}
         >
           <span className="font-bold text-lg uppercase">Mua ngay</span>
@@ -219,3 +219,4 @@ export const ProductInfo = ({ product }: Props) => {
     </div>
   );
 };
+
