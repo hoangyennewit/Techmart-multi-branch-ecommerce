@@ -111,7 +111,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="w-full bg-white border-b border-orange-100 shadow-sm sticky top-0 z-50">
+      <header className="w-full bg-[#0B0515]/90 backdrop-blur-md border-b border-white/10 shadow-sm sticky top-0 z-50">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
           {/* Logo */}
           <button
@@ -129,8 +129,8 @@ export const Header = () => {
           >
             <form onSubmit={handleSearch} className="flex-1 w-full">
               <div
-                className="flex items-center w-full bg-gray-100 rounded-full px-4 py-2.5 gap-2
-                                            focus-within:ring-2 focus-within:ring-orange-300 transition-all"
+                className="flex items-center w-full bg-white/5 rounded-full px-4 py-2.5 gap-2
+                                            focus-within:ring-2 focus-within:ring-purple-500 transition-all"
               >
                 <Search className="w-5 h-5 text-gray-400 shrink-0" />
                 <input
@@ -141,14 +141,14 @@ export const Header = () => {
                   onFocus={() =>
                     searchInput.trim() && setShowSearchResults(true)
                   }
-                  className="flex-1 outline-none text-base text-gray-700 bg-transparent"
+                  className="flex-1 outline-none text-base text-gray-200 bg-transparent"
                 />
               </div>
             </form>
 
             {/* Search Results Dropdown */}
             {showSearchResults && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl z-10 max-h-96 overflow-y-auto">
+              <div className="absolute top-full left-0 right-0 mt-2 bg-[#1A122E] border border-white/10 rounded-lg shadow-xl z-10 max-h-96 overflow-y-auto">
                 {isSearching ? (
                   <div className="p-4 text-center text-gray-500">
                     <span className="inline-block animate-spin">⚙️</span> Đang
@@ -160,7 +160,7 @@ export const Header = () => {
                       <button
                         key={product.id}
                         onClick={() => handleSearchResultClick(product.id)}
-                        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-orange-50 transition-colors text-left"
+                        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors text-left"
                       >
                         <img
                           src={product.image?.[0]?.url || "/placeholder.png"}
@@ -172,10 +172,10 @@ export const Header = () => {
                           }}
                         />
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
+                          <p className="text-sm font-medium text-white truncate">
                             {product.name}
                           </p>
-                          <p className="text-xs text-orange-600 font-bold">
+                          <p className="text-xs text-cyan-400 font-bold">
                             {product.price?.toLocaleString("vi-VN")}đ
                           </p>
                         </div>
@@ -200,23 +200,23 @@ export const Header = () => {
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             {/* Search Icon — mobile only */}
             <button
-              className="sm:hidden p-2.5 rounded-full hover:bg-gray-100 transition-colors"
+              className="sm:hidden p-2.5 rounded-full hover:bg-white/5 transition-colors"
               onClick={() => setSearchOpen(!searchOpen)}
               aria-label="Tìm kiếm"
             >
-              <Search className="w-6 h-6 text-gray-600" />
+              <Search className="w-6 h-6 text-gray-300" />
             </button>
 
             {/* Cart */}
             <button
               onClick={() => navigate("/cart")}
-              className="relative p-2.5 rounded-full hover:bg-orange-50 transition-colors"
+              className="relative p-2.5 rounded-full hover:bg-white/5 transition-colors"
               aria-label="Giỏ hàng"
             >
-              <ShoppingCart className="w-6 h-6 text-gray-600" />
+              <ShoppingCart className="w-6 h-6 text-gray-300" />
               {cartCount > 0 && (
                 <span
-                  className="absolute -top-0.5 -right-0.5 min-w-[20px] h-[20px] bg-orange-500 text-white
+                  className="absolute -top-0.5 -right-0.5 min-w-[20px] h-[20px] bg-purple-600 text-white
                                                  text-[11px] font-bold rounded-full flex items-center justify-center px-1"
                 >
                   {cartCount > 99 ? "99+" : cartCount}
@@ -227,24 +227,24 @@ export const Header = () => {
             {/* Order */}
             <button
               onClick={() => navigate("/orders")}
-              className="hidden sm:flex p-2.5 rounded-full hover:bg-orange-50 transition-colors group"
+              className="hidden sm:flex p-2.5 rounded-full hover:bg-white/5 transition-colors group"
               title="Đơn hàng của tôi"
             >
-              <Package className="w-6 h-6 text-gray-600 group-hover:text-orange-500 transition-colors" />
+              <Package className="w-6 h-6 text-gray-300 group-hover:text-purple-400 transition-colors" />
             </button>
 
             {/* Bell — hidden on xs */}
             <button
-              className="hidden sm:flex p-2.5 rounded-full hover:bg-orange-50 transition-colors"
+              className="hidden sm:flex p-2.5 rounded-full hover:bg-white/5 transition-colors"
               aria-label="Thông báo"
             >
-              <Bell className="w-6 h-6 text-gray-600" />
+              <Bell className="w-6 h-6 text-gray-300" />
             </button>
 
             {/* Login/logout Button */}
             {user ? (
               <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-gray-700 hidden sm:inline">
+                <span className="text-sm font-semibold text-gray-200 hidden sm:inline">
                   {user.ho_ten || user.email}
                 </span>
                 <button
@@ -272,14 +272,14 @@ export const Header = () => {
 
             {/* Hamburger — mobile only */}
             <button
-              className="sm:hidden p-2.5 rounded-full hover:bg-gray-100 transition-colors"
+              className="sm:hidden p-2.5 rounded-full hover:bg-white/5 transition-colors"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Menu"
             >
               {menuOpen ? (
-                <X className="w-6 h-6 text-gray-600" />
+                <X className="w-6 h-6 text-gray-300" />
               ) : (
-                <Menu className="w-6 h-6 text-gray-600" />
+                <Menu className="w-6 h-6 text-gray-300" />
               )}
             </button>
           </div>
@@ -289,8 +289,8 @@ export const Header = () => {
         {searchOpen && (
           <div className="sm:hidden px-4 pb-3 animate-[slideDown_0.15s_ease-out]">
             <div
-              className="flex items-center w-full bg-gray-100 rounded-full px-4 py-2 gap-2
-                                        focus-within:ring-2 focus-within:ring-orange-300 transition-all"
+              className="flex items-center w-full bg-white/5 rounded-full px-4 py-2 gap-2
+                                        focus-within:ring-2 focus-within:ring-purple-500 transition-all"
             >
               <Search className="w-4 h-4 text-gray-400 shrink-0" />
               <input
@@ -299,12 +299,12 @@ export const Header = () => {
                 value={searchInput}
                 onChange={(e) => handleSearchInput(e.target.value)}
                 autoFocus
-                className="flex-1 outline-none text-sm text-gray-700 bg-transparent"
+                className="flex-1 outline-none text-sm text-gray-200 bg-transparent"
               />
             </div>
             {/* Mobile Search Results */}
             {showSearchResults && searchResults.length > 0 && (
-              <div className="mt-2 bg-white border border-gray-200 rounded-lg shadow-lg divide-y max-h-80 overflow-y-auto">
+              <div className="mt-2 bg-[#1A122E] border border-white/10 rounded-lg shadow-lg divide-y max-h-80 overflow-y-auto">
                 {searchResults.slice(0, 6).map((product) => (
                   <button
                     key={product.id}
@@ -312,7 +312,7 @@ export const Header = () => {
                       handleSearchResultClick(product.id);
                       setSearchOpen(false);
                     }}
-                    className="w-full flex items-center gap-2 px-3 py-2 hover:bg-orange-50 transition-colors text-left"
+                    className="w-full flex items-center gap-2 px-3 py-2 hover:bg-white/5 transition-colors text-left"
                   >
                     <img
                       src={product.image?.[0]?.url || "/placeholder.png"}
@@ -323,10 +323,10 @@ export const Header = () => {
                       }}
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-gray-900 truncate">
+                      <p className="text-xs font-medium text-white truncate">
                         {product.name}
                       </p>
-                      <p className="text-xs text-orange-600 font-bold">
+                      <p className="text-xs text-cyan-400 font-bold">
                         {product.price?.toLocaleString("vi-VN")}đ
                       </p>
                     </div>
@@ -350,12 +350,12 @@ export const Header = () => {
 
       {/* Mobile Drawer */}
       <div
-        className={`sm:hidden fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-2xl
+        className={`sm:hidden fixed top-0 left-0 h-full w-72 bg-[#0B0515] z-50 shadow-2xl
                              transition-transform duration-300 ease-in-out
                              ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-orange-500 to-orange-600">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-gradient-to-r from-purple-600 to-cyan-500">
           <span className="text-white font-bold text-base">Danh mục</span>
           <button
             onClick={() => setMenuOpen(false)}
@@ -374,12 +374,12 @@ export const Header = () => {
               setMenuOpen(false);
             }}
             className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                   text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                                   text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
           >
             <Home className="w-4 h-4" />
             Trang chủ
           </button>
-          <div className="mx-4 my-1 border-t border-gray-100" />
+          <div className="mx-4 my-1 border-t border-white/10" />
           {navCategories.map(({ name, slug, Icon }) => (
             <button
               key={slug}
@@ -388,22 +388,22 @@ export const Header = () => {
                 setMenuOpen(false);
               }}
               className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                       text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                                       text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
             >
-              <Icon className="w-4 h-4 text-orange-400" />
+              <Icon className="w-4 h-4 text-cyan-400" />
               {name}
             </button>
           ))}
-          <div className="mx-4 my-1 border-t border-gray-100" />
+          <div className="mx-4 my-1 border-t border-white/10" />
           <button
             onClick={() => {
               navigate("/orders");
               setMenuOpen(false);
             }}
             className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                   text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                                   text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
           >
-            <Package className="w-4 h-4 text-orange-400" />
+            <Package className="w-4 h-4 text-cyan-400" />
             Đơn hàng của tôi
           </button>
           <button
@@ -412,15 +412,15 @@ export const Header = () => {
               setMenuOpen(false);
             }}
             className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                   text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                                   text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
           >
-            <User className="w-4 h-4 text-orange-400" />
+            <User className="w-4 h-4 text-cyan-400" />
             Đăng nhập / Đăng ký
           </button>
         </nav>
 
         {/* Drawer Footer */}
-        <div className="absolute bottom-0 left-0 right-0 px-5 py-4 border-t border-gray-100 bg-gray-50">
+        <div className="absolute bottom-0 left-0 right-0 px-5 py-4 border-t border-white/10 bg-[#1A122E]">
           <p className="text-xs text-gray-400 text-center">
             TechMart © 2024 – Hàng chính hãng
           </p>
@@ -429,3 +429,4 @@ export const Header = () => {
     </>
   );
 };
+
