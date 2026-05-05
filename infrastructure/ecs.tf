@@ -83,7 +83,7 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "FRONTEND_URL"
-          value = "http://${aws_s3_bucket.frontend.bucket}.s3-website-${var.aws_region}.amazonaws.com"
+          value = "https://techmartvn.xyz"
         }
       ]
       logConfiguration = {
