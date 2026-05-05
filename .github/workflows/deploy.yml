@@ -108,9 +108,8 @@ jobs:
         working-directory: ${{ env.FRONTEND_DIR }}
         id: setup-env
         run: |
-          ALB_DNS=$(aws elbv2 describe-load-balancers --names techmart-alb --query 'LoadBalancers[0].DNSName' --output text)
-          echo "VITE_API_URL=http://$ALB_DNS" >> $GITHUB_ENV
-          echo "VITE_API_URL=http://$ALB_DNS" > .env.production
+          echo "VITE_API_URL=https://api.techmartvn.xyz" >> $GITHUB_ENV
+          echo "VITE_API_URL=https://api.techmartvn.xyz" > .env.production
 
       - name: Build
         working-directory: ${{ env.FRONTEND_DIR }}
@@ -119,6 +118,5 @@ jobs:
       - name: Deploy to S3
         working-directory: ${{ env.FRONTEND_DIR }}/dist
         run: |
-          BUCKET_NAME=$(aws s3api list-buckets --query 'Buckets[?starts_with(Name, `techmart-frontend`)].Name' --output text)
-          aws s3 sync . s3://$BUCKET_NAME --delete
+          aws s3 sync . s3://techmartvn.xyz --delete
 
