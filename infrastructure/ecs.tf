@@ -80,6 +80,10 @@ resource "aws_ecs_task_definition" "backend" {
         {
           name  = "GOOGLE_CLIENT_SECRET"
           value = var.google_client_secret
+        },
+        {
+          name  = "FRONTEND_URL"
+          value = "https://techmartvn.xyz"
         }
       ]
       logConfiguration = {
