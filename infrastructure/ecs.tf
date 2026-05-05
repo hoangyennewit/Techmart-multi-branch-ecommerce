@@ -84,6 +84,10 @@ resource "aws_ecs_task_definition" "backend" {
         {
           name  = "FRONTEND_URL"
           value = "https://techmartvn.xyz"
+        },
+        {
+          name  = "GOOGLE_CALLBACK_URL"
+          value = "https://api.techmartvn.xyz/api/auth/google/callback"
         }
       ]
       logConfiguration = {
@@ -199,3 +203,4 @@ resource "aws_ecs_service" "main" {
 output "alb_dns_name" {
   value = aws_lb.main.dns_name
 }
+
