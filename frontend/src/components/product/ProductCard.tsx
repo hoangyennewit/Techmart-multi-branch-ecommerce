@@ -64,7 +64,7 @@ export const ProductCard = ({ product }: ProductProps) => {
   };
   return (
     <article
-      className="group relative bg-[#1A122E] rounded-2xl overflow-hidden border border-white/10
+      className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100
                        shadow-sm hover:shadow-purple-500/20 hover:border-purple-500 transition-all duration-300 hover:-translate-y-1
                        cursor-pointer flex flex-col"
       onClick={() => navigate(`/products/${product.id}`)}
@@ -84,8 +84,8 @@ export const ProductCard = ({ product }: ProductProps) => {
       )}
       {/* Wishlist Button */}
       <button
-        className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md border-white/10
-                           flex items-center justify-center shadow-sm border border-white/10
+        className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm border-gray-100
+                           flex items-center justify-center shadow-sm border border-gray-100
                            hover:scale-110 transition-all duration-200"
         onClick={(e) => {
           e.stopPropagation();
@@ -101,7 +101,7 @@ export const ProductCard = ({ product }: ProductProps) => {
       </button>
 
       {/* Image */}
-      <div className="relative overflow-hidden bg-[#1A122E] aspect-square">
+      <div className="relative overflow-hidden bg-white aspect-square">
         <img
           src={product.images?.[0]?.url || ""}
           alt={product.name}
@@ -117,7 +117,7 @@ export const ProductCard = ({ product }: ProductProps) => {
       <div className="flex flex-col flex-1 p-4 gap-2">
         {/* Product Name */}
         <h4
-          className="text-sm font-semibold text-white leading-tight
+          className="text-sm font-semibold text-gray-800 leading-tight
                                line-clamp-2 group-hover:text-purple-400 transition-colors duration-200"
         >
           {product.name}
@@ -166,7 +166,7 @@ export const ProductCard = ({ product }: ProductProps) => {
                                 ${
                                   selectedColor?.id === color.id
                                     ? "border-purple-500 scale-110 shadow-lg shadow-purple-500/50"
-                                    : "border-white/20"
+                                    : "border-gray-200"
                                 }`}
               style={{ backgroundColor: color.hex }}
             />
@@ -181,7 +181,7 @@ export const ProductCard = ({ product }: ProductProps) => {
                                ${
                                  added
                                    ? "bg-green-500 text-white border-green-500 border"
-                                   : "bg-orange-50 text-purple-400 border border-orange-200 hover:bg-orange-500 hover:text-white hover:border-orange-500"
+                                   : "bg-purple-50 text-purple-600 border border-purple-200 hover:bg-purple-600 hover:text-white hover:border-purple-600"
                                }`}
           aria-label="Thêm vào giỏ hàng"
         >
@@ -201,4 +201,7 @@ export const ProductCard = ({ product }: ProductProps) => {
     </article>
   );
 };
+
+
+
 

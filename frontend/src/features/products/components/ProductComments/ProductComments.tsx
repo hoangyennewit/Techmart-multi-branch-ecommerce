@@ -76,7 +76,7 @@ export const ProductComments = ({ product }: Props) => {
             {/* Form Gửi Đánh Giá */}
             <div className="mb-10 bg-gray-50 p-6 rounded-xl border border-gray-100">
                 <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <MessageSquare className="w-5 h-5 text-orange-500" />
+                    <MessageSquare className="w-5 h-5 text-purple-600" />
                     Viết đánh giá của bạn
                 </h3>
                 <ReviewForm onSubmit={handleAddReview} />
