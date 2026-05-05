@@ -3,7 +3,7 @@ import { ProductService } from "../services/productService";
 
 export class ProductController {
   private productService: ProductService;
-  
+
   constructor() {
     this.productService = new ProductService();
   }
@@ -67,6 +67,30 @@ export class ProductController {
       res.status(500).json({
         error: "Lỗi khi tìm kiếm sản phẩm",
       });
+    }
+  };
+
+  // ✅ THÊM MỚI: Upload ảnh Cloudinary
+  public uploadProductImage = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { ma_san_pham, thu_tu } = req.body;
+      const file = (req as any).file;
+
+      if (!file) {
+        res.status(400).json({ error: "Vui lòng chọn ảnh!" });
+        return;
+      }
+
+      const result = await this.productService.uploadProductImage(
+        Number(ma_san_pham),
+        file.path, // Cloudinary URL
+        Number(thu_tu) || 1
+      );
+
+      res.status(200).json(result);
+    } catch (error) {
+      console.error("Lỗi ở ProductController - uploadProductImage:", error);
+      res.status(500).json({ error: "Lỗi upload ảnh sản phẩm" });
     }
   };
 }
