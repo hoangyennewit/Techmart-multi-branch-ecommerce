@@ -106,8 +106,10 @@ jobs:
 
       - name: Setup Environment Variables
         working-directory: ${{ env.FRONTEND_DIR }}
+        id: setup-env
         run: |
           ALB_DNS=$(aws elbv2 describe-load-balancers --names techmart-alb --query 'LoadBalancers[0].DNSName' --output text)
+          echo "VITE_API_URL=http://$ALB_DNS" >> $GITHUB_ENV
           echo "VITE_API_URL=http://$ALB_DNS" > .env.production
 
       - name: Build
