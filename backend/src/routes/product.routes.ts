@@ -17,6 +17,6 @@ router.get("/detail/:id", (req, res) => productController.getProductById(req, re
 router.post("/upload-image", upload.single("image"), (req, res) => productController.uploadProductImage(req, res));
 
 // 5. Lấy danh sách ảnh phụ của sản phẩm
-router.get("/images/:ma_san_pham", (req, res) => productController.getImagesByProduct(req, res));
+// router.get("/images/:ma_san_pham", (req, res) => productController.getImagesByProduct(req, res));
 
 export default router;

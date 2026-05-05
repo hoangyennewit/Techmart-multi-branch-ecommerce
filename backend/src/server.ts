@@ -6,7 +6,7 @@ import { connectDB } from './config/database';
 import authRoutes from './routes/authRoutes';
 import paymentRoute from './routes/paymentRoute';
 import orderRoute from './routes/orderRoute';
-import productRoutes from './routes/product.routes'; // File của bạn (có Cloudinary + Map data)
+import productRoutes from './routes/productRoute';
 import passport from 'passport';
 import './config/passport';
 import './models';

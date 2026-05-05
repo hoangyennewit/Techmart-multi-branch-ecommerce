@@ -44,7 +44,7 @@ export class ProductService {
         createdAt: p.createdAt
           ? new Date(p.createdAt).toISOString()
           : new Date().toISOString(),
-        image: [
+        images: [
           {
             id: p.id,
             url: p.image,
@@ -91,7 +91,7 @@ export class ProductService {
         price: p.price,
         originalPrice: p.originalPrice,
         discount: p.discount,
-        image: [
+        images: [
           {
             id: p.id,
             url: p.image,
@@ -196,7 +196,7 @@ export class ProductService {
         createdAt: p.createdAt
           ? new Date(p.createdAt).toISOString()
           : new Date().toISOString(),
-        image: [
+        images: [
           {
             id: p.id,
             url: p.image,
@@ -211,6 +211,27 @@ export class ProductService {
     } catch (error) {
       console.error("Lỗi ở ProductService - searchProducts:", error);
       throw new Error("Error searching products");
+    }
+  };
+
+  public uploadProductImage = async (
+    ma_san_pham: number,
+    imageUrl: string,
+    thu_tu: number
+  ) => {
+    try {
+      await sequelize.query(
+        `INSERT INTO hinh_anh_san_pham (ma_san_pham, duong_dan_hinh, thu_tu) 
+         VALUES ($1, $2, $3)`,
+        {
+          bind: [ma_san_pham, imageUrl, thu_tu],
+          type: QueryTypes.INSERT,
+        }
+      );
+      return { message: "Upload thành công!", imageUrl };
+    } catch (error) {
+      console.error("Lỗi ở ProductService - uploadProductImage:", error);
+      throw new Error("Error uploading product image");
     }
   };
 }
