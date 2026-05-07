@@ -11,9 +11,9 @@ type Props = {
 }
 
 const bgGradients = [
-    { bgFrom: "#0f0c29", bgTo: "#302b63" },
-    { bgFrom: "#1a1a2e", bgTo: "#16213e" },
-    { bgFrom: "#0f2027", bgTo: "#203a43" },
+    { bgFrom: "#1a1a3e", bgTo: "#2d1b4e" },
+    { bgFrom: "#2d1b4e", bgTo: "#1a1a3e" },
+    { bgFrom: "#1a1a3e", bgTo: "#3d1f5c" },
 ];
 
 export const PromoBanner = ({ products }: Props) => {
@@ -25,15 +25,15 @@ export const PromoBanner = ({ products }: Props) => {
     if(bannerProducts.length === 0) return null;
 
     return (
-        <div className="w-full px-3 sm:px-6 lg:px-12 max-w-screen-xl mx-auto py-3 sm:py-4">
+        <div className="w-screen py-0">
             <Swiper
                 modules={[Autoplay, Pagination, Navigation]}
                 pagination={{ clickable: true }}
                 navigation
                 autoplay={{ delay: 4500, disableOnInteraction: false }}
                 loop={bannerProducts.length > 1}
-                className="w-full rounded-xl sm:rounded-2xl overflow-hidden"
-                style={{ ["--swiper-pagination-color" as string]: "#f97316" }}
+                className="w-full overflow-hidden"
+                style={{ ["--swiper-pagination-color" as string]: "#a855f7" }}
             >
                 {bannerProducts.map((product, index) => {
                     const style = bgGradients[index % bgGradients.length];
@@ -44,51 +44,21 @@ export const PromoBanner = ({ products }: Props) => {
                                 className="relative flex items-center justify-between overflow-hidden"
                                 style={{
                                     background: `linear-gradient(135deg, ${style.bgFrom} 0%, ${style.bgTo} 100%)`,
-                                    minHeight: "clamp(160px, 30vw, 260px)",
+                                    minHeight: "clamp(200px, 35vw, 300px)",
                                 }}
                             >
                                 {/* Glow */}
                                 <div
-                                    className="absolute inset-0 opacity-10"
+                                    className="absolute inset-0 opacity-20"
                                     style={{
-                                        backgroundImage: "radial-gradient(circle at 70% 50%, #f97316 0%, transparent 60%)",
+                                        backgroundImage: "radial-gradient(circle at 30% 50%, #a855f7 0%, transparent 60%)",
                                     }}
                                 />
 
-                                {/* Text Content */}
-                                <div className="relative z-10 flex flex-col gap-1.5 sm:gap-2 text-white px-5 sm:px-10 py-6 sm:py-8 max-w-[55%] sm:max-w-md">
-                                    {(product.discount ?? 0) > 0 && (
-                                        <span className="inline-block w-fit px-2.5 py-0.5 bg-orange-500 text-white text-[9px] sm:text-[10px] font-bold rounded-full uppercase tracking-widest">
-                                            GIẢM SỐC {product.discount}%
-                                        </span>
-                                    )}
-                                    <h2 className="text-lg sm:text-3xl lg:text-4xl font-extrabold leading-tight line-clamp-2">
-                                        {product.name}
-                                    </h2>
-                                    <p className="text-orange-300 font-semibold text-xs sm:text-base line-clamp-1">
-                                        Chỉ còn: {product.price.toLocaleString('vi-VN')}đ
-                                    </p>
-                                    {product.description && (
-                                        <p className="text-gray-300 text-xs leading-relaxed hidden md:block line-clamp-2">
-                                            {product.description}
-                                        </p>
-                                    )}
-                                    <button
-                                        onClick={() => navigate(`/products/${product.id}`)}
-                                        className="mt-3 w-fit inline-flex items-center gap-1.5
-                                                bg-orange-500 hover:bg-orange-400 active:scale-95 text-white
-                                                font-bold px-5 py-2 sm:px-7 sm:py-3 rounded-full
-                                                text-xs sm:text-sm uppercase tracking-wider
-                                                transition-all shadow-lg shadow-orange-500/30"
-                                    >
-                                        Mua ngay →
-                                    </button>
-                                </div>
-
-                                {/* Product Image */}
-                                <div className="relative z-10 flex-shrink-0 self-end pr-4 sm:pr-10">
+                                {/* Product Image - Left Side */}
+                                <div className="relative z-10 flex-shrink-0 self-center pl-4 sm:pl-8 lg:pl-12">
                                     <img
-                                        style={{ height: "clamp(120px, 24vw, 220px)" }}
+                                        style={{ height: "clamp(140px, 28vw, 280px)" }}
                                         className="w-auto object-contain drop-shadow-2xl"
                                         src={product.images?.[0]?.url || ""}
                                         alt={product.name}
@@ -96,6 +66,34 @@ export const PromoBanner = ({ products }: Props) => {
                                             (e.target as HTMLImageElement).style.display = "none";
                                         }}
                                     />
+                                </div>
+
+                                {/* Text Content - Right Side */}
+                                <div className="relative z-10 flex flex-col gap-2 sm:gap-3 text-white px-5 sm:px-8 lg:px-12 py-6 sm:py-8 max-w-[50%] sm:max-w-lg">
+                                    {(product.discount ?? 0) > 0 && (
+                                        <span className="inline-block w-fit px-3 py-1 bg-purple-600 text-white text-[9px] sm:text-[11px] font-bold rounded-full uppercase tracking-wider">
+                                            GIẢM {product.discount}%
+                                        </span>
+                                    )}
+                                    <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+                                        {product.name}
+                                    </h2>
+                                    <p className="text-purple-300 font-semibold text-sm sm:text-lg">
+                                        Nâng tầm cuộc sống số
+                                    </p>
+                                    <p className="text-white font-bold text-base sm:text-xl">
+                                        {product.price.toLocaleString('vi-VN')}đ
+                                    </p>
+                                    <button
+                                        onClick={() => navigate(`/products/${product.id}`)}
+                                        className="mt-2 w-fit inline-flex items-center gap-1.5
+                                                bg-purple-600 hover:bg-purple-500 active:scale-95 text-white
+                                                font-bold px-6 py-2.5 sm:px-8 sm:py-3 rounded-full
+                                                text-xs sm:text-sm uppercase tracking-wider
+                                                transition-all shadow-lg shadow-purple-600/40"
+                                    >
+                                        Mua ngay
+                                    </button>
                                 </div>
                             </div>
                         </SwiperSlide>
