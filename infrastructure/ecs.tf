@@ -88,6 +88,30 @@ resource "aws_ecs_task_definition" "backend" {
         {
           name  = "FRONTEND_URL"
           value = "https://techmartvn.xyz"
+        },
+        {
+          name  = "GOOGLE_CALLBACK_URL"
+          value = "https://api.techmartvn.xyz/api/auth/google/callback"
+        },
+        {
+          name  = "ZALOPAY_APP_ID"
+          value = "2553"
+        },
+        {
+          name  = "ZALOPAY_KEY1"
+          value = "PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL"
+        },
+        {
+          name  = "ZALOPAY_KEY2"
+          value = "kLtgPl8HHhfvMuDHPwKfgfsY4Yd2uIT1"
+        },
+        {
+          name  = "ZALOPAY_ENDPOINT"
+          value = "https://sb-openapi.zalopay.vn/v2/create"
+        },
+        {
+          name  = "ZALOPAY_CALLBACK_URL"
+          value = "https://api.techmartvn.xyz/api/payments/zalopay/callback"
         }
       ]
       logConfiguration = {
@@ -203,3 +227,4 @@ resource "aws_ecs_service" "main" {
 output "alb_dns_name" {
   value = aws_lb.main.dns_name
 }
+

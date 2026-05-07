@@ -63,7 +63,7 @@ export const PromoBanner = ({ products }: Props) => {
                                         src={product.images?.[0]?.url || ""}
                                         alt={product.name}
                                         onError={(e) => {
-                                            (e.target as HTMLImageElement).style.display = "none";
+                                            (e.target as HTMLImageElement).src = '/placeholder.png';
                                         }}
                                     />
                                 </div>
@@ -103,3 +103,4 @@ export const PromoBanner = ({ products }: Props) => {
         </div>
     );
 };
+
