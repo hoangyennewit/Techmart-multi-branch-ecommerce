@@ -289,12 +289,12 @@ export const Header = () => {
                 value={searchInput}
                 onChange={(e) => handleSearchInput(e.target.value)}
                 autoFocus
-                className="flex-1 outline-none text-sm text-gray-700 bg-transparent"
+                className="flex-1 outline-none text-sm text-gray-200 bg-transparent"
               />
             </div>
             {/* Mobile Search Results */}
             {showSearchResults && searchResults.length > 0 && (
-              <div className="mt-2 bg-white border border-gray-200 rounded-lg shadow-lg divide-y max-h-80 overflow-y-auto">
+              <div className="mt-2 bg-[#1A122E] border border-white/10 rounded-lg shadow-lg divide-y max-h-80 overflow-y-auto">
                 {searchResults.slice(0, 6).map((product) => (
                   <button
                     key={product.id}
@@ -302,7 +302,7 @@ export const Header = () => {
                       handleSearchResultClick(product.id);
                       setSearchOpen(false);
                     }}
-                    className="w-full flex items-center gap-2 px-3 py-2 hover:bg-orange-50 transition-colors text-left"
+                    className="w-full flex items-center gap-2 px-3 py-2 hover:bg-white/5 transition-colors text-left"
                   >
                     <img
                       src={product.images?.[0]?.url || "/placeholder.png"}
@@ -313,10 +313,10 @@ export const Header = () => {
                       }}
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-gray-900 truncate">
+                      <p className="text-xs font-medium text-white truncate">
                         {product.name}
                       </p>
-                      <p className="text-xs text-orange-600 font-bold">
+                      <p className="text-xs text-cyan-400 font-bold">
                         {product.price?.toLocaleString("vi-VN")}đ
                       </p>
                     </div>
@@ -340,7 +340,7 @@ export const Header = () => {
 
       {/* Mobile Drawer */}
       <div
-        className={`sm:hidden fixed top-0 left-0 h-full w-72 bg-white z-50 shadow-2xl
+        className={`sm:hidden fixed top-0 left-0 h-full w-72 bg-[#0B0515] z-50 shadow-2xl
                              transition-transform duration-300 ease-in-out
                              ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
@@ -364,12 +364,12 @@ export const Header = () => {
               setMenuOpen(false);
             }}
             className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                   text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                                   text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
           >
             <Home className="w-4 h-4" />
             Trang chủ
           </button>
-          <div className="mx-4 my-1 border-t border-gray-100" />
+          <div className="mx-4 my-1 border-t border-white/10" />
           {navCategories.map(({ name, slug, Icon }) => (
             <button
               key={slug}
@@ -378,22 +378,22 @@ export const Header = () => {
                 setMenuOpen(false);
               }}
               className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                       text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                                       text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
             >
-              <Icon className="w-4 h-4 text-orange-400" />
+              <Icon className="w-4 h-4 text-cyan-400" />
               {name}
             </button>
           ))}
-          <div className="mx-4 my-1 border-t border-gray-100" />
+          <div className="mx-4 my-1 border-t border-white/10" />
           <button
             onClick={() => {
               navigate("/orders");
               setMenuOpen(false);
             }}
             className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                   text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                                   text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
           >
-            <Package className="w-4 h-4 text-orange-400" />
+            <Package className="w-4 h-4 text-cyan-400" />
             Đơn hàng của tôi
           </button>
           {user ? (
@@ -425,7 +425,7 @@ export const Header = () => {
         </nav>
 
         {/* Drawer Footer */}
-        <div className="absolute bottom-0 left-0 right-0 px-5 py-4 border-t border-gray-100 bg-gray-50">
+        <div className="absolute bottom-0 left-0 right-0 px-5 py-4 border-t border-white/10 bg-[#1A122E]">
           <p className="text-xs text-gray-400 text-center">
             TechMart © 2024 – Hàng chính hãng
           </p>
@@ -434,3 +434,4 @@ export const Header = () => {
     </>
   );
 };
+
