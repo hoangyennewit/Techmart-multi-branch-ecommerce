@@ -19,7 +19,7 @@ export const CheckoutSuccess = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                     <button
                         onClick={() => navigate("/orders")}
-                        className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-orange-200 transition-all active:scale-95"
+                        className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-purple-200 transition-all active:scale-95"
                     >
                         Theo dõi đơn hàng
                     </button>

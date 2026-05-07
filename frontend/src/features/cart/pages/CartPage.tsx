@@ -50,8 +50,8 @@ export const CartPage = () => {
       <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="flex flex-col items-center justify-center py-32 gap-6 text-center px-4">
-          <div className="w-28 h-28 rounded-full bg-orange-50 flex items-center justify-center">
-            <ShoppingCart className="w-14 h-14 text-orange-300" />
+          <div className="w-28 h-28 rounded-full bg-purple-50 flex items-center justify-center">
+            <ShoppingCart className="w-14 h-14 text-purple-300" />
           </div>
           <h2 className="text-2xl font-bold text-gray-700">Giỏ hàng trống</h2>
           <p className="text-gray-400 max-w-xs">
@@ -60,9 +60,9 @@ export const CartPage = () => {
           </p>
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 active:scale-95
+            className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 active:scale-95
                                    text-white font-semibold px-7 py-3 rounded-full shadow-lg
-                                   shadow-orange-200 transition-all duration-150"
+                                   shadow-purple-200 transition-all duration-150"
           >
             <ShoppingBag className="w-5 h-5" />
             Tiếp tục mua sắm
@@ -138,7 +138,7 @@ export const CartPage = () => {
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     {/* Price */}
                     <div>
-                      <span className="text-orange-500 font-bold text-base sm:text-lg">
+                      <span className="text-purple-600 font-bold text-base sm:text-lg">
                         {formatPrice(item.price)}
                       </span>
                       {item.originalPrice > item.price && (
@@ -182,7 +182,7 @@ export const CartPage = () => {
                           )
                         }
                         className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center
-                                                           bg-gray-50 hover:bg-orange-50 hover:border-orange-300 transition-colors"
+                                                           bg-gray-50 hover:bg-purple-50 hover:border-purple-300 transition-colors"
                         aria-label="Tăng số lượng"
                       >
                         <Plus className="w-3.5 h-3.5 text-gray-600" />
@@ -237,23 +237,23 @@ export const CartPage = () => {
 
               <div className="mt-5 pt-4 border-t border-gray-100 flex justify-between items-center">
                 <span className="font-bold text-gray-800">Tổng cộng</span>
-                <span className="text-xl font-extrabold text-orange-500">
+                <span className="text-xl font-extrabold text-purple-600">
                   {formatPrice(grandTotal)}
                 </span>
               </div>
 
               <button
                 onClick={handleCheckout}
-                className="mt-6 w-full bg-orange-500 hover:bg-orange-600 active:scale-95
+                className="mt-6 w-full bg-purple-600 hover:bg-purple-700 active:scale-95
                                            text-white font-bold py-4 rounded-2xl text-base
-                                           shadow-lg shadow-orange-200 transition-all duration-150"
+                                           shadow-lg shadow-purple-200 transition-all duration-150"
               >
                 Tiến hành thanh toán
               </button>
 
               <button
                 onClick={() => navigate("/")}
-                className="mt-3 w-full text-sm text-gray-400 hover:text-orange-500
+                className="mt-3 w-full text-sm text-gray-400 hover:text-purple-600
                                            py-2 transition-colors"
               >
                 ← Tiếp tục mua sắm
@@ -265,3 +265,4 @@ export const CartPage = () => {
     </div>
   );
 };
+
