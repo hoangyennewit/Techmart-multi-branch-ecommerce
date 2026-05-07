@@ -4,16 +4,21 @@ import authService from "../services/authService";
 export class AuthController {
   public googleCallback = (req: Request, res: Response): void => {
     const user = req.user;
+
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+
     console.log("🔍 googleCallback - user:", user);
     if (!user) {
       console.log("❌ User not found after Google auth");
-      res.redirect("http://localhost:5173/login?error=auth_failed");
+      //res.redirect("http://localhost:5173/login?error=auth_failed");
+      res.redirect(`${frontendUrl}/login?error=auth_failed`);
       return;
     }
     const token = authService.generateToken(user);
     console.log("✅ Token created:", token.substring(0, 20) + "...");
     console.log("✅ Đăng nhập thành công user:", (user as any).email);
-    const redirectUrl = `http://localhost:5173/?token=${token}`;
+    //const redirectUrl = `http://localhost:5173/?token=${token}`;
+    const redirectUrl = `${frontendUrl}/?token=${token}`;
     console.log("🔗 Redirect to:", redirectUrl);
     res.redirect(redirectUrl);
   };

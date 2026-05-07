@@ -82,6 +82,10 @@ resource "aws_ecs_task_definition" "backend" {
           value = var.google_client_secret
         },
         {
+          name  = "GOOGLE_CALLBACK_URL"
+          value = "https://techmartvn.xyz/api/auth/google/callback"
+        },
+        {
           name  = "FRONTEND_URL"
           value = "https://techmartvn.xyz"
         }

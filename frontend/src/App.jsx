@@ -1,11 +1,26 @@
 import { AppRoutes } from "./routes";
 import { AuthProvider } from "./features/auth/store/AuthContext";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useLocation } from "react-router-dom";
+import ChatbotWidget from "./features/chatbot/ChatbotWidget";
+
+const AppContent = () => {
+  const location = useLocation();
+  const hideChatbotPaths = ["checkout", "payment"];
+  const shouldHideChatbot = hideChatbotPaths.some(path => location.pathname.includes(path));
+
+  return (
+    <>
+      <AppRoutes />
+      {!shouldHideChatbot && <ChatbotWidget />}
+    </>
+  )
+}
+
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AppRoutes />
+        <AppContent />
       </AuthProvider>
     </BrowserRouter>
   )
