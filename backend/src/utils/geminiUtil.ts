@@ -1,20 +1,14 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { geminiConfig } from "../config/gemini";
 
-const apiKey = process.env.GEMINI_API_KEY || "";
-
-if(!apiKey) {
-    throw new Error("GEMINI_API_KEY is not defined in environment variables.");
-}
-
-const geminiAI = new GoogleGenerativeAI(apiKey as string);
+const geminiAI = new GoogleGenerativeAI(geminiConfig.apiKey);
 
 export const generateVectorEmbedding = async (text: string): Promise<number[]> => {
     try 
     {
-        const model = geminiAI.getGenerativeModel({ model: "text-embedding-004" });
+        const model = geminiAI.getGenerativeModel({ model: geminiConfig.embeddingModel });
         const result = await model.embedContent(text);
-        const embedding = result.embedding;
-        return embedding.values;
+        return result.embedding.values;
     }
     catch (error) 
     {
