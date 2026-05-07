@@ -65,7 +65,7 @@ export const ProductCard = ({ product }: ProductProps) => {
   return (
     <article
       className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100
-                       shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1
+                       shadow-sm hover:shadow-purple-500/20 hover:border-purple-500 transition-all duration-300 hover:-translate-y-1
                        cursor-pointer flex flex-col"
       onClick={() => navigate(`/products/${product.id}`)}
       onKeyDown={(e) =>
@@ -84,7 +84,7 @@ export const ProductCard = ({ product }: ProductProps) => {
       )}
       {/* Wishlist Button */}
       <button
-        className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm
+        className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm border-gray-100
                            flex items-center justify-center shadow-sm border border-gray-100
                            hover:scale-110 transition-all duration-200"
         onClick={(e) => {
@@ -95,7 +95,7 @@ export const ProductCard = ({ product }: ProductProps) => {
       >
         <Heart
           className={`w-5 h-5 transition-colors duration-200 ${
-            isFavorite ? "fill-red-500 text-red-500" : "text-gray-400"
+            isFavorite ? "fill-red-500 text-red-500" : "text-gray-500"
           }`}
         />
       </button>
@@ -108,7 +108,7 @@ export const ProductCard = ({ product }: ProductProps) => {
           className="w-full h-full object-contain p-4 mix-blend-multiply
                                group-hover:scale-105 transition-transform duration-500"
           onError={(e) => {
-            (e.target as HTMLImageElement).style.display = "none";
+            (e.target as HTMLImageElement).src = '/placeholder.png';
           }}
         />
       </div>
@@ -118,7 +118,7 @@ export const ProductCard = ({ product }: ProductProps) => {
         {/* Product Name */}
         <h4
           className="text-sm font-semibold text-gray-800 leading-tight
-                               line-clamp-2 group-hover:text-orange-600 transition-colors duration-200"
+                               line-clamp-2 group-hover:text-purple-400 transition-colors duration-200"
         >
           {product.name}
         </h4>
@@ -135,17 +135,17 @@ export const ProductCard = ({ product }: ProductProps) => {
               }`}
             />
           ))}
-          <span className="text-xs text-gray-400 ml-1">({product.rating})</span>
+          <span className="text-xs text-gray-500 ml-1">({product.rating})</span>
         </div>
 
         {/* Price */}
         <div className="flex flex-col gap-0.5 mt-auto">
-          <span className="text-orange-600 font-bold text-lg leading-tight">
+          <span className="text-purple-400 font-bold text-lg leading-tight">
             {formatVND(product.price)}
           </span>
           {/* Kiểm tra originalPrice tồn tại mới hiển thị */}
           {product.originalPrice && product.originalPrice > product.price && (
-            <span className="text-gray-400 line-through text-sm">
+            <span className="text-gray-500 line-through text-sm">
               {formatVND(product.originalPrice)}
             </span>
           )}
@@ -165,7 +165,7 @@ export const ProductCard = ({ product }: ProductProps) => {
               className={`w-6 h-6 rounded-full border-2 transition-all duration-150 hover:scale-110
                                 ${
                                   selectedColor?.id === color.id
-                                    ? "border-orange-500 scale-110"
+                                    ? "border-purple-500 scale-110 shadow-lg shadow-purple-500/50"
                                     : "border-gray-200"
                                 }`}
               style={{ backgroundColor: color.hex }}
@@ -181,7 +181,7 @@ export const ProductCard = ({ product }: ProductProps) => {
                                ${
                                  added
                                    ? "bg-green-500 text-white border-green-500 border"
-                                   : "bg-orange-50 text-orange-600 border border-orange-200 hover:bg-orange-500 hover:text-white hover:border-orange-500"
+                                   : "bg-purple-50 text-purple-600 border border-purple-200 hover:bg-purple-600 hover:text-white hover:border-purple-600"
                                }`}
           aria-label="Thêm vào giỏ hàng"
         >
@@ -201,3 +201,7 @@ export const ProductCard = ({ product }: ProductProps) => {
     </article>
   );
 };
+
+
+
+
