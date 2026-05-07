@@ -111,185 +111,175 @@ export const Header = () => {
 
   return (
     <>
-      <header className="w-full bg-white border-b border-orange-100 shadow-sm sticky top-0 z-50">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-          {/* Logo */}
-          <button
-            className="flex-shrink-0 cursor-pointer bg-transparent border-0 p-0"
-            onClick={() => navigate("/")}
-            aria-label="Trang chủ"
-          >
-            <Logo />
-          </button>
-
-          {/* Search Bar — hidden on mobile, visible sm+ */}
-          <div
-            className="hidden sm:flex flex-1 max-w-xl relative"
-            ref={searchDropdownRef}
-          >
-            <form onSubmit={handleSearch} className="flex-1 w-full">
-              <div
-                className="flex items-center w-full bg-gray-100 rounded-full px-4 py-2.5 gap-2
-                                            focus-within:ring-2 focus-within:ring-orange-300 transition-all"
-              >
-                <Search className="w-5 h-5 text-gray-400 shrink-0" />
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm điện thoại, laptop..."
-                  value={searchInput}
-                  onChange={(e) => handleSearchInput(e.target.value)}
-                  onFocus={() =>
-                    searchInput.trim() && setShowSearchResults(true)
-                  }
-                  className="flex-1 outline-none text-base text-gray-700 bg-transparent"
-                />
-              </div>
-            </form>
-
-            {/* Search Results Dropdown */}
-            {showSearchResults && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl z-10 max-h-96 overflow-y-auto">
-                {isSearching ? (
-                  <div className="p-4 text-center text-gray-500">
-                    <span className="inline-block animate-spin">⚙️</span> Đang
-                    tìm kiếm...
-                  </div>
-                ) : searchResults.length > 0 ? (
-                  <div className="divide-y">
-                    {searchResults.slice(0, 8).map((product) => (
-                      <button
-                        key={product.id}
-                        onClick={() => handleSearchResultClick(product.id)}
-                        className="w-full flex items-center gap-3 px-4 py-3 hover:bg-orange-50 transition-colors text-left"
-                      >
-                        <img
-                          src={product.image?.[0]?.url || "/placeholder.png"}
-                          alt={product.name}
-                          className="w-10 h-10 object-cover rounded"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src =
-                              "/placeholder.png";
-                          }}
-                        />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
-                            {product.name}
-                          </p>
-                          <p className="text-xs text-orange-600 font-bold">
-                            {product.price?.toLocaleString("vi-VN")}đ
-                          </p>
-                        </div>
-                      </button>
-                    ))}
-                    {searchResults.length > 8 && (
-                      <div className="px-4 py-3 text-center text-sm text-gray-500">
-                        Còn {searchResults.length - 8} kết quả khác...
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div className="p-4 text-center text-gray-500 text-sm">
-                    Không tìm thấy sản phẩm nào
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Right Section */}
-          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            {/* Search Icon — mobile only */}
-            <button
-              className="sm:hidden p-2.5 rounded-full hover:bg-gray-100 transition-colors"
-              onClick={() => setSearchOpen(!searchOpen)}
-              aria-label="Tìm kiếm"
-            >
-              <Search className="w-6 h-6 text-gray-600" />
-            </button>
-
-            {/* Cart */}
-            <button
-              onClick={() => navigate("/cart")}
-              className="relative p-2.5 rounded-full hover:bg-orange-50 transition-colors"
-              aria-label="Giỏ hàng"
-            >
-              <ShoppingCart className="w-6 h-6 text-gray-600" />
-              {cartCount > 0 && (
-                <span
-                  className="absolute -top-0.5 -right-0.5 min-w-[20px] h-[20px] bg-orange-500 text-white
-                                                 text-[11px] font-bold rounded-full flex items-center justify-center px-1"
-                >
-                  {cartCount > 99 ? "99+" : cartCount}
-                </span>
-              )}
-            </button>
-
-            {/* Order */}
-            <button
-              onClick={() => navigate("/orders")}
-              className="hidden sm:flex p-2.5 rounded-full hover:bg-orange-50 transition-colors group"
-              title="Đơn hàng của tôi"
-            >
-              <Package className="w-6 h-6 text-gray-600 group-hover:text-orange-500 transition-colors" />
-            </button>
-
-            {/* Bell — hidden on xs */}
-            <button
-              className="hidden sm:flex p-2.5 rounded-full hover:bg-orange-50 transition-colors"
-              aria-label="Thông báo"
-            >
-              <Bell className="w-6 h-6 text-gray-600" />
-            </button>
-
-            {/* Login/logout Button */}
-            {user ? (
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-gray-700 hidden sm:inline">
-                  {user.ho_ten || user.email}
-                </span>
-                <button
-                  className="bg-gray-300 text-gray-800 font-bold px-4 sm:px-6 py-2.5 rounded-full
-                                                        text-sm hover:bg-gray-400 active:scale-95 transition-all
-                                                        whitespace-nowrap shadow-md uppercase tracking-wider"
-                  onClick={() => {
-                    logout();
-                    navigate("/");
-                  }}
-                >
-                  Đăng xuất
-                </button>
-              </div>
-            ) : (
+      <header className="w-full bg-gradient-to-r from-[#1a1a3e] to-[#2d1b4e] shadow-lg sticky top-0 z-50">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+          {/* Top Navigation Bar */}
+          <div className="flex items-center justify-between py-4">
+            {/* Left: Logo & Navigation Links */}
+            <div className="flex items-center gap-8">
               <button
-                className="bg-[#ee3124] text-white font-bold px-4 sm:px-6 py-2.5 rounded-full
-                                       text-sm hover:bg-orange-600 active:scale-95 transition-all
-                                       whitespace-nowrap shadow-md shadow-red-200 uppercase tracking-wider"
-                onClick={() => navigate("/login")}
+                className="flex-shrink-0 cursor-pointer bg-transparent border-0 p-0"
+                onClick={() => navigate("/")}
+                aria-label="Trang chủ"
               >
-                Đăng nhập
+                <Logo />
               </button>
-            )}
+              
+              {/* Navigation Links — hidden on mobile */}
+              <nav className="hidden sm:flex items-center gap-6">
+                <button
+                  onClick={() => navigate("/")}
+                  className="text-white font-medium text-sm hover:text-orange-400 transition-colors"
+                >
+                  Trang chủ
+                </button>
+                <button
+                  onClick={() => navigate("/category")}
+                  className="text-white font-medium text-sm hover:text-orange-400 transition-colors"
+                >
+                  Sản phẩm
+                </button>
+                <button
+                  onClick={() => navigate("/support")}
+                  className="text-white font-medium text-sm hover:text-orange-400 transition-colors"
+                >
+                  Chăm sóc khách hàng
+                </button>
+              </nav>
+            </div>
 
-            {/* Hamburger — mobile only */}
-            <button
-              className="sm:hidden p-2.5 rounded-full hover:bg-gray-100 transition-colors"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Menu"
+            {/* Center: Search Bar */}
+            <div
+              className="hidden md:flex flex-1 max-w-md mx-8 relative"
+              ref={searchDropdownRef}
             >
-              {menuOpen ? (
-                <X className="w-6 h-6 text-gray-600" />
-              ) : (
-                <Menu className="w-6 h-6 text-gray-600" />
+              <form onSubmit={handleSearch} className="flex-1 w-full">
+                <div
+                  className="flex items-center w-full bg-white rounded-full px-4 py-2 gap-2
+                                            focus-within:ring-2 focus-within:ring-orange-300 transition-all"
+                >
+                  <Search className="w-5 h-5 text-gray-400 shrink-0" />
+                  <input
+                    type="text"
+                    placeholder="Tìm kiếm"
+                    value={searchInput}
+                    onChange={(e) => handleSearchInput(e.target.value)}
+                    onFocus={() =>
+                      searchInput.trim() && setShowSearchResults(true)
+                    }
+                    className="flex-1 outline-none text-sm text-gray-700 bg-transparent"
+                  />
+                </div>
+              </form>
+
+              {/* Search Results Dropdown */}
+              {showSearchResults && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl z-10 max-h-96 overflow-y-auto">
+                  {isSearching ? (
+                    <div className="p-4 text-center text-gray-500">
+                      <span className="inline-block animate-spin">⚙️</span> Đang
+                      tìm kiếm...
+                    </div>
+                  ) : searchResults.length > 0 ? (
+                    <div className="divide-y">
+                      {searchResults.slice(0, 8).map((product) => (
+                        <button
+                          key={product.id}
+                          onClick={() => handleSearchResultClick(product.id)}
+                          className="w-full flex items-center gap-3 px-4 py-3 hover:bg-orange-50 transition-colors text-left"
+                        >
+                          <img
+                            src={product.images?.[0]?.url || "/placeholder.png"}
+                            alt={product.name}
+                            className="w-10 h-10 object-cover rounded"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src =
+                                "/placeholder.png";
+                            }}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 truncate">
+                              {product.name}
+                            </p>
+                            <p className="text-xs text-orange-600 font-bold">
+                              {product.price?.toLocaleString("vi-VN")}đ
+                            </p>
+                          </div>
+                        </button>
+                      ))}
+                      {searchResults.length > 8 && (
+                        <div className="px-4 py-3 text-center text-sm text-gray-500">
+                          Còn {searchResults.length - 8} kết quả khác...
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="p-4 text-center text-gray-500 text-sm">
+                      Không tìm thấy sản phẩm nào
+                    </div>
+                  )}
+                </div>
               )}
-            </button>
+            </div>
+
+            {/* Right Section */}
+            <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+              {/* Search Icon — mobile and tablet */}
+              <button
+                className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors"
+                onClick={() => setSearchOpen(!searchOpen)}
+                aria-label="Tìm kiếm"
+              >
+                <Search className="w-5 h-5 text-white" />
+              </button>
+
+              {/* Cart */}
+              <button
+                onClick={() => navigate("/cart")}
+                className="relative p-2 rounded-full hover:bg-white/10 transition-colors"
+                aria-label="Giỏ hàng"
+              >
+                <ShoppingCart className="w-5 h-5 text-white" />
+                {cartCount > 0 && (
+                  <span
+                    className="absolute -top-1 -right-1 min-w-[20px] h-[20px] bg-orange-500 text-white
+                                                   text-[11px] font-bold rounded-full flex items-center justify-center px-1"
+                  >
+                    {cartCount > 99 ? "99+" : cartCount}
+                  </span>
+                )}
+              </button>
+
+              {/* User Profile */}
+              <button
+                className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                title="Tài khoản"
+                onClick={() => user ? navigate("/profile") : navigate("/login")}
+              >
+                <User className="w-5 h-5 text-white" />
+              </button>
+
+              {/* Hamburger — mobile only */}
+              <button
+                className="sm:hidden p-2 rounded-full hover:bg-white/10 transition-colors"
+                onClick={() => setMenuOpen(!menuOpen)}
+                aria-label="Menu"
+              >
+                {menuOpen ? (
+                  <X className="w-5 h-5 text-white" />
+                ) : (
+                  <Menu className="w-5 h-5 text-white" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Mobile Search Bar dropdown */}
         {searchOpen && (
-          <div className="sm:hidden px-4 pb-3 animate-[slideDown_0.15s_ease-out]">
+          <div className="md:hidden px-4 py-3 border-t border-white/10 bg-gradient-to-r from-[#1a1a3e] to-[#2d1b4e] animate-[slideDown_0.15s_ease-out]">
             <div
-              className="flex items-center w-full bg-gray-100 rounded-full px-4 py-2 gap-2
+              className="flex items-center w-full bg-white rounded-full px-4 py-2 gap-2
                                         focus-within:ring-2 focus-within:ring-orange-300 transition-all"
             >
               <Search className="w-4 h-4 text-gray-400 shrink-0" />
@@ -315,7 +305,7 @@ export const Header = () => {
                     className="w-full flex items-center gap-2 px-3 py-2 hover:bg-orange-50 transition-colors text-left"
                   >
                     <img
-                      src={product.image?.[0]?.url || "/placeholder.png"}
+                      src={product.images?.[0]?.url || "/placeholder.png"}
                       alt={product.name}
                       className="w-8 h-8 object-cover rounded"
                       onError={(e) => {
@@ -355,11 +345,11 @@ export const Header = () => {
                              ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-orange-500 to-orange-600">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-[#1a1a3e] to-[#2d1b4e]">
           <span className="text-white font-bold text-base">Danh mục</span>
           <button
             onClick={() => setMenuOpen(false)}
-            className="p-1.5 rounded-full hover:bg-orange-400/50 transition-colors"
+            className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
             aria-label="Đóng menu"
           >
             <X className="w-5 h-5 text-white" />
@@ -406,17 +396,32 @@ export const Header = () => {
             <Package className="w-4 h-4 text-orange-400" />
             Đơn hàng của tôi
           </button>
-          <button
-            onClick={() => {
-              navigate("/login");
-              setMenuOpen(false);
-            }}
-            className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                   text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
-          >
-            <User className="w-4 h-4 text-orange-400" />
-            Đăng nhập / Đăng ký
-          </button>
+          {user ? (
+            <button
+              onClick={() => {
+                logout();
+                navigate("/");
+                setMenuOpen(false);
+              }}
+              className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
+                                       text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+            >
+              <User className="w-4 h-4 text-orange-400" />
+              Đăng xuất
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                navigate("/login");
+                setMenuOpen(false);
+              }}
+              className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
+                                       text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+            >
+              <User className="w-4 h-4 text-orange-400" />
+              Đăng nhập / Đăng ký
+            </button>
+          )}
         </nav>
 
         {/* Drawer Footer */}

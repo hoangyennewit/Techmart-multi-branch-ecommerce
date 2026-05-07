@@ -8,6 +8,7 @@ import authRoutes from './routes/authRoutes';
 import paymentRoute from './routes/paymentRoute';
 import orderRoute from './routes/orderRoute';
 import productRoutes from './routes/productRoute';
+import chatbotRoute from './routes/chatbotRoute';
 import passport from 'passport';
 import './config/passport';
 import './models';
@@ -19,6 +20,7 @@ app.use(passport.initialize());
 app.use('/api/auth', authRoutes);
 app.use('/api/payments', paymentRoute);
 app.use('/api/orders', orderRoute);
+app.use('/api/chatbot', chatbotRoute);
 
 // QUAN TRỌNG: Chỉ dùng 1 dòng này để nạp Route sản phẩm của bạn
 app.use('/api/products', productRoutes);
