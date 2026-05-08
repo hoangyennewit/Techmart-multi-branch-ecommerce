@@ -116,6 +116,46 @@ resource "aws_ecs_task_definition" "backend" {
         {
           name  = "NODE_OPTIONS"
           value = "--dns-result-order=ipv4first"
+        },
+        {
+          name  = "GEMINI_API_KEY"
+          value = "AIzaSyBcq-CDK7qsmIxZPee6tYGNrR7LUc5zZvw"
+        },
+        {
+          name  = "JWT_SECRET"
+          value = "Yen_Techmart_2026_BaoMat_@#$123"
+        },
+        {
+          name  = "vnp_TmnCode"
+          value = "JCUM4XTA"
+        },
+        {
+          name  = "vnp_HashSecret"
+          value = "W3V7O493KXCR4WV3E93YW3H18WVB33BF"
+        },
+        {
+          name  = "vnp_Url"
+          value = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"
+        },
+        {
+          name  = "vnp_ReturnUrl"
+          value = "https://techmartvn.xyz/api/payment/vnpay_return"
+        },
+        {
+          name  = "MOMO_PARTNER_CODE"
+          value = "MOMOBKUN20180529"
+        },
+        {
+          name  = "MOMO_ACCESS_KEY"
+          value = "0c2b9e8f"
+        },
+        {
+          name  = "MOMO_SECRET_KEY"
+          value = "6f8e3b9f"
+        },
+        {
+          name  = "MOMO_ENDPOINT"
+          value = "https://test-payment.momo.vn/v2/gateway/api/create"
         }
       ]
       logConfiguration = {
