@@ -21,7 +21,7 @@ export default function ReviewItem({ comment }: Props) {
         <div className="flex gap-4 py-6 border-b border-gray-100 last:border-0">
             {/* Avatar */}
             <div className="flex-shrink-0">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex flex-col items-center justify-center text-white font-bold text-lg shadow-sm border border-orange-200">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex flex-col items-center justify-center text-white font-bold text-lg shadow-sm border border-purple-200">
                     {avatarLetter}
                 </div>
             </div>
@@ -37,7 +37,7 @@ export default function ReviewItem({ comment }: Props) {
                     {[1, 2, 3, 4, 5].map((star) => (
                         <Star 
                             key={star} 
-                            className={`w-3.5 h-3.5 ${star <= comment.stars ? "fill-orange-400 text-orange-400" : "fill-gray-200 text-gray-200"}`} 
+                            className={`w-3.5 h-3.5 ${star <= comment.stars ? "fill-purple-500 text-purple-500" : "fill-gray-200 text-gray-200"}`} 
                         />
                     ))}
                     <span className="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded ml-2 flex items-center gap-1 hidden sm:inline-flex">
@@ -53,7 +53,7 @@ export default function ReviewItem({ comment }: Props) {
                 </p>
                 
                 <div className="mt-4 flex items-center gap-4 text-xs text-gray-400 font-medium">
-                    <button className="hover:text-orange-500 transition-colors">Hữu ích</button>
+                    <button className="hover:text-purple-600 transition-colors">Hữu ích</button>
                     <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
                     <button className="hover:text-gray-700 transition-colors">Thảo luận</button>
                 </div>

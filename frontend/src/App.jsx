@@ -1,20 +1,28 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { ClientRoutes } from './routes/ClientRoutes';
-import { ActorRoutes } from './routes/ActorRoutes';
+import { AppRoutes } from "./routes";
+import { AuthProvider } from "./features/auth/store/AuthContext";
+import { BrowserRouter, useLocation } from "react-router-dom";
+import ChatbotWidget from "./features/chatbot/ChatbotWidget";
+
+const AppContent = () => {
+  const location = useLocation();
+  const hideChatbotPaths = ["checkout", "payment"];
+  const shouldHideChatbot = hideChatbotPaths.some(path => location.pathname.includes(path));
+
+  return (
+    <>
+      <AppRoutes />
+      {!shouldHideChatbot && <ChatbotWidget />}
+    </>
+  )
+}
 
 function App() {
   return (
-    <>
-      <Routes>
-        {/* Vừa vào localhost:5173 là tự động đẩy sang trang Chọn Quyền */}
-        <Route path="/" element={<Navigate to="/portal" replace />} />
-      </Routes>
-
-      <ActorRoutes />
-      <ClientRoutes />
-    </>
-  );
-}
-
+    <BrowserRouter>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </BrowserRouter>
+  )
+};
 export default App;

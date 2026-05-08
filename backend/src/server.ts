@@ -3,19 +3,40 @@ dotenv.config();
 
 import app from './app';
 import {connectDB} from './config/database';
+import {initializeDatabase} from './config/initDB';
 import authRoutes from './routes/authRoutes';
+import paymentRoute from './routes/paymentRoute';
+import orderRoute from './routes/orderRoute';
+import productRoutes from './routes/productRoute';
+import chatbotRoute from './routes/chatbotRoute';
 import passport from 'passport';
 import './config/passport';
+import './models';
 
+// --- MIDDLEWARE ---
 app.use(passport.initialize());
-app.use('/api/auth', authRoutes);
 
+// --- ROUTES ---
+app.use('/api/auth', authRoutes);
+app.use('/api/payments', paymentRoute);
+app.use('/api/orders', orderRoute);
+app.use('/api/chatbot', chatbotRoute);
+
+// QUAN TRỌNG: Chỉ dùng 1 dòng này để nạp Route sản phẩm của bạn
+app.use('/api/products', productRoutes);
 
 const PORT = process.env.PORT || 5000;
-const start = async() => {
+
+const start = async () => {
+  try {
     await connectDB();
+    await initializeDatabase();
     app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
+      console.log(`🚀 Server is running on port ${PORT}`);
     });
+  } catch (error) {
+    console.error("❌ Lỗi khởi động Server:", error);
+  }
 };
+
 start();
