@@ -99,11 +99,11 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "ZALOPAY_KEY1"
-          value = "PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL"
+          value = var.zalopay_key1
         },
         {
           name  = "ZALOPAY_KEY2"
-          value = "kLtgPl8HHhfvMuDHPwKfgfsY4Yd2uIT1"
+          value = var.zalopay_key2
         },
         {
           name  = "ZALOPAY_ENDPOINT"
@@ -119,19 +119,19 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "GEMINI_API_KEY"
-          value = "AIzaSyBcq-CDK7qsmIxZPee6tYGNrR7LUc5zZvw"
+          value = var.gemini_api_key
         },
         {
           name  = "JWT_SECRET"
-          value = "Yen_Techmart_2026_BaoMat_@#$123"
+          value = var.jwt_secret
         },
         {
           name  = "vnp_TmnCode"
-          value = "JCUM4XTA"
+          value = var.vnp_tmn_code
         },
         {
           name  = "vnp_HashSecret"
-          value = "W3V7O493KXCR4WV3E93YW3H18WVB33BF"
+          value = var.vnp_hash_secret
         },
         {
           name  = "vnp_Url"
@@ -143,15 +143,15 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "MOMO_PARTNER_CODE"
-          value = "MOMOBKUN20180529"
+          value = var.momo_partner_code
         },
         {
           name  = "MOMO_ACCESS_KEY"
-          value = "0c2b9e8f"
+          value = var.momo_access_key
         },
         {
           name  = "MOMO_SECRET_KEY"
-          value = "6f8e3b9f"
+          value = var.momo_secret_key
         },
         {
           name  = "MOMO_ENDPOINT"
