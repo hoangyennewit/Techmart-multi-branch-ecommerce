@@ -8,7 +8,9 @@ COPY package*.json ./
 RUN npm install
 #copy ma nguon vao container
 COPY . .
-#Mo cong Node.js chay
+# Mo cong Node.js chay
 EXPOSE 5000 
-#khoi tao ung dung
-CMD ["npm", "run", "dev"]
+# Build ứng dụng
+RUN npm run build
+# Khoi tao ung dung bang lenh start thay vi dev cho production
+CMD ["npm", "run", "start"]
