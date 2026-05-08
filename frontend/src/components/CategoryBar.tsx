@@ -1,54 +1,66 @@
-import { Smartphone, Laptop, Headphones, Tablet, Monitor, Tv } from "lucide-react";
-import { JSX, useState } from "react";
+import { Smartphone, Laptop, Headphones, Tablet, Monitor } from "lucide-react";
+import { JSX } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 interface Category {
-    id: number;
-    name: string;
-    slug: string;
-    icon: JSX.Element;
+  id: number;
+  name: string;
+  slug: string;
+  icon: JSX.Element;
 }
 
 const categories: Category[] = [
-    { id: 1, name: "Điện thoại", slug: "dien-thoai", icon: <Smartphone className="w-6 h-6" /> },
-    { id: 2, name: "Laptop",     slug: "laptop",     icon: <Laptop     className="w-6 h-6" /> },
-    { id: 3, name: "Âm thanh",  slug: "am-thanh",   icon: <Headphones className="w-6 h-6" /> },
-    { id: 4, name: "Tablet",    slug: "tablet",     icon: <Tablet     className="w-6 h-6" /> },
-    { id: 5, name: "Màn hình",  slug: "man-hinh",   icon: <Monitor    className="w-6 h-6" /> },
-    { id: 6, name: "TV",        slug: "tv",         icon: <Tv         className="w-6 h-6" /> },
+  { id: 1, name: "Điện thoại", slug: "dien-thoai", icon: <Smartphone className="w-6 h-6" /> },
+  { id: 2, name: "Laptop", slug: "laptop", icon: <Laptop className="w-6 h-6" /> },
+  { id: 4, name: "Tablet", slug: "may-tinh-bang", icon: <Tablet className="w-6 h-6" /> },
+  { id: 5, name: "Màn hình", slug: "man-hinh", icon: <Monitor className="w-6 h-6" /> },
+  { id: 3, name: "Phụ kiện", slug: "phu-kien", icon: <Headphones className="w-6 h-6" /> },
 ];
 
 export const CategoryBar = () => {
-    const [active, setActive] = useState<number | null>(null);
+  const location = useLocation();
 
-    return (
-        <nav className="w-full bg-white border-b border-gray-100 shadow-sm">
-            <div className="max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-12">
-                {/* Horizontal scroll on mobile, grid on sm+ */}
-                <ul className="flex sm:grid sm:grid-cols-6 overflow-x-auto scrollbar-hide">
-                    {categories.map((cat) => (
-                        <li key={cat.id} className="flex-shrink-0 sm:flex-shrink">
-                            <button
-                                onClick={() => setActive(cat.id)}
-                                className={`w-full min-w-[80px] sm:min-w-0 flex flex-col items-center justify-center gap-1.5
-                                            px-3 sm:px-2 py-4 text-xs font-semibold transition-all duration-150
-                                            border-b-2
-                                            ${
-                                                active === cat.id
-                                                    ? "border-orange-500 text-orange-600"
-                                                    : "border-transparent text-gray-500 hover:text-orange-500 hover:border-orange-300"
-                                            }`}
-                            >
-                                <span className={`transition-colors duration-150 ${active === cat.id ? "text-orange-500" : "text-gray-400"}`}>
-                                    {cat.icon}
-                                </span>
-                                <span className="leading-tight text-center whitespace-nowrap text-xs sm:text-sm">
-                                    {cat.name}
-                                </span>
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </nav>
-    );
+  return (
+    <nav className="w-full bg-[#1a0b2e] py-8 px-4 sm:px-10">
+      {/* Khung Capsule chính bao trọn cả 2 phần */}
+      <div className="max-w-screen-2xl mx-auto flex items-center bg-[#25163d]/80 rounded-full p-1.5 border border-white/10 shadow-2xl">
+        
+        {/* NÚT GỢI Ý: Nằm cố định bên trái */}
+        <div className="px-10 py-3.5 bg-gradient-to-b from-[#412d6d] to-[#2d1b4e] rounded-full shadow-lg flex-shrink-0">
+          <span className="text-white font-extrabold uppercase tracking-widest text-sm sm:text-lg whitespace-nowrap">
+            Gợi ý cho bạn
+          </span>
+        </div>
+
+        {/* VÙNG CHỨA ICON: Dùng flex-1 để giãn rộng ra sát nút gợi ý */}
+        <div className="flex-1 flex items-center justify-around px-6 sm:px-12">
+          {categories.map((cat) => {
+            const isActive = location.pathname.includes(`/category/${cat.slug}`);
+            return (
+              <Link
+                key={cat.id}
+                to={`/category/${cat.slug}`}
+                className={`relative flex items-center justify-center p-3 transition-all duration-300 group`}
+                title={cat.name}
+              >
+                {/* Icon với hiệu ứng sáng nhẹ khi active hoặc hover */}
+                <div className={`transition-all duration-300 transform group-hover:scale-120 ${
+                  isActive ? "text-white scale-110" : "text-gray-400 group-hover:text-purple-300"
+                }`}>
+                  {cat.icon}
+                </div>
+
+                {/* Đường gạch chân nhỏ nếu muốn giống các giao diện hiện đại (tùy chọn) */}
+                {isActive && (
+                  <div className="absolute -bottom-1 w-1.5 h-1.5 bg-purple-400 rounded-full shadow-[0_0_8px_#a855f7]"></div>
+                )}
+              </Link>
+            );
+          })}
+        </div>
+
+      </div>
+    </nav>
+  );
 };
+

@@ -1,114 +1,216 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { UserCircle } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+import { Logo } from "../../../components/common/Logo";
+import { useState, useEffect } from "react";
+import { useAuth } from "../store/AuthContext";
+import { Eye, EyeOff, Mail, Lock, AlertCircle } from "lucide-react";
+import {
+  getRedirectState,
+  clearRedirectState,
+} from "../../../utils/redirectStateManager";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { isAuthenticated } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  // 1. LUỒNG ĐĂNG NHẬP TRUYỀN THỐNG (Dành cho Actor/Nội bộ)
-  const handleTraditionalLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Lấy vai trò đã chọn từ state, nếu không có thì nhảy thẳng ra trang chọn quyền
-    const role = location.state?.selectedRole;
-    
-    if (!role) {
-       // Nếu chưa có quyền, đá ra trang phân quyền admin (RoleSelection)
-       navigate('/portal');
-       return;
+  // Note: AuthContext will handle redirect state when user logs in
+  // This check is kept for reference but AuthContext is the primary handler
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log(
+        " User authenticated in LoginPage, AuthContext will handle redirect",
+      );
+      // Don't navigate here - let AuthContext handle it via user state
     }
+  }, [isAuthenticated]);
 
-    // Bản đồ điều hướng: Vai trò -> Đường dẫn tương ứng
-    const pathMap: Record<string, string> = {
-      admin: '/admin',
-      tech: '/tech',
-      manager: '/store',
-      product: '/product',
-      staff: '/staff'
-    };
-
-    // Chuyển hướng đúng trang dashboard
-    navigate(pathMap[role] || '/staff');
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      setError("Vui lòng nhập đầy đủ tài khoản và mật khẩu.");
+      return;
+    }
+    setError("");
+    navigate("/");
   };
-
-  // 2. LUỒNG ĐĂNG NHẬP GOOGLE (Dành cho Customer/Khách hàng)
   const handleGoogleLogin = () => {
-    // Tạm thời trên UI sẽ đá về trang chủ người dùng, 
-    // Backend của bạn kia sẽ viết thêm API vào hàm này sau.
-    navigate('/home'); 
+    window.location.href = (import.meta.env.VITE_API_URL || "http://localhost:5000") + "/api/auth/google";
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center font-sans p-4">
-      <div className="max-w-4xl w-full flex flex-col md:flex-row items-center gap-16">
-        
-        {/* Cột trái: Logo và Slogan */}
-        <div className="flex-1 text-center md:text-right flex flex-col items-center md:items-end animate-in slide-in-from-left-8 duration-700">
-          <UserCircle size={100} className="text-purple-300 mb-4" />
-          <h1 className="text-7xl font-bold text-purple-800 tracking-wide mb-2">TechStore</h1>
-          <p className="text-gray-500 font-medium text-xl">Nâng tầm cuộc sống số</p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-100 flex flex-col">
+      {/* Top bar with logo */}
+      <div
+        className="flex items-center justify-center py-5 border-b border-purple-100 bg-white/80 backdrop-blur-sm cursor-pointer"
+        onClick={() => navigate("/")}
+      >
+        <Logo />
+      </div>
 
-        {/* Cột phải: Form Đăng nhập */}
-        <div className="flex-1 w-full max-w-md animate-in slide-in-from-right-8 duration-700">
-          <div className="bg-white border border-gray-200 rounded-[3rem] p-10 shadow-2xl flex flex-col items-center relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2"></div>
-            
-            {/* Form truyền thống */}
-            <form onSubmit={handleTraditionalLogin} className="w-full flex flex-col items-center">
-              <div className="w-full space-y-5 mb-8 mt-4">
-                <input 
-                  type="text" 
-                  placeholder="Tên đăng nhập / Email" 
-                  className="w-full bg-gray-50 border border-gray-200 rounded-full px-6 py-4 text-sm font-bold text-gray-700 outline-none focus:border-purple-400 focus:bg-white transition-all shadow-sm"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <input 
-                  type="password" 
-                  placeholder="Mật khẩu" 
-                  className="w-full bg-gray-50 border border-gray-200 rounded-full px-6 py-4 text-sm font-bold text-gray-700 outline-none focus:border-purple-400 focus:bg-white transition-all shadow-sm"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-
-              <button type="submit" className="w-full py-3.5 bg-gray-900 hover:bg-black text-white font-bold rounded-full shadow-xl transition-transform hover:-translate-y-1 mb-6">
-                Đăng nhập hệ thống nội bộ
-              </button>
-            </form>
-
-            {/* Dòng kẻ chia cắt */}
-            <div className="w-full flex items-center gap-3 mb-6">
-              <div className="h-px bg-gray-200 flex-1"></div>
-              <span className="text-gray-400 text-xs font-bold tracking-widest uppercase">Hoặc dành cho khách</span>
-              <div className="h-px bg-gray-200 flex-1"></div>
+      {/* Main Card */}
+      <div className="flex-1 flex items-center justify-center px-4 py-10">
+        <div className="w-full max-w-md mx-3 sm:mx-auto">
+          {/* Card */}
+          <div className="bg-white rounded-3xl shadow-xl shadow-orange-100/60 border border-purple-100 overflow-hidden">
+            {/* Card Header */}
+            <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-8 py-6">
+              <h1 className="text-2xl font-extrabold text-white tracking-tight">
+                Đăng nhập
+              </h1>
+              <p className="text-purple-100 text-sm mt-1">
+                Chào mừng trở lại TechMart!
+              </p>
             </div>
 
-            {/* Nút Đăng nhập Google */}
-            <button 
-              onClick={handleGoogleLogin}
-              type="button" 
-              className="w-full flex items-center justify-center gap-3 py-3.5 bg-white border-2 border-gray-200 hover:bg-gray-50 text-gray-700 font-bold rounded-full shadow-sm transition-transform hover:-translate-y-1"
+            {/* Form */}
+            <form
+              onSubmit={handleLogin}
+              className="px-8 py-7 flex flex-col gap-5"
             >
-              {/* Logo Google SVG */}
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
-              </svg>
-              Đăng nhập với Google
-            </button>
+              {error && (
+                <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  {error}
+                </div>
+              )}
 
+              {/* Email */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Email / Tài khoản
+                </label>
+                <div
+                  className="flex items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 gap-3
+                                                focus-within:border-purple-500 focus-within:ring-2 focus-within:ring-purple-100 transition-all"
+                >
+                  <Mail className="w-4 h-4 text-gray-400 shrink-0" />
+                  <input
+                    type="email"
+                    placeholder="example@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="flex-1 bg-transparent outline-none text-sm text-gray-800 placeholder-gray-400"
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Mật khẩu
+                </label>
+                <div
+                  className="flex items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 gap-3
+                                                focus-within:border-purple-500 focus-within:ring-2 focus-within:ring-purple-100 transition-all"
+                >
+                  <Lock className="w-4 h-4 text-gray-400 shrink-0" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Nhập mật khẩu"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="flex-1 bg-transparent outline-none text-sm text-gray-800 placeholder-gray-400"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                    aria-label="Hiện/ẩn mật khẩu"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Forgot password */}
+              <div className="flex justify-end -mt-2">
+                <button
+                  type="button"
+                  className="text-xs text-purple-600 hover:text-purple-700 hover:underline transition-colors"
+                >
+                  Quên mật khẩu?
+                </button>
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800
+                                           text-white font-bold py-3.5 rounded-xl transition-all duration-200 active:scale-95
+                                           shadow-lg shadow-purple-200 uppercase tracking-wider text-sm"
+              >
+                Đăng nhập
+              </button>
+
+              {/* Divider */}
+              <div className="flex items-center gap-3">
+                <div className="flex-1 h-px bg-gray-200" />
+                <span className="text-xs text-gray-400 font-medium">HOẶC</span>
+                <div className="flex-1 h-px bg-gray-200" />
+              </div>
+
+              {/* Social Login */}
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  className="flex-1 flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-3
+                                               hover:bg-blue-50 hover:border-blue-300 transition-all text-sm font-semibold text-gray-600"
+                >
+                  <svg className="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                  Facebook
+                </button>
+                <button
+                  type="button"
+                  onClick={handleGoogleLogin}
+                  className="flex-1 flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-3
+                                               hover:bg-red-50 hover:border-red-200 transition-all text-sm font-semibold text-gray-600"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24">
+                    <path
+                      fill="#EA4335"
+                      d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.27 0 3.198 2.698 1.24 6.65l4.026 3.115z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M16.04 18.013c-1.09.733-2.463 1.078-4.04 1.078a7.077 7.077 0 0 1-6.723-4.823l-4.04 3.067A11.965 11.965 0 0 0 12 24c2.933 0 5.735-1.043 7.834-3l-3.793-2.987z"
+                    />
+                    <path
+                      fill="#4A90D9"
+                      d="M19.834 21c2.195-2.048 3.62-5.096 3.62-9 0-.71-.109-1.473-.272-2.182H12v4.637h6.436c-.317 1.559-1.17 2.766-2.395 3.558L19.834 21z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M5.277 14.268A7.12 7.12 0 0 1 4.909 12c0-.782.125-1.533.357-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.445 3.73 1.237 5.335l4.04-3.067z"
+                    />
+                  </svg>
+                  Google
+                </button>
+              </div>
+            </form>
           </div>
+
+          {/* Register Link */}
+          <p className="text-center mt-5 text-sm text-gray-600">
+            Chưa có tài khoản?{" "}
+            <button
+              onClick={() => navigate("/register")}
+              className="text-purple-600 font-bold hover:text-purple-700 hover:underline transition-colors"
+            >
+              Đăng ký ngay
+            </button>
+          </p>
         </div>
       </div>
     </div>
   );
 };
+

@@ -1,0 +1,17 @@
+POST http://localhost:5000/api/products/upload-image
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="ma_san_pham"
+
+1
+------WebKitFormBoundary
+Content-Disposition: form-data; name="thu_tu"
+
+1
+------WebKitFormBoundary
+Content-Disposition: form-data; name="image"; filename="iphone.png"
+Content-Type: image/png
+
+< "C:\Users\Hi\Documents\Techmart-multi-branch-ecommerce\backend\images.png"
+------WebKitFormBoundary--
