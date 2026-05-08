@@ -44,6 +44,52 @@ variable "google_client_secret" {
   sensitive   = true
 }
 
+
+variable "gemini_api_key" {
+  description = "Gemini API Key"
+  sensitive   = true
+}
+
+variable "jwt_secret" {
+  description = "JWT Secret"
+  sensitive   = true
+}
+
+variable "vnp_tmn_code" {
+  description = "VNPay TMN Code"
+  sensitive   = true
+}
+
+variable "vnp_hash_secret" {
+  description = "VNPay Hash Secret"
+  sensitive   = true
+}
+
+variable "momo_partner_code" {
+  description = "Momo Partner Code"
+  sensitive   = true
+}
+
+variable "momo_access_key" {
+  description = "Momo Access Key"
+  sensitive   = true
+}
+
+variable "momo_secret_key" {
+  description = "Momo Secret Key"
+  sensitive   = true
+}
+
+variable "zalopay_key1" {
+  description = "ZaloPay Key 1"
+  sensitive   = true
+}
+
+variable "zalopay_key2" {
+  description = "ZaloPay Key 2"
+  sensitive   = true
+}
+
 data "aws_availability_zones" "available" {
   state = "available"
 }
@@ -131,3 +177,4 @@ resource "aws_route_table_association" "public_2" {
   subnet_id      = aws_subnet.public_2.id
   route_table_id = aws_route_table.public.id
 }
+

@@ -30,7 +30,7 @@ export const ProductGallery = ({images}: Props) => {
                 <img 
                     src={selectedImage.url} 
                     alt="Product"
-                    className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" 
+                    className="w-full h-full object-contain mix-blend-multiply" 
                 />
             </div>
             {images && images.length > 1 && (
