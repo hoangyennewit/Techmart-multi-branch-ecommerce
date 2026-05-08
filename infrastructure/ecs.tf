@@ -112,6 +112,10 @@ resource "aws_ecs_task_definition" "backend" {
         {
           name  = "ZALOPAY_CALLBACK_URL"
           value = "https://api.techmartvn.xyz/api/payments/zalopay/callback"
+        },
+        {
+          name  = "NODE_OPTIONS"
+          value = "--dns-result-order=ipv4first"
         }
       ]
       logConfiguration = {
