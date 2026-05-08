@@ -37,7 +37,7 @@ resource "aws_db_instance" "main" {
   storage_type         = "gp2"
   engine               = "postgres"
   engine_version       = "15"
-  instance_class       = "db.t3.micro"
+  instance_class       = "db.t4g.micro"
   db_name              = "techmart_db"
   username             = var.db_username
   password             = var.db_password
