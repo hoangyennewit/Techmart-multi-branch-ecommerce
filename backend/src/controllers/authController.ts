@@ -45,6 +45,33 @@ export class AuthController {
       res.status(500).json({ error: "Internal server error" });
     }
   };
+
+  public login = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { email, password } = req.body;
+      if (!email || !password) {
+        res.status(400).json({ message: "Vui lòng nhập đầy đủ email và mật khẩu." });
+        return;
+      }
+      const user = await authService.loginWithEmail(email, password);
+      const token = authService.generateToken(user);
+      console.log("✅ Đăng nhập truyền thống thành công user:", user.email);
+
+      res.status(200).json({
+        message: "Đăng nhập thành công",
+        token: token,
+        user: {
+          id: user.id,
+          email: user.email,
+          ho_ten: user.ho_ten,
+          ma_vai_tro: user.ma_vai_tro,
+        }
+      });
+    } catch (error: any) {
+      console.error("❌ Lỗi đăng nhập truyền thống:", error.message);
+      res.status(401).json({ message: error.message || "Đăng nhập thất bại." });
+    }
+  };
 }
 
 export default new AuthController();

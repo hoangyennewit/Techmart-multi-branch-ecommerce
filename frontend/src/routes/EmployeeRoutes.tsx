@@ -6,35 +6,34 @@ import { RoleSelection } from '../features/auth/pages/RoleSelection';
 import { LoginPage } from '../features/auth/pages/LoginPage';
 
 // Admin
-import { AdminDashboard } from '../features/Admin/AdminDashboard';
-import { AdminDispatch } from '../features/Admin/AdminDispatch';
-import { AdminHistory } from '../features/Admin/AdminHistory';
-import { AdminPromo } from '../features/Admin/AdminPromo';
+import { AdminDashboard } from '../features/employee/Admin/AdminDashboard';
+import { AdminDispatch } from '../features/employee/Admin/AdminDispatch';
+import { AdminHistory } from '../features/employee/Admin/AdminHistory';
+import { AdminPromo } from '../features/employee/Admin/AdminPromo';
 
 // Tech
-import { TechAccountManagement } from '../features/Tech/TechAccountManagement';
-import { TechPermissionPage } from '../features/Tech/TechPermissionPage';
-import { TechConfigPage } from '../features/Tech/TechConfigPage';
-import { TechSecurityPage } from '../features/Tech/TechSecurityPage';
+import { TechAccountManagement } from '../features/employee/Tech/TechAccountManagement';
+import { TechPermissionPage } from '../features/employee/Tech/TechPermissionPage';
+import { TechConfigPage } from '../features/employee/Tech/TechConfigPage';
+import { TechSecurityPage } from '../features/employee/Tech/TechSecurityPage';
 
 // Manager
-import { ManagerDashboard } from '../features/Manager/ManagerDashboard';
-import { ManagerHRPage } from '../features/Manager/ManagerHRPage';
-import { ManagerInventoryPage } from '../features/Manager/ManagerInventoryPage';
+import { ManagerDashboard } from '../features/employee/Manager/ManagerDashboard';
+import { ManagerHRPage } from '../features/employee/Manager/ManagerHRPage';
+import { ManagerInventoryPage } from '../features/employee/Manager/ManagerInventoryPage';
 
 // Product
-import { ProductDashboard } from '../features/ProductManager/ProductDashboard';
-import { CategoryDashboard } from '../features/ProductManager/CategoryDashboard';
-import { PromoDashboard } from '../features/PromoManager/PromoDashboard'; // Nhớ check lại đường dẫn này nhé
-import { DispatchDashboard } from '../features/ProductManager/DispatchDashboard';
-import { HistoryDashboard } from '../features/ProductManager/HistoryDashboard';
+import { ProductDashboard } from '../features/employee/ProductManager/ProductDashboard';
+import { CategoryDashboard } from '../features/employee/ProductManager/CategoryDashboard';
+import { PromoDashboard } from '../features/employee/PromoManager/PromoDashboard'; // Nhớ check lại đường dẫn này nhé
+import { DispatchDashboard } from '../features/employee/ProductManager/DispatchDashboard';
+import { HistoryDashboard } from '../features/employee/ProductManager/HistoryDashboard';
 
 // Staff
-import { StaffDashboard } from '../features/Staff/StaffDashboard';
+import { StaffDashboard } from '../features/employee/Staff/StaffDashboard';
 
 export const EmployeeRoutes: RouteObject[] = [
   {
-    path: '/portal',
     children: [
       // Trang chọn vai trò (Lối vào portal)
       { index: true, element: <RoleSelection /> },
