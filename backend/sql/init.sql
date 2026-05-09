@@ -49,8 +49,8 @@ VALUES
 --  ADMIN
 ('Nguyễn Văn Admin', 'admin@shop.vn', 'hashed_admin', NULL, 'local', '0909000001', 'TP.HCM', 1, TRUE),
 
---  GIÁM ĐỐC
-('Trần Quốc Bảo', 'giamdoc@shop.vn', 'hashed_gd', NULL, 'local', '0909000002', 'Hà Nội', 2, TRUE),
+--  GIÁM ĐỐC(123456)
+('Trần Quốc Bảo', 'giamdoc@shop.vn', '$2b$10$9470SLMdtGJl3hFOSaRLtenOahK.HjStP9eTIIDiRNS8jCww329eS', NULL, 'local', '0909000002', 'Hà Nội', 2, TRUE),
 
 -- QUẢN LÝ SẢN PHẨM
 ('Lê Minh Tuấn', 'qlsp@shop.vn', 'hashed_qlsp', NULL, 'local', '0909000003', 'TP.HCM', 3, TRUE),
@@ -62,11 +62,11 @@ VALUES
 ('Nguyễn Thị Hồng', 'cskh1@shop.vn', 'hashed_cskh1', NULL, 'local', '0909000005', 'TP.HCM', 5, TRUE),
 ('Đỗ Văn Nam', 'cskh2@shop.vn', 'hashed_cskh2', NULL, 'local', '0909000006', 'Hà Nội', 5, TRUE),
 
--- NHÂN VIÊN BÁN HÀNG
-('Trần Văn Hùng', 'sale1@shop.vn', 'hashed_sale1', NULL, 'local', '0909000007', 'TP.HCM', 6, TRUE),
-('Lê Thị Mai', 'sale2@shop.vn', 'hashed_sale2', NULL, 'local', '0909000008', 'Cần Thơ', 6, TRUE),
-('Nguyễn Văn Nam', 'sale3@shop.vn', 'hashed_sale3', NULL, 'local', '0911111111', 'TP.HCM', 6, TRUE),
-('Trần Thị Hoa', 'sale4@shop.vn', 'hashed_sale4', NULL, 'local', '0912222222', 'Hà Nội', 6, TRUE),
+-- NHÂN VIÊN BÁN HÀNG (123456)
+('Trần Văn Hùng', 'sale1@shop.vn', '$2b$10$9470SLMdtGJl3hFOSaRLtenOahK.HjStP9eTIIDiRNS8jCww329eS', NULL, 'local', '0909000007', 'TP.HCM', 6, TRUE),
+('Lê Thị Mai', 'sale2@shop.vn', '$2b$10$9470SLMdtGJl3hFOSaRLtenOahK.HjStP9eTIIDiRNS8jCww329eS', NULL, 'local', '0909000008', 'Cần Thơ', 6, TRUE),
+('Nguyễn Văn Nam', 'sale3@shop.vn', '$2b$10$9470SLMdtGJl3hFOSaRLtenOahK.HjStP9eTIIDiRNS8jCww329eS', NULL, 'local', '0911111111', 'TP.HCM', 6, TRUE),
+('Trần Thị Hoa', 'sale4@shop.vn', '$2b$10$9470SLMdtGJl3hFOSaRLtenOahK.HjStP9eTIIDiRNS8jCww329eS', NULL, 'local', '0912222222', 'Hà Nội', 6, TRUE),
 --  NHÂN VIÊN KHO
 ('Phan Quốc Khánh', 'kho1@shop.vn', 'hashed_kho1', NULL, 'local', '0909000009', 'Bình Dương', 7, TRUE),
 ('Nguyễn Văn Tài', 'kho2@shop.vn', 'hashed_kho2', NULL, 'local', '0909000010', 'Long An', 7, TRUE),

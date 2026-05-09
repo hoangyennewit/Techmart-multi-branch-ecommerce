@@ -10,5 +10,6 @@ router.get('/google/callback', passport.authenticate('google', {session: false})
     authController.googleCallback
 );
 router.get("/profile", authenticateToken, authController.getProfile);
+router.post('/login', authController.login); // Đăng nhập bằng email và mật khẩu
 
 export default router;
