@@ -1,9 +1,9 @@
 import { Star, Heart, ShoppingCart, Check } from "lucide-react";
-import { Product, ProductColor } from "../../features/products/types";
+import { Product, ProductColor } from "../../features/customer/products/types";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../features/cart/cartSlice";
+import { addToCart } from "../../features/customer/cart/cartSlice";
 import { useAuth } from "../../features/auth/store/AuthContext";
 import { savePendingCartItem } from "../../utils/redirectStateManager";
 interface ProductProps {

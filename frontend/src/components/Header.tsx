@@ -18,10 +18,10 @@ import { Logo } from "./common/Logo";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { selectCartCount } from "../features/cart/cartSlice";
+import { selectCartCount } from "../features/customer/cart/cartSlice";
 import { useAuth } from "../features/auth/store/AuthContext";
-import { ProductAPI } from "../features/products/api/productApi";
-import type { Product } from "../features/products/types";
+import { ProductAPI } from "../features/customer/products/api/productApi";
+import type { Product } from "../features/customer/products/types";
 
 const navCategories = [
   { name: "Điện thoại", slug: "dien-thoai", Icon: Phone },
