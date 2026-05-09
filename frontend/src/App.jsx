@@ -1,7 +1,7 @@
 import { AppRoutes } from "./routes";
 import { AuthProvider } from "./features/auth/store/AuthContext";
 import { BrowserRouter, useLocation } from "react-router-dom";
-import ChatbotWidget from "./features/chatbot/ChatbotWidget";
+import ChatbotWidget from "./features/customer/chatbot/ChatbotWidget";
 
 const AppContent = () => {
   const location = useLocation();
