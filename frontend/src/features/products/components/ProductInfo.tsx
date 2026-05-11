@@ -101,7 +101,7 @@ export const ProductInfo = ({ product }: Props) => {
 
       {/* Price Block */}
       <div className="flex flex-wrap items-end gap-3 pb-5">
-        <span className="text-3xl lg:text-4xl text-purple-600 font-extrabold tracking-tight">
+        <span className="text-3xl lg:text-4xl text-orange-600 font-extrabold tracking-tight">
           {formatPrice(displayPrice)}
         </span>
         {!!product.originalPrice && product.originalPrice > displayPrice && (
@@ -126,12 +126,12 @@ export const ProductInfo = ({ product }: Props) => {
                 onClick={() => setSelectedVariant(variant.id)}
                 className={`flex flex-col items-center justify-center px-4 py-2 rounded-lg border-2 transition-all min-w-[100px] ${
                   selectedVariant === variant.id
-                    ? "border-purple-600 text-purple-800 bg-purple-50 relative overflow-hidden"
-                    : "border-gray-200 bg-white text-gray-600 hover:border-purple-200"
+                    ? "border-orange-600 text-orange-800 bg-orange-50 relative overflow-hidden"
+                    : "border-gray-200 bg-white text-gray-600 hover:border-orange-200"
                 }`}
               >
                 {selectedVariant === variant.id && (
-                    <div className="absolute top-0 left-0 w-full h-0.5 bg-purple-600"></div>
+                    <div className="absolute top-0 left-0 w-full h-0.5 bg-orange-600"></div>
                 )}
                 <span className="font-bold text-sm">{variant.name}</span>
                 <span className="text-[11px] mt-0.5 font-medium opacity-80">
@@ -147,7 +147,7 @@ export const ProductInfo = ({ product }: Props) => {
       {product.colors && product.colors.length > 0 && (
         <div className="mt-5">
           <p className="font-semibold text-gray-800 text-sm mb-2">
-            Chọn màu để xem giá: <span className="font-bold text-purple-600">{currentColor?.name}</span>
+            Chọn màu để xem giá: <span className="font-bold text-orange-600">{currentColor?.name}</span>
           </p>
           <div className="flex flex-wrap gap-2">
             {product.colors.map((color) => (
@@ -157,12 +157,12 @@ export const ProductInfo = ({ product }: Props) => {
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all 
                                     ${
                                       selectedColor === color.id
-                                        ? "border-purple-600 bg-purple-50 text-purple-800 font-semibold relative overflow-hidden"
-                                        : "border-gray-200 hover:border-purple-200 text-gray-600 bg-white"
+                                        ? "border-orange-600 bg-orange-50 text-orange-800 font-semibold relative overflow-hidden"
+                                        : "border-gray-200 hover:border-orange-200 text-gray-600 bg-white"
                                     }`}
               >
                 {selectedColor === color.id && (
-                    <div className="absolute top-0 left-0 w-full h-0.5 bg-purple-600"></div>
+                    <div className="absolute top-0 left-0 w-full h-0.5 bg-orange-600"></div>
                 )}
                 <span
                   className="w-5 h-5 rounded-full border border-gray-200 shadow-sm"
@@ -201,11 +201,17 @@ export const ProductInfo = ({ product }: Props) => {
       <div className="mt-6 flex flex-col gap-3">
         <button
           disabled={isOutOfStock}
+          onClick={() => {
+              handleAddToCart();
+              if (isAuthenticated) {
+                  navigate("/checkout");
+              }
+          }}
           className={`w-full flex flex-col items-center justify-center py-4 rounded-xl shadow-lg transition-all border-none
                          ${
                            isOutOfStock
                              ? "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
-                             : "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white shadow-red-200 active:scale-95"
+                             : "bg-red-600 hover:bg-red-700 text-white shadow-red-200 active:scale-95"
                          }`}
         >
           <span className="font-black text-xl uppercase">Mua ngay</span>
@@ -217,6 +223,12 @@ export const ProductInfo = ({ product }: Props) => {
         <div className="grid grid-cols-2 gap-3">
             <button
               disabled={isOutOfStock}
+              onClick={() => {
+                  handleAddToCart();
+                  if (isAuthenticated) {
+                      navigate("/checkout");
+                  }
+              }}
               className={`flex flex-col items-center justify-center py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-xl shadow-md shadow-blue-200 transition-all active:scale-95 border-none
                             ${
                               isOutOfStock
@@ -231,7 +243,7 @@ export const ProductInfo = ({ product }: Props) => {
             <button
               onClick={handleAddToCart}
               disabled={isOutOfStock}
-              className={`flex flex-col items-center justify-center py-2 bg-white border border-purple-500 text-purple-600 hover:bg-purple-50 hover:text-purple-700 font-bold rounded-xl shadow-sm transition-all active:scale-95
+              className={`flex flex-col items-center justify-center py-2 bg-white border border-orange-500 text-orange-600 hover:bg-orange-50 hover:text-orange-700 font-bold rounded-xl shadow-sm transition-all active:scale-95
                             ${
                               isOutOfStock
                                 ? "border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50 hover:bg-gray-50"

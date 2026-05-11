@@ -31,7 +31,7 @@ export const Footer = () => {
     return (
         <footer className="bg-[#05020A] text-gray-400 mt-12">
             {/* Top Band */}
-            <div className="bg-gradient-to-r from-purple-600 to-cyan-500 text-white py-4">
+            <div className="bg-orange-500 text-white py-4">
                 <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
                         <Mail className="w-5 h-5 shrink-0" />
@@ -66,7 +66,7 @@ export const Footer = () => {
                             Cam kết hàng chính hãng, bảo hành toàn diện.
                         </p>
                         <div className="flex items-center gap-2 text-sm text-gray-400">
-                            <MapPin className="w-4 h-4 text-purple-400 shrink-0" />
+                            <MapPin className="w-4 h-4 text-orange-400 shrink-0" />
                             <span>123 Nguyễn Văn Linh, Q.7, TP.HCM</span>
                         </div>
                         {/* Social Icons */}
@@ -97,9 +97,9 @@ export const Footer = () => {
                                 {links.map((link) => (
                                     <li key={link}>
                                         <button
-                                            className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-purple-400 transition-colors group"
+                                            className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-400 transition-colors group"
                                         >
-                                            <ChevronRight className="w-3.5 h-3.5 text-gray-600 group-hover:text-purple-400 transition-colors" />
+                                            <ChevronRight className="w-3.5 h-3.5 text-gray-600 group-hover:text-orange-400 transition-colors" />
                                             {link}
                                         </button>
                                     </li>
