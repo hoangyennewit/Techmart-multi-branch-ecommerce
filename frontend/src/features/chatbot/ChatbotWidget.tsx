@@ -40,9 +40,9 @@ const ChatbotWidget = () => {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Cửa sổ chat */}
       {isOpen && (
-        <div className="mb-4 w-[350px] h-[450px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-purple-100 transition-all duration-300 transform origin-bottom-right">
+        <div className="mb-4 w-[350px] h-[450px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-orange-100 transition-all duration-300 transform origin-bottom-right">
           {/* Header với hiệu ứng Gradient */}
-          <div className="bg-gradient-to-r from-purple-700 to-indigo-600 text-white px-4 py-3 flex justify-between items-center shadow-md z-10">
+          <div className="bg-orange-500 text-white px-4 py-3 flex justify-between items-center shadow-md z-10">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               <span className="font-semibold tracking-wide">TechStore AI</span>
@@ -71,7 +71,7 @@ const ChatbotWidget = () => {
                 <div 
                   className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-[15px] leading-relaxed shadow-sm ${
                     msg.role === "user"
-                      ? "bg-gradient-to-br from-purple-600 to-indigo-500 text-white rounded-br-sm"
+                      ? "bg-orange-500 text-white rounded-br-sm"
                       : "bg-white text-gray-800 border border-gray-100 rounded-bl-sm"
                   }`}
                 >
@@ -82,8 +82,8 @@ const ChatbotWidget = () => {
                     <div className="markdown-body space-y-2">
                       <ReactMarkdown 
                         components={{
-                          h3: ({node, ...props}) => <h3 className="text-base font-bold text-purple-700 mt-3 mb-1" {...props} />,
-                          strong: ({node, ...props}) => <strong className="font-semibold text-purple-900" {...props} />,
+                          h3: ({node, ...props}) => <h3 className="text-base font-bold text-orange-700 mt-3 mb-1" {...props} />,
+                          strong: ({node, ...props}) => <strong className="font-semibold text-orange-900" {...props} />,
                           ul: ({node, ...props}) => <ul className="list-disc pl-5 space-y-1 my-2" {...props} />,
                           p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
                         }}
@@ -100,9 +100,9 @@ const ChatbotWidget = () => {
             {loading && (
               <div className="flex justify-start">
                 <div className="bg-white border border-gray-100 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm flex gap-1.5 items-center">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                  <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                 </div>
               </div>
             )}
@@ -113,7 +113,7 @@ const ChatbotWidget = () => {
           {/* Khu vực nhập tin nhắn */}
           <div className="p-3 bg-white border-t border-gray-100 flex gap-2 items-end shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)]">
             <input
-              className="flex-1 bg-gray-100 rounded-xl px-4 py-2.5 text-[15px] focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:bg-white transition-all"
+              className="flex-1 bg-gray-100 rounded-xl px-4 py-2.5 text-[15px] focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:bg-white transition-all"
               placeholder="Nhập câu hỏi của bạn..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -122,7 +122,7 @@ const ChatbotWidget = () => {
             <button
               onClick={handleSend}
               disabled={!input.trim() || loading}
-              className="bg-purple-600 text-white p-2.5 rounded-xl hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center w-11 h-11"
+              className="bg-orange-600 text-white p-2.5 rounded-xl hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center w-11 h-11"
             >
               {/* Icon Gửi */}
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 translate-x-0.5">
@@ -136,7 +136,7 @@ const ChatbotWidget = () => {
       {/* Nút Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white w-14 h-14 rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center text-2xl transition-all hover:scale-105 active:scale-95"
+        className="bg-orange-500 hover:from-orange-700 hover:to-indigo-700 text-white w-14 h-14 rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center text-2xl transition-all hover:scale-105 active:scale-95"
       >
         {isOpen ? "✕" : "💬"}
       </button>

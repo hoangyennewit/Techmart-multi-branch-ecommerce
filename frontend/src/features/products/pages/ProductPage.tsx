@@ -1,5 +1,6 @@
 import {useParams, Link} from "react-router-dom";
 import {Header} from "../../../components/Header";
+import {Footer} from "../../../components/Footer";
 import {ProductSpecs} from "../components/ProductSpecs";
 import {ProductComments} from "../components/ProductComments/ProductComments";
 import { ProductGallery } from "../components/ProductGallery/ProductGallery";
@@ -38,7 +39,7 @@ export const ProductPage = () => {
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-12 h-12 border-4 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
                     <p className="text-gray-500 font-medium">Đang tải thông tin sản phẩm...</p>
                 </div>
             </div>
@@ -61,7 +62,7 @@ export const ProductPage = () => {
                     <nav className="flex text-sm text-gray-500" aria-label="Breadcrumb">
                         <ol className="inline-flex items-center space-x-1 md:space-x-2">
                             <li className="inline-flex items-center">
-                                <Link to="/" className="inline-flex items-center hover:text-purple-600 transition-colors">
+                                <Link to="/" className="inline-flex items-center hover:text-orange-600 transition-colors">
                                     <Home className="w-4 h-4 mr-1.5" />
                                     Trang chủ
                                 </Link>
@@ -69,7 +70,7 @@ export const ProductPage = () => {
                             <li>
                                 <div className="flex items-center">
                                     <ChevronRight className="w-4 h-4 mx-1" />
-                                    <Link to="/products" className="hover:text-purple-600 transition-colors">
+                                    <Link to="/products" className="hover:text-orange-600 transition-colors">
                                         Sản phẩm
                                     </Link>
                                 </div>
@@ -152,6 +153,8 @@ export const ProductPage = () => {
                     </div>
                 </div>
             </div>
+            
+            <Footer />
         </div>
     );
 };
