@@ -34,7 +34,7 @@ export class AuthService {
 
     public generateToken = (user: any) => {
         const token = jwt.sign(
-            { id: user.id, email: user.email },
+            { id: user.id, email: user.email, ma_vai_tro: user.ma_vai_tro },
             process.env.JWT_SECRET || "your-secret-key-change-in-prod",
             { expiresIn: "7d" },
         );
