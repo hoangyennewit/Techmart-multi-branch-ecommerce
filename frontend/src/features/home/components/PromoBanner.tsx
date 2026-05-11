@@ -43,7 +43,7 @@ export const PromoBanner = ({ products }: Props) => {
                             <div
                                 className="relative flex items-center justify-between overflow-hidden"
                                 style={{
-                                    background: `linear-gradient(135deg, ${style.bgFrom} 0%, ${style.bgTo} 100%)`,
+                                    backgroundColor: style.bgFrom,
                                     minHeight: "clamp(200px, 35vw, 300px)",
                                 }}
                             >
@@ -51,7 +51,7 @@ export const PromoBanner = ({ products }: Props) => {
                                 <div
                                     className="absolute inset-0 opacity-20"
                                     style={{
-                                        backgroundImage: "radial-gradient(circle at 30% 50%, #a855f7 0%, transparent 60%)",
+                                        backgroundColor: "transparent",
                                     }}
                                 />
 
@@ -71,14 +71,14 @@ export const PromoBanner = ({ products }: Props) => {
                                 {/* Text Content - Right Side */}
                                 <div className="relative z-10 flex flex-col gap-2 sm:gap-3 text-white px-5 sm:px-8 lg:px-12 py-6 sm:py-8 max-w-[50%] sm:max-w-lg">
                                     {(product.discount ?? 0) > 0 && (
-                                        <span className="inline-block w-fit px-3 py-1 bg-purple-600 text-white text-[9px] sm:text-[11px] font-bold rounded-full uppercase tracking-wider">
+                                        <span className="inline-block w-fit px-3 py-1 bg-orange-600 text-white text-[9px] sm:text-[11px] font-bold rounded-full uppercase tracking-wider">
                                             GIẢM {product.discount}%
                                         </span>
                                     )}
                                     <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
                                         {product.name}
                                     </h2>
-                                    <p className="text-purple-300 font-semibold text-sm sm:text-lg">
+                                    <p className="text-orange-300 font-semibold text-sm sm:text-lg">
                                         Nâng tầm cuộc sống số
                                     </p>
                                     <p className="text-white font-bold text-base sm:text-xl">
@@ -87,10 +87,10 @@ export const PromoBanner = ({ products }: Props) => {
                                     <button
                                         onClick={() => navigate(`/products/${product.id}`)}
                                         className="mt-2 w-fit inline-flex items-center gap-1.5
-                                                bg-purple-600 hover:bg-purple-500 active:scale-95 text-white
+                                                bg-orange-600 hover:bg-orange-500 active:scale-95 text-white
                                                 font-bold px-6 py-2.5 sm:px-8 sm:py-3 rounded-full
                                                 text-xs sm:text-sm uppercase tracking-wider
-                                                transition-all shadow-lg shadow-purple-600/40"
+                                                transition-all shadow-lg shadow-orange-600/40"
                                     >
                                         Mua ngay
                                     </button>

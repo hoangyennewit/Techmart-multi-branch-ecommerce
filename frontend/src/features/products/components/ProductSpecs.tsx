@@ -36,7 +36,7 @@ export const ProductSpecs = ({product}: Props) => {
                 <div className="p-3 bg-white border-t border-gray-100 flex justify-center">
                     <button 
                         onClick={() => setIsExpanded(!isExpanded)}
-                        className="text-sm font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1 transition-colors"
+                        className="text-sm font-medium text-orange-600 hover:text-orange-700 flex items-center gap-1 transition-colors"
                     >
                         {isExpanded ? (
                             <>Thu gọn <ChevronUp className="w-4 h-4" /></>

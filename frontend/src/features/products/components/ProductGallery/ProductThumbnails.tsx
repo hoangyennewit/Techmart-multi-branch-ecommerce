@@ -15,8 +15,8 @@ export const ProductThumbnails = ({images, selectedImage, onSelectedImage}: Prop
                         onClick={() => onSelectedImage(img)}
                         className={`shrink-0 w-16 h-16 rounded-xl overflow-hidden border-2 transition-all ${
                             img.id === selectedImage.id 
-                                ? "border-purple-600 ring-2 ring-purple-200 ring-offset-1" 
-                                : "border-transparent hover:border-purple-300"
+                                ? "border-orange-600 ring-2 ring-orange-200 ring-offset-1" 
+                                : "border-transparent hover:border-orange-300"
                         }`}
                     >
                         <img
