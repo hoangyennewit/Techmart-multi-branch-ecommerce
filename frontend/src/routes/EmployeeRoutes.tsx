@@ -1,10 +1,6 @@
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
 
-// --- IMPORT TOÀN BỘ CÁC TRANG CỦA BẠN VÀO ĐÂY ---
-import { RoleSelection } from '../features/auth/pages/RoleSelection';
-import { LoginPage } from '../features/auth/pages/LoginPage';
-
 // Admin
 import { AdminDashboard } from '../features/employee/Admin/AdminDashboard';
 import { AdminDispatch } from '../features/employee/Admin/AdminDispatch';
@@ -35,9 +31,6 @@ import { StaffDashboard } from '../features/employee/Staff/StaffDashboard';
 export const EmployeeRoutes: RouteObject[] = [
   {
     children: [
-      // Trang chọn vai trò (Lối vào portal)
-      { index: true, element: <RoleSelection /> },
-
       // LUỒNG GIÁM ĐỐC (Admin)
       {
         path: 'admin',
