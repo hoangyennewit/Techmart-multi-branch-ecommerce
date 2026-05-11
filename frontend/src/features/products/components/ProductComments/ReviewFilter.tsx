@@ -25,8 +25,8 @@ export default function ReviewFilter({ activeFilter, onFilterChange, totalReview
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border
                         ${
                             activeFilter === filter.value
-                                ? "bg-orange-50 border-orange-600 text-orange-700 ring-1 ring-orange-600 shadow-sm"
-                                : "bg-white border-gray-200 text-gray-600 hover:border-orange-300 hover:text-orange-600"
+                                ? "bg-purple-50 border-purple-600 text-purple-700 ring-1 ring-purple-600 shadow-sm"
+                                : "bg-white border-gray-200 text-gray-600 hover:border-purple-300 hover:text-purple-600"
                         }
                     `}
                 >
