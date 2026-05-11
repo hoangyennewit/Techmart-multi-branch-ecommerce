@@ -135,11 +135,6 @@ export class PaymentController {
         });
       }
     } catch (error: any) {
-      // ✅ THÊM LOG CHI TIẾT
-      console.error("===== ZALOPAY ERROR =====");
-      console.error("MESSAGE:", error.message);
-      console.error("STACK:", error.stack);
-      console.error("DETAIL:", JSON.stringify(error, null, 2));
       res.status(500).json({ success: false, message: "Lỗi hệ thống khi tạo đơn hàng ZaloPay" });
     }
   };
@@ -247,6 +242,28 @@ export class PaymentController {
         success: false,
         message: "Lỗi khi lấy trạng thái thanh toán",
       });
+    }
+  };
+
+  public zaloPayReturn = async (req: Request, res: Response): Promise<void> => {
+    try {
+      console.log("===== ZALOPAY RETURN =====");
+      
+      const result = await this.zalopayService.processReturn(req.query);
+      
+      const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
+      if (result.success) {
+        // Cập nhật thành công -> Chuyển hướng về trang Orders
+        res.redirect(`${frontendUrl}/orders`);
+      } else {
+        // Thất bại -> Chuyển hướng về trang Cart hoặc báo lỗi
+        res.redirect(`${frontendUrl}/cart?error=payment_failed`);
+      }
+    } catch (error) {
+      console.error("Error handling ZaloPay return:", error);
+      const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+      res.redirect(`${frontendUrl}/cart?error=server_error`);
     }
   };
 }

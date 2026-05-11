@@ -31,4 +31,9 @@ router.post(
   paymentController.handleZaloPayCallback
 );
 
+router.get(
+  "/zalopay/return",
+  paymentController.zaloPayReturn
+);
+
 export default router;
