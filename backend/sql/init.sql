@@ -3,7 +3,7 @@ DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 -- ENUM
 CREATE TYPE trang_thai_don_hang AS ENUM (
-    'cho_duyet',
+    'cho_xac_nhan',
     'da_xac_nhan',
     'dang_giao',
     'hoan_thanh',
@@ -424,7 +424,7 @@ VALUES
 -- iPhone 16
 (1, 'https://res.cloudinary.com/dmr9jblyy/image/upload/v1776412967/products/iphone16_128GB_1776412965267.jpg', 1),
 (2, 'https://res.cloudinary.com/dmr9jblyy/image/upload/v1776412967/products/iphone16_256GB_1776412965267.jpg', 1),
-(3, 'https://res.cloudinary.com/dmr9jblyy/image/upload/v1776412967/products/iphone16_512GB_1776412965267.jpg', 1),
+(3, 'https://res.cloudinary.com/dmr9jblyy/image/upload/v1776412967/products/iphone16_512GB_1776412965267.jpg', 1);
 
 
  
@@ -508,7 +508,7 @@ CREATE TABLE don_hang (
             'cho_xac_nhan',
             'da_xac_nhan',
             'dang_giao',
-            'da_giao',
+            'hoan_thanh',
             'da_huy'
         )),
 
@@ -520,7 +520,7 @@ VALUES
 (11, 19000000, 'cho_xac_nhan'),
 (12, 36000000, 'da_xac_nhan'),
 (13, 28000000, 'dang_giao'),
-(14, 9000000, 'da_giao'),
+(14, 9000000, 'hoan_thanh'),
 (15, 15000000, 'da_huy');
 
 -- 11 CHI TIẾT ĐƠN

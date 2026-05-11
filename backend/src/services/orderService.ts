@@ -18,7 +18,6 @@ export class OrderService {
       totalAmount,
       shippingFee,
       shippingInfo,
-      paymentMethod,
       userId,
     } = orderData;
     const tongTien = totalAmount + shippingFee;
