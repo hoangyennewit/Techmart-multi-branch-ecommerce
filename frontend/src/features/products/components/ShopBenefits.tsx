@@ -15,7 +15,7 @@ export const ShopBenefits = () => {
                     </div>
                 </div>
                 <div className="flex items-start gap-3">
-                    <ArrowLeftRight className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+                    <ArrowLeftRight className="w-5 h-5 text-purple-500 shrink-0 mt-0.5" />
                     <div>
                         <p className="font-medium text-gray-800 text-sm">1 đổi 1 trong 30 ngày</p>
                         <p className="text-xs text-gray-500 mt-0.5">Nếu có lỗi phần cứng từ nhà sản xuất</p>

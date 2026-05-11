@@ -41,10 +41,10 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-orange-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-100 flex flex-col">
       {/* Top bar with logo */}
       <div
-        className="flex items-center justify-center py-5 border-b border-orange-100 bg-white/80 backdrop-blur-sm cursor-pointer"
+        className="flex items-center justify-center py-5 border-b border-purple-100 bg-white/80 backdrop-blur-sm cursor-pointer"
         onClick={() => navigate("/")}
       >
         <Logo />
@@ -54,13 +54,13 @@ export const LoginPage = () => {
       <div className="flex-1 flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-md mx-3 sm:mx-auto">
           {/* Card */}
-          <div className="bg-white rounded-3xl shadow-xl shadow-orange-100/60 border border-orange-100 overflow-hidden">
+          <div className="bg-white rounded-3xl shadow-xl shadow-orange-100/60 border border-purple-100 overflow-hidden">
             {/* Card Header */}
-            <div className="bg-orange-500 px-8 py-6">
+            <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-8 py-6">
               <h1 className="text-2xl font-extrabold text-white tracking-tight">
                 Đăng nhập
               </h1>
-              <p className="text-orange-100 text-sm mt-1">
+              <p className="text-purple-100 text-sm mt-1">
                 Chào mừng trở lại TechMart!
               </p>
             </div>
@@ -84,7 +84,7 @@ export const LoginPage = () => {
                 </label>
                 <div
                   className="flex items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 gap-3
-                                                focus-within:border-orange-500 focus-within:ring-2 focus-within:ring-orange-100 transition-all"
+                                                focus-within:border-purple-500 focus-within:ring-2 focus-within:ring-purple-100 transition-all"
                 >
                   <Mail className="w-4 h-4 text-gray-400 shrink-0" />
                   <input
@@ -104,7 +104,7 @@ export const LoginPage = () => {
                 </label>
                 <div
                   className="flex items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 gap-3
-                                                focus-within:border-orange-500 focus-within:ring-2 focus-within:ring-orange-100 transition-all"
+                                                focus-within:border-purple-500 focus-within:ring-2 focus-within:ring-purple-100 transition-all"
                 >
                   <Lock className="w-4 h-4 text-gray-400 shrink-0" />
                   <input
@@ -133,7 +133,7 @@ export const LoginPage = () => {
               <div className="flex justify-end -mt-2">
                 <button
                   type="button"
-                  className="text-xs text-orange-600 hover:text-orange-700 hover:underline transition-colors"
+                  className="text-xs text-purple-600 hover:text-purple-700 hover:underline transition-colors"
                 >
                   Quên mật khẩu?
                 </button>
@@ -142,9 +142,9 @@ export const LoginPage = () => {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full bg-orange-500 hover:from-orange-700 hover:to-orange-800
+                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800
                                            text-white font-bold py-3.5 rounded-xl transition-all duration-200 active:scale-95
-                                           shadow-lg shadow-orange-200 uppercase tracking-wider text-sm"
+                                           shadow-lg shadow-purple-200 uppercase tracking-wider text-sm"
               >
                 Đăng nhập
               </button>
@@ -203,7 +203,7 @@ export const LoginPage = () => {
             Chưa có tài khoản?{" "}
             <button
               onClick={() => navigate("/register")}
-              className="text-orange-600 font-bold hover:text-orange-700 hover:underline transition-colors"
+              className="text-purple-600 font-bold hover:text-purple-700 hover:underline transition-colors"
             >
               Đăng ký ngay
             </button>

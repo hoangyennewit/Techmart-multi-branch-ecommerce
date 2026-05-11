@@ -58,7 +58,7 @@ export const OrderSummary = ({ items, total, shippingFee, grandTotal, formId }: 
 
             <div className="py-5 flex justify-between items-center">
                 <span className="font-bold text-gray-800 text-base">Tổng cộng</span>
-                <span className="text-2xl font-black text-orange-600">
+                <span className="text-2xl font-black text-purple-600">
                     {formatPrice(grandTotal)}
                 </span>
             </div>
@@ -67,7 +67,7 @@ export const OrderSummary = ({ items, total, shippingFee, grandTotal, formId }: 
             <button
                 type="submit"
                 form={formId} 
-                className="w-full bg-orange-600 hover:bg-orange-700 active:scale-95 text-white font-bold py-4 rounded-2xl text-lg uppercase tracking-wide shadow-lg shadow-orange-200 transition-all duration-150 flex justify-center items-center gap-2"
+                className="w-full bg-purple-600 hover:bg-purple-700 active:scale-95 text-white font-bold py-4 rounded-2xl text-lg uppercase tracking-wide shadow-lg shadow-purple-200 transition-all duration-150 flex justify-center items-center gap-2"
             >
                 Đặt hàng
                 <ArrowLeft className="w-5 h-5 rotate-180" />
