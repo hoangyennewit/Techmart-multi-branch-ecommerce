@@ -72,7 +72,7 @@ export const SearchResultsPage = () => {
         {loading ? (
           <div className="flex justify-center items-center py-16">
             <div className="animate-spin">
-              <div className="w-12 h-12 border-4 border-orange-200 border-t-orange-600 rounded-full"></div>
+              <div className="w-12 h-12 border-4 border-purple-200 border-t-purple-600 rounded-full"></div>
             </div>
             <span className="ml-3 text-gray-600">Đang tìm kiếm...</span>
           </div>
@@ -88,7 +88,7 @@ export const SearchResultsPage = () => {
             <div className="flex gap-3">
               <button
                 onClick={() => navigate("/")}
-                className="px-6 py-2.5 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-colors"
+                className="px-6 py-2.5 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
               >
                 Về trang chủ
               </button>

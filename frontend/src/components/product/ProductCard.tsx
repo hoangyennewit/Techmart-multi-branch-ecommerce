@@ -65,7 +65,7 @@ export const ProductCard = ({ product }: ProductProps) => {
   return (
     <article
       className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100
-                       shadow-sm hover:shadow-orange-500/20 hover:border-orange-500 transition-all duration-300 hover:-translate-y-1
+                       shadow-sm hover:shadow-purple-500/20 hover:border-purple-500 transition-all duration-300 hover:-translate-y-1
                        cursor-pointer flex flex-col"
       onClick={() => navigate(`/products/${product.id}`)}
       onKeyDown={(e) =>
@@ -118,7 +118,7 @@ export const ProductCard = ({ product }: ProductProps) => {
         {/* Product Name */}
         <h4
           className="text-sm font-semibold text-gray-800 leading-tight
-                               line-clamp-2 group-hover:text-orange-400 transition-colors duration-200"
+                               line-clamp-2 group-hover:text-purple-400 transition-colors duration-200"
         >
           {product.name}
         </h4>
@@ -140,7 +140,7 @@ export const ProductCard = ({ product }: ProductProps) => {
 
         {/* Price */}
         <div className="flex flex-col gap-0.5 mt-auto">
-          <span className="text-orange-400 font-bold text-lg leading-tight">
+          <span className="text-purple-400 font-bold text-lg leading-tight">
             {formatVND(product.price)}
           </span>
           {/* Kiểm tra originalPrice tồn tại mới hiển thị */}
@@ -165,7 +165,7 @@ export const ProductCard = ({ product }: ProductProps) => {
               className={`w-6 h-6 rounded-full border-2 transition-all duration-150 hover:scale-110
                                 ${
                                   selectedColor?.id === color.id
-                                    ? "border-orange-500 scale-110 shadow-lg shadow-orange-500/50"
+                                    ? "border-purple-500 scale-110 shadow-lg shadow-purple-500/50"
                                     : "border-gray-200"
                                 }`}
               style={{ backgroundColor: color.hex }}
@@ -181,7 +181,7 @@ export const ProductCard = ({ product }: ProductProps) => {
                                ${
                                  added
                                    ? "bg-green-500 text-white border-green-500 border"
-                                   : "bg-orange-50 text-orange-600 border border-orange-200 hover:bg-orange-600 hover:text-white hover:border-orange-600"
+                                   : "bg-purple-50 text-purple-600 border border-purple-200 hover:bg-purple-600 hover:text-white hover:border-purple-600"
                                }`}
           aria-label="Thêm vào giỏ hàng"
         >

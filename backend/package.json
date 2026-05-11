@@ -14,7 +14,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@scalar/express-api-reference": "^0.9.6",
-    "axios": "^1.16.0",
+    "axios": "^1.15.2",
     "cloudinary": "^1.41.3",
     "cors": "^2.8.6",
     "crypto-js": "^4.2.0",
