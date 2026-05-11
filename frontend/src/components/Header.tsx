@@ -111,7 +111,7 @@ export const Header = () => {
 
   return (
     <>
-      <header className="w-full bg-gradient-to-r from-[#1a1a3e] to-[#2d1b4e] shadow-lg sticky top-0 z-50">
+      <header className="w-full bg-orange-950 shadow-lg sticky top-0 z-50">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
           {/* Top Navigation Bar */}
           <div className="flex items-center justify-between py-4">
@@ -277,7 +277,7 @@ export const Header = () => {
 
         {/* Mobile Search Bar dropdown */}
         {searchOpen && (
-          <div className="md:hidden px-4 py-3 border-t border-white/10 bg-gradient-to-r from-[#1a1a3e] to-[#2d1b4e] animate-[slideDown_0.15s_ease-out]">
+          <div className="md:hidden px-4 py-3 border-t border-white/10 bg-orange-950 animate-[slideDown_0.15s_ease-out]">
             <div
               className="flex items-center w-full bg-white rounded-full px-4 py-2 gap-2
                                         focus-within:ring-2 focus-within:ring-orange-300 transition-all"
@@ -345,7 +345,7 @@ export const Header = () => {
                              ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-[#1a1a3e] to-[#2d1b4e]">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-orange-950">
           <span className="text-white font-bold text-base">Danh mục</span>
           <button
             onClick={() => setMenuOpen(false)}

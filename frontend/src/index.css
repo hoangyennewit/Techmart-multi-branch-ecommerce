@@ -4,7 +4,7 @@
 @theme {
   --color-techmart-bg: #0B0515;
   --color-techmart-surface: #1A122E;
-  --color-techmart-primary: #A855F7;
+  --color-techmart-primary: #F97316;
   --color-techmart-secondary: #22D3EE;
 }
 
@@ -32,12 +32,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #A855F7;
+  background: #F97316;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9333EA;
+  background: #EA580C;
 }
 
 /* Swiper custom styles */

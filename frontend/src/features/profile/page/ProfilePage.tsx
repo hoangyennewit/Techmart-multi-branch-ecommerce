@@ -21,7 +21,7 @@ export const ProfilePage = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <Loader2 className="w-10 h-10 text-purple-600 animate-spin" />
+        <Loader2 className="w-10 h-10 text-orange-600 animate-spin" />
       </div>
     );
   }
@@ -47,20 +47,20 @@ export const ProfilePage = () => {
           {/* SIDEBAR */}
           <aside className="w-full md:w-1/3 lg:w-1/4 flex">
             <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden flex-1">
-              <div className="p-8 text-center border-b border-gray-50 bg-gradient-to-b from-purple-50/30 to-transparent">
+              <div className="p-8 text-center border-b border-gray-50 bg-orange-50/30">
                 <div className="relative inline-block group">
                   <img 
                     src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.ho_ten)}&background=6D28D9&color=fff&size=128`} 
                     alt="Avatar" 
                     className="w-24 h-24 rounded-3xl shadow-inner object-cover border-4 border-white"
                   />
-                  <div className="absolute -bottom-1 -right-1 bg-white p-2 rounded-2xl shadow-lg border border-gray-100 text-purple-600 cursor-pointer hover:bg-purple-600 hover:text-white transition-all">
+                  <div className="absolute -bottom-1 -right-1 bg-white p-2 rounded-2xl shadow-lg border border-gray-100 text-orange-600 cursor-pointer hover:bg-orange-600 hover:text-white transition-all">
                     <Camera size={16} />
                   </div>
                 </div>
                 <h3 className="mt-4 font-bold text-gray-900 text-lg leading-tight">{user.ho_ten}</h3>
                 <div className="mt-1 flex items-center justify-center gap-1">
-                  <span className="px-2 py-0.5 bg-purple-100 text-purple-700 text-[10px] font-bold uppercase rounded-md tracking-wider">
+                  <span className="px-2 py-0.5 bg-orange-100 text-orange-700 text-[10px] font-bold uppercase rounded-md tracking-wider">
                     {user.ma_vai_tro === 1 ? "Quản trị viên" : "Thành viên"}
                   </span>
                 </div>
@@ -73,8 +73,8 @@ export const ProfilePage = () => {
                     onClick={() => setActiveTab(item.id)}
                     className={`w-full flex items-center gap-3 px-4 py-3.5 text-sm font-semibold rounded-2xl transition-all mb-1 ${
                       activeTab === item.id 
-                        ? "bg-purple-600 text-white shadow-lg shadow-purple-200 translate-x-1" 
-                        : "text-gray-600 hover:bg-purple-50 hover:text-purple-700"
+                        ? "bg-orange-600 text-white shadow-lg shadow-orange-200 translate-x-1" 
+                        : "text-gray-600 hover:bg-orange-50 hover:text-orange-700"
                     }`}
                   >
                     {item.icon}
@@ -111,7 +111,7 @@ export const ProfilePage = () => {
                         <input 
                           type="text" 
                           defaultValue={user.ho_ten} 
-                          className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-purple-600 focus:bg-white outline-none transition-all shadow-sm" 
+                          className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-orange-600 focus:bg-white outline-none transition-all shadow-sm" 
                         />
                       </div>
                       <div className="space-y-2">
@@ -120,7 +120,7 @@ export const ProfilePage = () => {
                           type="text" 
                           defaultValue={user.so_dien_thoai || ""} 
                           placeholder="Chưa cập nhật số điện thoại"
-                          className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-purple-600 focus:bg-white outline-none transition-all shadow-sm placeholder:text-gray-300" 
+                          className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-orange-600 focus:bg-white outline-none transition-all shadow-sm placeholder:text-gray-300" 
                         />
                       </div>
                     </div>
@@ -141,14 +141,14 @@ export const ProfilePage = () => {
                         rows={3}
                         defaultValue={user.dia_chi || ""} 
                         placeholder="Nhập địa chỉ của bạn để Techmart giao hàng nhanh nhất"
-                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-purple-600 focus:bg-white outline-none transition-all shadow-sm placeholder:text-gray-300 resize-none" 
+                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-orange-600 focus:bg-white outline-none transition-all shadow-sm placeholder:text-gray-300 resize-none" 
                       />
                     </div>
 
                     <div className="pt-6 border-t border-gray-50">
                       <button 
                         type="button"
-                        className="w-full sm:w-auto px-12 py-4 bg-purple-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-purple-700 shadow-xl shadow-purple-200 transition-all hover:-translate-y-1 active:translate-y-0"
+                        className="w-full sm:w-auto px-12 py-4 bg-orange-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-orange-700 shadow-xl shadow-orange-200 transition-all hover:-translate-y-1 active:translate-y-0"
                       >
                         Cập nhật hồ sơ
                       </button>

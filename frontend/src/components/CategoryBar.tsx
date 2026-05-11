@@ -26,7 +26,7 @@ export const CategoryBar = () => {
       <div className="max-w-screen-2xl mx-auto flex items-center bg-[#25163d]/80 rounded-full p-1.5 border border-white/10 shadow-2xl">
         
         {/* NÚT GỢI Ý: Nằm cố định bên trái */}
-        <div className="px-10 py-3.5 bg-gradient-to-b from-[#412d6d] to-[#2d1b4e] rounded-full shadow-lg flex-shrink-0">
+        <div className="px-10 py-3.5 bg-orange-900 rounded-full shadow-lg flex-shrink-0">
           <span className="text-white font-extrabold uppercase tracking-widest text-sm sm:text-lg whitespace-nowrap">
             Gợi ý cho bạn
           </span>
@@ -45,14 +45,14 @@ export const CategoryBar = () => {
               >
                 {/* Icon với hiệu ứng sáng nhẹ khi active hoặc hover */}
                 <div className={`transition-all duration-300 transform group-hover:scale-120 ${
-                  isActive ? "text-white scale-110" : "text-gray-400 group-hover:text-purple-300"
+                  isActive ? "text-white scale-110" : "text-gray-400 group-hover:text-orange-300"
                 }`}>
                   {cat.icon}
                 </div>
 
                 {/* Đường gạch chân nhỏ nếu muốn giống các giao diện hiện đại (tùy chọn) */}
                 {isActive && (
-                  <div className="absolute -bottom-1 w-1.5 h-1.5 bg-purple-400 rounded-full shadow-[0_0_8px_#a855f7]"></div>
+                  <div className="absolute -bottom-1 w-1.5 h-1.5 bg-orange-400 rounded-full shadow-[0_0_8px_#a855f7]"></div>
                 )}
               </Link>
             );

@@ -24,14 +24,14 @@ export default function RatingSummary({ comments, averageRating, totalReviews }:
         <div className="flex flex-col md:flex-row items-center gap-8 mb-8 pb-8 border-b border-gray-100">
             {/* Left: Tóm tắt điểm */}
             <div className="flex flex-col items-center justify-center w-full md:w-1/3">
-                <span className="text-5xl font-extrabold text-purple-600 mb-2">
+                <span className="text-5xl font-extrabold text-orange-600 mb-2">
                     {averageRating.toFixed(1)}
                 </span>
                 <div className="flex items-center gap-1 mb-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                         <Star 
                             key={star} 
-                            className={`w-6 h-6 ${star <= Math.round(averageRating) ? "fill-purple-500 text-purple-500" : "fill-gray-200 text-gray-200"}`} 
+                            className={`w-6 h-6 ${star <= Math.round(averageRating) ? "fill-orange-500 text-orange-500" : "fill-gray-200 text-gray-200"}`} 
                         />
                     ))}
                 </div>
@@ -49,7 +49,7 @@ export default function RatingSummary({ comments, averageRating, totalReviews }:
                             </span>
                             <div className="flex-1 h-2.5 bg-gray-100 rounded-full overflow-hidden">
                                 <div 
-                                    className="h-full bg-purple-500 rounded-full transition-all duration-500"
+                                    className="h-full bg-orange-500 rounded-full transition-all duration-500"
                                     style={{ width: `${percent}%` }}
                                 ></div>
                             </div>
