@@ -41,7 +41,7 @@ export const VNPayReturnPage = () => {
             <div className="min-h-screen bg-gray-50 flex flex-col">
                 <Header />
                 <div className="flex-1 flex flex-col items-center justify-center">
-                    <Loader2 className="w-12 h-12 text-orange-600 animate-spin mb-4" />
+                    <Loader2 className="w-12 h-12 text-purple-600 animate-spin mb-4" />
                     <h2 className="text-xl font-semibold text-gray-700">Đang xác minh giao dịch...</h2>
                     <p className="text-gray-500 mt-2">Vui lòng không đóng trình duyệt lúc này</p>
                 </div>
@@ -65,7 +65,7 @@ export const VNPayReturnPage = () => {
                         </p>
                         <button
                             onClick={() => navigate("/checkout")}
-                            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 rounded-xl transition-colors"
+                            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 rounded-xl transition-colors"
                         >
                             Thử thanh toán lại
                         </button>
@@ -112,7 +112,7 @@ export const VNPayReturnPage = () => {
                             </div>
                             <div className="pt-4 border-t border-gray-200 flex justify-between items-center">
                                 <span className="text-gray-500">Tổng thanh toán</span>
-                                <span className="text-xl font-bold text-orange-600">{formatPrice(amount)}</span>
+                                <span className="text-xl font-bold text-purple-600">{formatPrice(amount)}</span>
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@ export const VNPayReturnPage = () => {
                     <div className="flex flex-col gap-3">
                         <button
                             onClick={() => navigate("/orders")}
-                            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-200 transition-all active:scale-95 flex items-center justify-center gap-2"
+                            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-purple-200 transition-all active:scale-95 flex items-center justify-center gap-2"
                         >
                             Xem đơn hàng của bạn
                             <ArrowRight className="w-5 h-5" />
