@@ -5,12 +5,12 @@ import {ProductComments} from "../components/ProductComments/ProductComments";
 import { ProductGallery } from "../components/ProductGallery/ProductGallery";
 import { ProductInfo } from "../components/ProductInfo";
 import { ShopBenefits } from "../components/ShopBenefits";
-import { Product } from "../../products/types";
-import { ProductAPI } from "../../products/api/productApi";
+import { Product } from "../types";
+import { ProductAPI } from "../api/productApi";
 import { useState, useEffect } from "react";
 import { ChevronRight, Home, Star } from "lucide-react";
 
-export const ProductPage = () => {
+export const ProductDetailPage = () => {
     const { id } = useParams<{ id: string }>();    
     const [product, setProduct] = useState<Product | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
