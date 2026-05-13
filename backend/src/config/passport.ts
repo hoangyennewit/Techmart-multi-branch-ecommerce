@@ -1,6 +1,7 @@
 import passport from "passport";
 import {Strategy as GoogleStrategy} from "passport-google-oauth20";
 import authService from "../services/authService";
+import { Strategy as LocalStrategy } from 'passport-local';
 
 passport.use(new GoogleStrategy(
     {
@@ -17,3 +18,20 @@ passport.use(new GoogleStrategy(
         }
     }
 ));
+
+passport.use(
+    new LocalStrategy(
+        {
+            usernameField: 'email',
+            passwordField: 'password',
+        },
+        async (email, password, done) => {
+            try {
+                const user = await authService.loginWithEmail(email, password);
+                return done(null, user);
+            } catch (error: any) {
+                return done(null, false, { message: error.message });
+            }
+        }
+    )
+);

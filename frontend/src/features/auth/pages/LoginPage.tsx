@@ -15,7 +15,8 @@ export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const { login } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   // Note: AuthContext will handle redirect state when user logs in
   // This check is kept for reference but AuthContext is the primary handler
   useEffect(() => {
@@ -27,14 +28,21 @@ export const LoginPage = () => {
     }
   }, [isAuthenticated]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
       setError("Vui lòng nhập đầy đủ tài khoản và mật khẩu.");
       return;
     }
-    setError("");
-    navigate("/");
+    try {
+      setError("");
+      setIsSubmitting(true);
+      await login(email, password);
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Đăng nhập thất bại. Vui lòng thử lại.");
+    } finally {
+        setIsSubmitting(false);
+    }
   };
   const handleGoogleLogin = () => {
     window.location.href = (import.meta.env.VITE_API_URL || "http://localhost:5000") + "/api/auth/google";
@@ -142,6 +150,7 @@ export const LoginPage = () => {
               {/* Submit */}
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800
                                            text-white font-bold py-3.5 rounded-xl transition-all duration-200 active:scale-95
                                            shadow-lg shadow-purple-200 uppercase tracking-wider text-sm"

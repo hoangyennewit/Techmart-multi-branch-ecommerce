@@ -5,20 +5,7 @@ import { authenticateToken } from "../middlewares/authMiddleware";
 const router = Router();
 
 // ==========================================
-// 1. VNPAY
-// ==========================================
-// router.post(
-//   "/create-payment-intent",
-//   authenticateToken,
-//   paymentController.createPaymentIntent,
-// );
-router.get(
-  "/vnpay_return",
-  paymentController.vnpayReturn
-);
-
-// ==========================================
-// 2. ZALOPAY
+// 1. ZALOPAY
 // ==========================================
 router.post(
   "/create-payment-intent",
@@ -29,6 +16,11 @@ router.post(
 router.post(
   "/zalopay/callback",
   paymentController.handleZaloPayCallback
+);
+
+router.get(
+  "/zalopay/return",
+  paymentController.zaloPayReturn
 );
 
 export default router;
