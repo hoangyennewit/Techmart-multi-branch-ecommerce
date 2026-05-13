@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Search, CheckCircle, FileText, Printer, ArrowUpDown, Loader2 } from 'lucide-react';
+import { Search, CheckCircle, FileText, Printer, ArrowUpDown, Loader2, Truck, PackageCheck } from 'lucide-react';
 import { orderApi } from '../api/orderApi';
 
-// 1. Helper: Định nghĩa cấu hình Badge trạng thái (Để ngoài component để tránh khởi tạo lại)
+// 1. Helper: Định nghĩa cấu hình Badge trạng thái
 const STATUS_CONFIG: any = {
   'cho_xac_nhan': { text: 'Chờ xác nhận', class: 'bg-yellow-100 text-yellow-700' },
   'da_xac_nhan': { text: 'Đã xác nhận', class: 'bg-emerald-100 text-emerald-700' },
   'dang_giao': { text: 'Đang giao', class: 'bg-blue-100 text-blue-700' },
+  'da_giao': { text: 'Đã giao', class: 'bg-green-100 text-green-700' }, // Thêm trạng thái đã giao
   'hoan_thanh': { text: 'Hoàn thành', class: 'bg-gray-100 text-gray-700' },
   'da_huy': { text: 'Đã hủy', class: 'bg-red-100 text-red-700' },
 };
@@ -28,8 +29,6 @@ export const OrderProcessing = () => {
         limit: 10
       });
       
-      // ĐÃ SỬA LỖI Ở ĐÂY: 
-      // Dùng response?.rows để phòng trường hợp backend dùng phân trang trả về { rows, count }
       setOrders(response?.rows || response?.data || response || []);
       
     } catch (error) {
@@ -39,27 +38,61 @@ export const OrderProcessing = () => {
     }
   }, [searchTerm, statusFilter]);
 
-  // Debounce tìm kiếm
   useEffect(() => {
     const timer = setTimeout(fetchOrders, 500);
     return () => clearTimeout(timer);
   }, [fetchOrders]);
 
-  // 3. Logic: Xác nhận đơn hàng
-  const handleConfirmOrder = async (orderId: number) => {
-    if (!window.confirm("Xác nhận đơn hàng này?")) return;
+  // 3. Logic: Cập nhật trạng thái đơn hàng động (Dùng chung cho nhiều trạng thái)
+  const handleUpdateStatus = async (orderId: number, nextStatus: string, actionName: string) => {
+    if (!window.confirm(`Xác nhận ${actionName.toLowerCase()} đơn hàng này?`)) return;
 
     try {
-      await orderApi.updateOrderStatus(orderId, 'da_xac_nhan');
-      fetchOrders(); // Tải lại bảng
+      await orderApi.updateOrderStatus(orderId, nextStatus);
+      fetchOrders(); // Tải lại bảng sau khi update
     } catch (error) {
-      alert("Lỗi khi xác nhận đơn hàng");
+      alert(`Lỗi khi ${actionName.toLowerCase()} đơn hàng`);
     }
   };
 
   // 4. Utils: Format tiền tệ
   const formatVND = (val: number) => 
     new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(val);
+
+  // 5. Render nút thao tác động dựa trên trạng thái hiện tại
+  const renderActionButton = (order: any) => {
+    switch (order.status) {
+      case 'cho_xac_nhan':
+        return (
+          <button 
+            onClick={() => handleUpdateStatus(order.id, 'da_xac_nhan', 'Xác nhận')}
+            className="flex items-center gap-1 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm rounded-full font-bold transition-all text-xs"
+          >
+            <CheckCircle size={14}/> Xác nhận
+          </button>
+        );
+      case 'da_xac_nhan':
+        return (
+          <button 
+            onClick={() => handleUpdateStatus(order.id, 'dang_giao', 'Giao hàng')}
+            className="flex items-center gap-1 px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white shadow-sm rounded-full font-bold transition-all text-xs"
+          >
+            <Truck size={14}/> Giao hàng
+          </button>
+        );
+      case 'dang_giao':
+        return (
+          <button 
+            onClick={() => handleUpdateStatus(order.id, 'da_giao', 'Hoàn tất giao')}
+            className="flex items-center gap-1 px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white shadow-sm rounded-full font-bold transition-all text-xs"
+          >
+            <PackageCheck size={14}/> Giao thành công
+          </button>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="flex-1 bg-white border border-gray-200 rounded-[3rem] p-8 shadow-sm min-h-179 flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-300">
@@ -78,6 +111,8 @@ export const OrderProcessing = () => {
             <option value="cho_xac_nhan">Chờ xác nhận</option>
             <option value="da_xac_nhan">Đã xác nhận</option>
             <option value="dang_giao">Đang giao</option>
+            <option value="da_giao">Đã giao</option>
+            <option value="da_huy">Đã hủy</option>
           </select>
 
           <div className="relative w-72">
@@ -127,25 +162,17 @@ export const OrderProcessing = () => {
                   </td>
 
                   <td className="p-4">
-                    <div className="flex gap-2 justify-center">
-                      {order.status === 'cho_xac_nhan' ? (
-                        <button 
-                          onClick={() => handleConfirmOrder(order.id)}
-                          className="flex items-center gap-1 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm rounded-full font-bold transition-all text-xs"
-                        >
-                          <CheckCircle size={14}/> Xác nhận
-                        </button>
-                      ) : (
-                        <button className="flex items-center gap-1 px-3 py-1.5 bg-gray-100 text-gray-400 rounded-full font-medium text-xs cursor-not-allowed">
-                          <CheckCircle size={14}/> Xác nhận
-                        </button>
-                      )}
+                    <div className="flex gap-2 justify-center items-center">
+                      
+                      {/* Gọi hàm render nút thao tác động */}
+                      {renderActionButton(order)}
                       
                       <button className="flex items-center gap-1 px-3 py-1.5 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-full font-medium text-xs">
                         <FileText size={14}/> Chi tiết
                       </button>
 
-                      {order.status !== 'cho_xac_nhan' && (
+                      {/* Nút in bill: Chỉ hiện khi không phải đơn chờ xác nhận hay đã hủy */}
+                      {order.status !== 'cho_xac_nhan' && order.status !== 'da_huy' && (
                         <button className="flex items-center gap-1 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-full font-medium text-xs">
                           <Printer size={14}/> In bill
                         </button>
