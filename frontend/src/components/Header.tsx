@@ -224,10 +224,10 @@ export const Header = () => {
             </div>
 
             {/* Right Section */}
-            <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+            <div className="flex items-center gap-1 sm:gap-4 flex-shrink-0">
               {/* Search Icon — mobile and tablet */}
               <button
-                className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="md:hidden p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-colors"
                 onClick={() => setSearchOpen(!searchOpen)}
                 aria-label="Tìm kiếm"
               >
@@ -237,7 +237,7 @@ export const Header = () => {
               {/* Cart */}
               <button
                 onClick={() => navigate("/cart")}
-                className="relative p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="relative p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-colors"
                 aria-label="Giỏ hàng"
               >
                 <ShoppingCart className="w-5 h-5 text-white" />
@@ -253,7 +253,7 @@ export const Header = () => {
 
               {/* User Profile */}
               <button
-                className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-colors"
                 title="Tài khoản"
                 onClick={() => user ? navigate("/profile") : navigate("/login")}
               >
@@ -262,7 +262,7 @@ export const Header = () => {
 
               {/* Hamburger — mobile only */}
               <button
-                className="sm:hidden p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="sm:hidden p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-colors"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Menu"
               >
