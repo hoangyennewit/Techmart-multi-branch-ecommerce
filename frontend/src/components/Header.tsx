@@ -367,7 +367,7 @@ export const Header = () => {
               setMenuOpen(false);
             }}
             className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                   text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
+                                   text-gray-200 hover:bg-white/5 hover:text-cyan-400 transition-colors"
           >
             <Home className="w-4 h-4" />
             Trang chủ
@@ -381,7 +381,7 @@ export const Header = () => {
                 setMenuOpen(false);
               }}
               className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                       text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
+                                       text-gray-200 hover:bg-white/5 hover:text-cyan-400 transition-colors"
             >
               <Icon className="w-4 h-4 text-cyan-400" />
               {name}
@@ -394,7 +394,7 @@ export const Header = () => {
               setMenuOpen(false);
             }}
             className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                   text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
+                                   text-gray-200 hover:bg-white/5 hover:text-cyan-400 transition-colors"
           >
             <Package className="w-4 h-4 text-cyan-400" />
             Đơn hàng của tôi

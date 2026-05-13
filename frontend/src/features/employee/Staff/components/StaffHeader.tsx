@@ -49,13 +49,13 @@ export const StaffHeader = () => {
     };
 
     return (
-        <div className="flex justify-between items-center mb-8">
-            <div>
-                <h1 className="text-4xl font-bold text-purple-800 tracking-wide">TechStore</h1>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 mb-8">
+            <div className="text-center sm:text-left">
+                <h1 className="text-4xl font-bold text-purple-800 tracking-wide">TechMart</h1>
                 <p className="text-gray-500 font-medium text-sm mt-1">Nâng tầm cuộc sống số</p>
             </div>
           
-            <div className="flex items-center gap-4 bg-white px-6 py-2.5 rounded-full shadow-sm border border-gray-100">
+            <div className="flex items-center gap-2 sm:gap-4 bg-white px-4 sm:px-6 py-2.5 rounded-full shadow-sm border border-gray-100 w-full sm:w-auto justify-between sm:justify-end">
                 <div className="text-right flex flex-col justify-center">
                     <p className="text-purple-600 text-[11px] font-bold uppercase tracking-widest leading-tight">{userInfo.role}</p>
                     <p className="text-gray-800 font-bold text-sm leading-tight">{userInfo.name}</p>
