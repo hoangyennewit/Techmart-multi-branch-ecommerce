@@ -134,7 +134,7 @@ export const Header = () => {
                   Trang chủ
                 </button>
                 <button
-                  onClick={() => navigate("/category")}
+                  onClick={() => navigate("/products")}
                   className="text-white font-medium text-sm hover:text-orange-400 transition-colors"
                 >
                   Sản phẩm
