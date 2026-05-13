@@ -134,6 +134,9 @@ export class OrderService {
           case "da_giao":
             order.status = "delivered";
             break;
+          case "da_huy":
+            order.status = "cancelled"; 
+            break;
           default:
             order.status = "pending";
         }
