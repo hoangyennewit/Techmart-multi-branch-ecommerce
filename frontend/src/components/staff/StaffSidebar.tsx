@@ -6,7 +6,7 @@ export const StaffSidebar = () => {
     <div className="w-full xl:w-80 flex flex-col gap-6">
       
       {/* Khung Tra cứu tồn kho */}
-      <div className="bg-white border border-gray-200 rounded-[2rem] p-5 shadow-sm h-[400px] flex flex-col">
+      <div className="bg-white border border-gray-200 rounded-4xl p-5 shadow-sm h-100 flex flex-col">
         <h3 className="font-bold text-gray-800 mb-1">Tra cứu & Thống kê</h3>
         <p className="text-xs text-gray-500 mb-4 font-medium">Tra cứu tồn kho nhanh</p>
         
@@ -46,7 +46,7 @@ export const StaffSidebar = () => {
       </div>
 
       {/* Khung Thống kê & Giao ca */}
-      <div className="bg-purple-700 text-white rounded-[2rem] p-5 shadow-lg flex-1 flex flex-col relative overflow-hidden">
+      <div className="bg-purple-700 text-white rounded-4xl p-5 shadow-lg flex-1 flex flex-col relative overflow-hidden">
         {/* Họa tiết nền mờ mờ cho đẹp */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
 
