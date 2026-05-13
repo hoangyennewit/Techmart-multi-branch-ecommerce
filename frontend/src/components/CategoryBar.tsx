@@ -1,4 +1,4 @@
-import { Smartphone, Laptop, Headphones, Tablet, Monitor } from "lucide-react";
+import { Smartphone, Laptop, Headphones, Tablet, Mouse } from "lucide-react";
 import { JSX } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -13,8 +13,8 @@ const categories: Category[] = [
   { id: 1, name: "Điện thoại", slug: "dien-thoai", icon: <Smartphone className="w-6 h-6" /> },
   { id: 2, name: "Laptop", slug: "laptop", icon: <Laptop className="w-6 h-6" /> },
   { id: 4, name: "Tablet", slug: "may-tinh-bang", icon: <Tablet className="w-6 h-6" /> },
-  { id: 5, name: "Màn hình", slug: "man-hinh", icon: <Monitor className="w-6 h-6" /> },
-  { id: 3, name: "Phụ kiện", slug: "phu-kien", icon: <Headphones className="w-6 h-6" /> },
+  { id: 3, name: "Phụ kiện", slug: "phu-kien", icon: <Mouse className="w-6 h-6" /> },
+  { id: 5, name: "Âm thanh", slug: "am-thanh", icon: <Headphones className="w-6 h-6" /> },
 ];
 
 export const CategoryBar = () => {
