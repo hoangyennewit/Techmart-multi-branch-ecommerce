@@ -68,7 +68,7 @@ export const OrderProcessing = () => {
       <div className="flex flex-wrap justify-between items-center mb-8 gap-4">
         <h2 className="text-2xl font-bold text-purple-800">Xử lý đơn hàng</h2>
         
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <select 
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
@@ -80,7 +80,7 @@ export const OrderProcessing = () => {
             <option value="dang_giao">Đang giao</option>
           </select>
 
-          <div className="relative w-72">
+          <div className="relative w-full sm:w-72">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
             <input 
               type="text" 
