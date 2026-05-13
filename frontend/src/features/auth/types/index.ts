@@ -1,5 +1,5 @@
 export interface User {
-    ma_nguoi_dung: number;
+    id: number;
     ho_ten: string;
     email: string;
 
@@ -20,4 +20,5 @@ export interface AuthContextType {
     isAuthenticated: boolean;
     loading: boolean;
     logout: () => void;
+    login: (email: string, password: string) => Promise<void>;
 }

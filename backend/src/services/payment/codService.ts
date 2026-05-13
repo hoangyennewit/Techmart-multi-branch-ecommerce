@@ -1,4 +1,5 @@
 import { OrderModel } from "../../models/Order";
+import { PaymentEntity } from "../../models/Payment";
 export class CODService {
   public async processPayment(orderId: number) {
     try {

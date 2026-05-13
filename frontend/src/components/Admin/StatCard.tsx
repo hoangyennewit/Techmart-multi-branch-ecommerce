@@ -7,7 +7,7 @@ interface StatCardProps {
   percentage: string;
   isPositive: boolean;
 }
-
+//Đây là component StatCard, nhận props theo kiểu đã khai báo ở trên có tác dụng hiển thị một thẻ thống kê với tiêu đề, giá trị và phần trăm thay đổi. Màu sắc của phần trăm sẽ thay đổi tùy thuộc vào việc nó có phải là tích cực hay không.
 export const StatCard = ({ title, value, percentage, isPositive }: StatCardProps) => {
   return (
     <div className="bg-white border border-gray-100 p-5 rounded-2xl shadow-sm flex flex-col justify-center">

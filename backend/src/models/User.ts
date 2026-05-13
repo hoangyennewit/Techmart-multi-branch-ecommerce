@@ -7,6 +7,8 @@ export class User extends Model {
     public email!: string;
     public googleId!: string | null;
     public ma_vai_tro!: number;
+    public password!: string | null; 
+    public loginType!: string;
 }
 
 User.init(
