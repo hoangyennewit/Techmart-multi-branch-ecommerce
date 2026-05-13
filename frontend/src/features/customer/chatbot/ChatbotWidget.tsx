@@ -40,9 +40,9 @@ const ChatbotWidget = () => {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Cửa sổ chat */}
       {isOpen && (
-        <div className="mb-4 w-[350px] h-[450px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-purple-100 transition-all duration-300 transform origin-bottom-right">
+        <div className="mb-4 w-87.5 h-112.5 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-purple-100 transition-all duration-300 transform origin-bottom-right">
           {/* Header với hiệu ứng Gradient */}
-          <div className="bg-gradient-to-r from-purple-700 to-indigo-600 text-white px-4 py-3 flex justify-between items-center shadow-md z-10">
+          <div className="bg-linear-to-r from-purple-700 to-indigo-600 text-white px-4 py-3 flex justify-between items-center shadow-md z-10">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               <span className="font-semibold tracking-wide">TechStore AI</span>
@@ -71,7 +71,7 @@ const ChatbotWidget = () => {
                 <div 
                   className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-[15px] leading-relaxed shadow-sm ${
                     msg.role === "user"
-                      ? "bg-gradient-to-br from-purple-600 to-indigo-500 text-white rounded-br-sm"
+                      ? "bg-linear-to-br from-purple-600 to-indigo-500 text-white rounded-br-sm"
                       : "bg-white text-gray-800 border border-gray-100 rounded-bl-sm"
                   }`}
                 >
@@ -136,7 +136,7 @@ const ChatbotWidget = () => {
       {/* Nút Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white w-14 h-14 rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center text-2xl transition-all hover:scale-105 active:scale-95"
+        className="bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white w-14 h-14 rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center text-2xl transition-all hover:scale-105 active:scale-95"
       >
         {isOpen ? "✕" : "💬"}
       </button>

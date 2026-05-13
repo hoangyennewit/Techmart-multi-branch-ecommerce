@@ -515,13 +515,26 @@ CREATE TABLE don_hang (
     ngay_dat TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO don_hang (ma_nguoi_dung, tong_tien, trang_thai)
+INSERT INTO don_hang (ma_nguoi_dung, tong_tien, trang_thai, ngay_dat)
 VALUES
-(11, 19000000, 'cho_xac_nhan'),
-(12, 36000000, 'da_xac_nhan'),
-(13, 28000000, 'dang_giao'),
-(14, 9000000, 'hoan_thanh'),
-(15, 15000000, 'da_huy');
+(11, 19000000, 'cho_xac_nhan', '2025-01-15 10:30:00'),
+(12, 36000000, 'da_xac_nhan', '2025-03-20 14:45:00'),
+(13, 28000000, 'dang_giao', '2025-06-10 09:15:00'),
+(14, 9000000, 'hoan_thanh', '2025-11-05 16:20:00'),
+(15, 15000000, 'da_huy', '2026-02-14 11:00:00'),
+(11, 22500000, 'hoan_thanh', '2025-02-28 13:00:00'),
+(12, 45000000, 'hoan_thanh', '2025-04-15 15:30:00'),
+(13, 32000000, 'hoan_thanh', '2025-07-22 10:45:00'),
+(14, 12000000, 'da_xac_nhan', '2025-09-10 12:15:00'),
+(15, 18500000, 'dang_giao', '2025-12-01 08:00:00'),
+(11, 25000000, 'hoan_thanh', '2026-01-10 09:30:00'),
+(12, 38000000, 'hoan_thanh', '2026-03-15 14:20:00'),
+(13, 29500000, 'cho_xac_nhan', '2026-04-05 11:00:00'),
+(14, 11000000, 'dang_giao', '2026-04-20 13:45:00'),
+(11, 22500000, 'hoan_thanh', '2026-03-28 13:00:00'),
+(12, 45000000, 'hoan_thanh', '2026-01-15 15:30:00'),
+(13, 32000000, 'hoan_thanh', '2026-05-12 10:45:00'),
+(15, 20000000, 'da_xac_nhan', '2026-04-30 10:15:00');
 
 -- 11 CHI TIẾT ĐƠN
 CREATE TABLE chi_tiet_don_hang (
