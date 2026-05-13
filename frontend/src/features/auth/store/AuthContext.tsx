@@ -21,9 +21,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const getRoleRedirect = (ma_vai_tro: number): string => {
   switch (ma_vai_tro) {
+    case 1:  return "/tech";    // Kỹ thuật viên (Admin)
     case 2:  return "/admin";   // Giám đốc
-    case 8:  return "/";                     // Khách hàng
-    default: return "/staff";  // Các vai trò còn lại
+    case 3:  return "/product"; // Quản lý sản phẩm
+    case 4:  return "/store";   // Quản lý cửa hàng
+    case 8:  return "/";        // Khách hàng
+    default: return "/staff";   // 5, 6, 7 (Nhân viên CSKH, Bán hàng, Kho)
   }
 };
 
