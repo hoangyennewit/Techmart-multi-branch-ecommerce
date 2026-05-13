@@ -9,7 +9,7 @@ import {
   clearCart,
   mergeGuestCart,
   addToCart,
-} from "../../cart/cartSlice";
+} from "../../customer/cart/cartSlice";
 import {
   getRedirectState,
   clearRedirectState,
@@ -18,6 +18,14 @@ import {
 } from "../../../utils/redirectStateManager";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+const getRoleRedirect = (ma_vai_tro: number): string => {
+  switch (ma_vai_tro) {
+    case 2:  return "/admin";   // Giám đốc
+    case 8:  return "/";                     // Khách hàng
+    default: return "/staff";  // Các vai trò còn lại
+  }
+};
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -56,36 +64,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     navigate("/login");
   };
 
-  // Check redirect state when user logs in
-  useEffect(() => {
-    if (user) {
-      console.log("User logged in in AuthContext:", user);
-      // Add delay to ensure redirect state is properly set
-      const timer = setTimeout(() => {
-        // Check if there's a pending cart item to add (from add to cart without auth)
-        const pendingItem = getPendingCartItem();
-        if (pendingItem) {
-          console.log("Adding pending cart item:", pendingItem);
-          dispatch(addToCart(pendingItem));
-          clearPendingCartItem();
-        }
-
-        const redirectState = getRedirectState();
-        console.log("Checking redirect state in AuthContext:", redirectState);
-
-        if (redirectState && redirectState.returnUrl) {
-          console.log(
-            "Found redirect state, navigating to:",
-            redirectState.returnUrl,
-          );
-          clearRedirectState();
-          navigate(redirectState.returnUrl);
-        }
-      }, 200);
-
-      return () => clearTimeout(timer);
+  const login = async (email: string, password: string) => {
+    try {
+      setLoading(true);
+      // Gọi api login (bạn cần đảm bảo authApi đã có method login)
+      const response = await authApi.login(email, password);
+      
+      const token = response.token; // Giả sử backend trả về { token: "..." }
+      
+      if (token) {
+        localStorage.setItem("techmart_token", token);
+        await fetchUserProfile(token);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      throw error;
+    } finally {
+      setLoading(false);
     }
-  }, [user, navigate, dispatch]);
+  };
+
+  // Check redirect state when user logs in
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
@@ -101,10 +100,36 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(false);
       }
     }
-  }, [dispatch]);
+  }, []);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const timer = setTimeout(() => {
+      // Xử lý giỏ hàng pending (guest thêm vào trước khi đăng nhập)
+      const pendingItem = getPendingCartItem();
+      if (pendingItem) {
+        dispatch(addToCart(pendingItem));
+        clearPendingCartItem();
+      }
+
+      // Ưu tiên trả về trang đang làm dở, nếu không thì theo role
+      const redirectState = getRedirectState();
+      clearRedirectState();
+
+      if (redirectState?.returnUrl) {
+        navigate(redirectState.returnUrl, { replace: true });
+      } else {
+        navigate(getRoleRedirect(user.ma_vai_tro), { replace: true });
+      }
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [user]);
+
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated: !!user, loading, logout }}
+      value={{ user, isAuthenticated: !!user, loading, logout, login }}
     >
       {children}
     </AuthContext.Provider>

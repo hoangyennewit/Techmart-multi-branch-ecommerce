@@ -18,7 +18,6 @@ export class OrderService {
       totalAmount,
       shippingFee,
       shippingInfo,
-      paymentMethod,
       userId,
     } = orderData;
     const tongTien = totalAmount + shippingFee;
@@ -82,6 +81,7 @@ export class OrderService {
     }
   };
 
+  // Lấy danh sách đơn hàng của người dùng
   public getMyOrdersService = async (userId: number) => {
     try {
       const orders: any = await sequelize.query(
