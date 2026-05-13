@@ -37,7 +37,7 @@ export const getDashboardSummary = async (timeframe: string) => {
     // Dùng QueryTypes.SELECT sẽ trả về mảng object trực tiếp -> Dùng [result] để bóc tách
     const [revCurrent]: any = await sequelize.query(`
       SELECT COALESCE(SUM(tong_tien), 0) AS total FROM don_hang
-      WHERE trang_thai = 'hoan_thanh' AND ngay_dat BETWEEN :start AND :end
+      WHERE trang_thai = 'da_giao' AND ngay_dat BETWEEN :start AND :end
     `, { 
       replacements: { start: startCurrent, end: endCurrent },
       type: QueryTypes.SELECT 
@@ -45,7 +45,7 @@ export const getDashboardSummary = async (timeframe: string) => {
 
     const [revPrevious]: any = await sequelize.query(`
       SELECT COALESCE(SUM(tong_tien), 0) AS total FROM don_hang
-      WHERE trang_thai = 'hoan_thanh' AND ngay_dat BETWEEN :start AND :end
+      WHERE trang_thai = 'da_giao' AND ngay_dat BETWEEN :start AND :end
     `, { 
       replacements: { start: startPrevious, end: endPrevious },
       type: QueryTypes.SELECT 

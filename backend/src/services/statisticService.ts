@@ -7,7 +7,7 @@ export const getRevenueByTimeframe = async (
   month?: number | string
 ) => {
   const dateTrunc = timeframe === 'week' ? 'week' : timeframe === 'year' ? 'year' : 'month';
-  let whereClause = `WHERE trang_thai = 'hoan_thanh'`;
+  let whereClause = `WHERE trang_thai = 'da_giao'`; // Chỉ tính doanh thu từ các đơn đã giao (đã hoàn thành) để phản ánh chính xác doanh thu thực tế
   
   // Dùng object replacements để truyền tham số an toàn, chống SQL Injection
   const replacements: any = {};
