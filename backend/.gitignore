@@ -1,0 +1,21 @@
+# Thư viện
+node_modules/
+
+#Log của npm và server
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+#bỏ qua thư mục build của Typecrpit
+dist/
+build/
+
+#Các file rác
+.DS_Store
+Thumbs.db
+
+#File mô trường
+.env
+.env.local
