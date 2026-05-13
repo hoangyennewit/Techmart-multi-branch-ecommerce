@@ -193,8 +193,9 @@ export const Header = () => {
                             alt={product.name}
                             className="w-10 h-10 object-cover rounded"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src =
-                                "/placeholder.png";
+                              const target = e.target as HTMLImageElement;
+                              target.onerror = null;
+                              target.src = "/vite.svg";
                             }}
                           />
                           <div className="flex-1 min-w-0">
@@ -309,7 +310,9 @@ export const Header = () => {
                       alt={product.name}
                       className="w-8 h-8 object-cover rounded"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/placeholder.png";
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null;
+                        target.src = "/vite.svg";
                       }}
                     />
                     <div className="flex-1 min-w-0">

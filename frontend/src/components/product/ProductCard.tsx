@@ -108,7 +108,9 @@ export const ProductCard = ({ product }: ProductProps) => {
           className="w-full h-full object-contain p-4 mix-blend-multiply
                                group-hover:scale-105 transition-transform duration-500"
           onError={(e) => {
-            (e.target as HTMLImageElement).src = '/placeholder.png';
+            const target = e.target as HTMLImageElement;
+            target.onerror = null;
+            target.src = '/vite.svg';
           }}
         />
       </div>
