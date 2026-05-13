@@ -6,9 +6,9 @@ export const Logo = () => {
             <img
                 src={techLogo}
                 alt="TechMart Logo"
-                className="h-8 sm:h-10 w-auto object-contain flex-shrink-0"
+                className="h-10 sm:h-12 w-auto object-contain flex-shrink-0"
             />
-            <span className="font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent text-lg sm:text-2xl leading-none">
+            <span className="font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent text-xl sm:text-3xl leading-none">
                 TechMart
             </span>
         </section>
