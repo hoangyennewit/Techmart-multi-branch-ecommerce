@@ -1,5 +1,6 @@
+
 services:
-  # Dịch vụ Database
+# Dịch vụ Database
   db:
     image: postgres:15-alpine
     container_name: postgres_db
@@ -13,14 +14,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
-
+  
   #Dịch vụ Backend (Node.js)
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: nodejs_backend
-    restart: on-failure
     ports:
       - "5000:5000"
     volumes:
@@ -34,10 +34,9 @@ services:
     env_file:
       - .env
     depends_on:
-      db:
-        condition: service_healthy
+      - db
 
-  # Frontend (React)
+# Frontend (React)
   frontend:
     build:
       context: ./frontend
