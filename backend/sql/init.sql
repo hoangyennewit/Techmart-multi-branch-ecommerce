@@ -3,7 +3,7 @@ DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 -- ENUM
 CREATE TYPE trang_thai_don_hang AS ENUM (
-    'cho_duyet',
+    'cho_xac_nhan',
     'da_xac_nhan',
     'dang_giao',
     'hoan_thanh',
@@ -49,8 +49,8 @@ VALUES
 --  ADMIN
 ('Nguyễn Văn Admin', 'admin@shop.vn', 'hashed_admin', NULL, 'local', '0909000001', 'TP.HCM', 1, TRUE),
 
---  GIÁM ĐỐC
-('Trần Quốc Bảo', 'giamdoc@shop.vn', 'hashed_gd', NULL, 'local', '0909000002', 'Hà Nội', 2, TRUE),
+--  GIÁM ĐỐC(123456)
+('Trần Quốc Bảo', 'giamdoc@shop.vn', '$2b$10$9470SLMdtGJl3hFOSaRLtenOahK.HjStP9eTIIDiRNS8jCww329eS', NULL, 'local', '0909000002', 'Hà Nội', 2, TRUE),
 
 -- QUẢN LÝ SẢN PHẨM
 ('Lê Minh Tuấn', 'qlsp@shop.vn', 'hashed_qlsp', NULL, 'local', '0909000003', 'TP.HCM', 3, TRUE),
@@ -62,11 +62,11 @@ VALUES
 ('Nguyễn Thị Hồng', 'cskh1@shop.vn', 'hashed_cskh1', NULL, 'local', '0909000005', 'TP.HCM', 5, TRUE),
 ('Đỗ Văn Nam', 'cskh2@shop.vn', 'hashed_cskh2', NULL, 'local', '0909000006', 'Hà Nội', 5, TRUE),
 
--- NHÂN VIÊN BÁN HÀNG
-('Trần Văn Hùng', 'sale1@shop.vn', 'hashed_sale1', NULL, 'local', '0909000007', 'TP.HCM', 6, TRUE),
-('Lê Thị Mai', 'sale2@shop.vn', 'hashed_sale2', NULL, 'local', '0909000008', 'Cần Thơ', 6, TRUE),
-('Nguyễn Văn Nam', 'sale3@shop.vn', 'hashed_sale3', NULL, 'local', '0911111111', 'TP.HCM', 6, TRUE),
-('Trần Thị Hoa', 'sale4@shop.vn', 'hashed_sale4', NULL, 'local', '0912222222', 'Hà Nội', 6, TRUE),
+-- NHÂN VIÊN BÁN HÀNG (123456)
+('Trần Văn Hùng', 'sale1@shop.vn', '$2b$10$9470SLMdtGJl3hFOSaRLtenOahK.HjStP9eTIIDiRNS8jCww329eS', NULL, 'local', '0909000007', 'TP.HCM', 6, TRUE),
+('Lê Thị Mai', 'sale2@shop.vn', '$2b$10$9470SLMdtGJl3hFOSaRLtenOahK.HjStP9eTIIDiRNS8jCww329eS', NULL, 'local', '0909000008', 'Cần Thơ', 6, TRUE),
+('Nguyễn Văn Nam', 'sale3@shop.vn', '$2b$10$9470SLMdtGJl3hFOSaRLtenOahK.HjStP9eTIIDiRNS8jCww329eS', NULL, 'local', '0911111111', 'TP.HCM', 6, TRUE),
+('Trần Thị Hoa', 'sale4@shop.vn', '$2b$10$9470SLMdtGJl3hFOSaRLtenOahK.HjStP9eTIIDiRNS8jCww329eS', NULL, 'local', '0912222222', 'Hà Nội', 6, TRUE),
 --  NHÂN VIÊN KHO
 ('Phan Quốc Khánh', 'kho1@shop.vn', 'hashed_kho1', NULL, 'local', '0909000009', 'Bình Dương', 7, TRUE),
 ('Nguyễn Văn Tài', 'kho2@shop.vn', 'hashed_kho2', NULL, 'local', '0909000010', 'Long An', 7, TRUE),
@@ -424,7 +424,7 @@ VALUES
 -- iPhone 16
 (1, 'https://res.cloudinary.com/dmr9jblyy/image/upload/v1776412967/products/iphone16_128GB_1776412965267.jpg', 1),
 (2, 'https://res.cloudinary.com/dmr9jblyy/image/upload/v1776412967/products/iphone16_256GB_1776412965267.jpg', 1),
-(3, 'https://res.cloudinary.com/dmr9jblyy/image/upload/v1776412967/products/iphone16_512GB_1776412965267.jpg', 1),
+(3, 'https://res.cloudinary.com/dmr9jblyy/image/upload/v1776412967/products/iphone16_512GB_1776412965267.jpg', 1);
 
 
  
@@ -508,20 +508,33 @@ CREATE TABLE don_hang (
             'cho_xac_nhan',
             'da_xac_nhan',
             'dang_giao',
-            'da_giao',
+            'hoan_thanh',
             'da_huy'
         )),
 
     ngay_dat TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO don_hang (ma_nguoi_dung, tong_tien, trang_thai)
+INSERT INTO don_hang (ma_nguoi_dung, tong_tien, trang_thai, ngay_dat)
 VALUES
-(11, 19000000, 'cho_xac_nhan'),
-(12, 36000000, 'da_xac_nhan'),
-(13, 28000000, 'dang_giao'),
-(14, 9000000, 'da_giao'),
-(15, 15000000, 'da_huy');
+(11, 19000000, 'cho_xac_nhan', '2025-01-15 10:30:00'),
+(12, 36000000, 'da_xac_nhan', '2025-03-20 14:45:00'),
+(13, 28000000, 'dang_giao', '2025-06-10 09:15:00'),
+(14, 9000000, 'hoan_thanh', '2025-11-05 16:20:00'),
+(15, 15000000, 'da_huy', '2026-02-14 11:00:00'),
+(11, 22500000, 'hoan_thanh', '2025-02-28 13:00:00'),
+(12, 45000000, 'hoan_thanh', '2025-04-15 15:30:00'),
+(13, 32000000, 'hoan_thanh', '2025-07-22 10:45:00'),
+(14, 12000000, 'da_xac_nhan', '2025-09-10 12:15:00'),
+(15, 18500000, 'dang_giao', '2025-12-01 08:00:00'),
+(11, 25000000, 'hoan_thanh', '2026-01-10 09:30:00'),
+(12, 38000000, 'hoan_thanh', '2026-03-15 14:20:00'),
+(13, 29500000, 'cho_xac_nhan', '2026-04-05 11:00:00'),
+(14, 11000000, 'dang_giao', '2026-04-20 13:45:00'),
+(11, 22500000, 'hoan_thanh', '2026-03-28 13:00:00'),
+(12, 45000000, 'hoan_thanh', '2026-01-15 15:30:00'),
+(13, 32000000, 'hoan_thanh', '2026-05-12 10:45:00'),
+(15, 20000000, 'da_xac_nhan', '2026-04-30 10:15:00');
 
 -- 11 CHI TIẾT ĐƠN
 CREATE TABLE chi_tiet_don_hang (

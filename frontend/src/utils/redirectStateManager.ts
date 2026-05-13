@@ -1,4 +1,4 @@
-import type { CartItem } from "../features/cart/cartSlice";
+import type { CartItem } from "../features/customer/cart/cartSlice";
 
 interface RedirectState {
   returnUrl: string;
