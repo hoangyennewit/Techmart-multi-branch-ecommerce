@@ -39,7 +39,7 @@ export const RevenueCharts: React.FC<RevenueChartsProps> = ({ data }) => {
       <div className="bg-[#1E1133] border border-white/5 rounded-2xl p-6">
         <h4 className="text-gray-300 text-sm font-medium mb-6">Biến động Doanh Thu</h4>
         
-        <div className="h-[320px] w-full"> 
+        <div className="h-80 w-full"> 
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ffffff1a" vertical={true} horizontal={true} />              
@@ -61,7 +61,7 @@ export const RevenueCharts: React.FC<RevenueChartsProps> = ({ data }) => {
       <div className="bg-[#1E1133] border border-white/5 rounded-2xl p-6">
         <h4 className="text-gray-300 text-sm font-medium mb-6">So sánh biến động Doanh thu</h4>
         
-        <div className="h-[320px] w-full">
+        <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ffffff1a" vertical={true} horizontal={true} />

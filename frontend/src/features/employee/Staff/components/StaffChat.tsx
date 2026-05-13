@@ -16,7 +16,7 @@ export const StaffChat = () => {
   return (
     <div className="w-full xl:w-80 flex flex-col gap-4">
       {/* Khung danh sách Chat */}
-      <div className="bg-white border border-gray-200 rounded-[2rem] p-4 shadow-sm h-[300px] flex flex-col">
+      <div className="bg-white border border-gray-200 rounded-4xl p-4 shadow-sm h-75 flex flex-col">
         <h3 className="font-bold text-purple-800 text-center mb-4 pb-2 border-b border-gray-100">Chat & Tư vấn</h3>
         <div className="flex-1 overflow-y-auto space-y-2 pr-1">
           {chatList.map((chat, idx) => (
@@ -39,7 +39,7 @@ export const StaffChat = () => {
       </div>
 
       {/* Khung cửa sổ Chat */}
-      <div className="bg-white border border-gray-200 rounded-[2rem] p-4 shadow-sm h-[400px] flex flex-col">
+      <div className="bg-white border border-gray-200 rounded-4xl p-4 shadow-sm h-100 flex flex-col">
         <div className="flex items-center gap-2 mb-4 pb-2 border-b border-gray-100">
           <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
             <User size={16} />
@@ -50,7 +50,7 @@ export const StaffChat = () => {
         {/* Khung tin nhắn */}
         <div className="flex-1 overflow-y-auto space-y-4 pr-1 mb-4">
           <div className="flex gap-2 items-end">
-            <div className="w-6 h-6 bg-gray-200 rounded-full flex-shrink-0 flex items-center justify-center text-gray-500"><User size={12}/></div>
+            <div className="w-6 h-6 bg-gray-200 rounded-full shrink-0 flex items-center justify-center text-gray-500"><User size={12}/></div>
             <div className="bg-gray-100 text-gray-700 px-4 py-2 rounded-2xl rounded-bl-none text-sm w-3/4">
               Dạ shop cho mình hỏi iPhone 14 Plus còn màu tím không ạ?
             </div>

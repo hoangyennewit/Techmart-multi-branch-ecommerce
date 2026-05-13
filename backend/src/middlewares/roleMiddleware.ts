@@ -11,7 +11,7 @@ export const authorize = (...allowedRoles: UserRole[]) => {
       });
     }
     // Kiểm tra quyền
-    if (!allowedRoles.includes(user.ma_vai_tro)) {
+    if (!allowedRoles.includes(user.ma_vai_tro as UserRole)) {
       return res.status(403).json({ 
         message: "Bạn không có quyền truy cập vào chức năng này." 
       });
