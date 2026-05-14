@@ -16,8 +16,8 @@ export const AdminNavTabs: React.FC<AdminNavTabsProps> = ({
   // Hàm helper giúp rút gọn CSS, không phải copy-paste nhiều lần
   const getTabClass = (targetPath: string) => {
     const baseClass = "px-5 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap border flex items-center gap-2";
-    const activeClass = "bg-[#2A1B3D] border-[#3B2556] text-white";
-    const inactiveClass = "bg-transparent border-transparent text-gray-400 hover:text-white hover:bg-white/5";
+    const activeClass = "bg-blue-100 border-blue-300 text-blue-700";
+    const inactiveClass = "bg-transparent border-transparent text-gray-600 hover:text-blue-600 hover:bg-gray-100";
     
     return `${baseClass} ${path === targetPath ? activeClass : inactiveClass}`;
   };
