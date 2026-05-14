@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { VNPayService } from "../services/payment/vnpayService";
 import { ZaloPayService } from "../services/payment/zalopayService";
 import { CreatePaymentEntity } from "../models/Payment";
+import { momoService } from "../services/payment/momoService";
 import moment from "moment";
 
 export class PaymentController {
@@ -263,6 +264,116 @@ export class PaymentController {
     } catch (error) {
       console.error("Error handling ZaloPay return:", error);
       const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+      res.redirect(`${frontendUrl}/cart?error=server_error`);
+    }
+  };
+
+  // ==========================================
+  // MOMO METHODS
+  // ==========================================
+ 
+  /**
+   * POST /api/payment/momo/create
+   * Body: { ma_don_hang: string, tong_tien: number, ghi_chu?: string }
+   */
+  public createMomoPayment = async (
+    req: Request,
+    res: Response,
+  ): Promise<void> => {
+    try {
+      const { ma_don_hang, tong_tien, ghi_chu } = req.body;
+      console.log("===== MOMO CREATE =====");
+      console.log("ORDER ID:", ma_don_hang);
+      console.log("AMOUNT:", tong_tien);
+ 
+      if (!ma_don_hang || !tong_tien) {
+        res.status(400).json({
+          success: false,
+          message: "Thiếu ma_don_hang hoặc tong_tien",
+        });
+        return;
+      }
+ 
+      if (Number(tong_tien) < 1000) {
+        res.status(400).json({
+          success: false,
+          message: "Số tiền tối thiểu là 1.000đ",
+        });
+        return;
+      }
+ 
+      const result = await momoService.createPayment({
+        ma_don_hang: String(ma_don_hang),
+        tong_tien: Number(tong_tien),
+        phuong_thuc: "MOMO",
+        ghi_chu,
+      });
+ 
+      res.status(200).json({
+        success: true,
+        message: "Tạo thanh toán MoMo thành công",
+        url: result.paymentUrl,
+        data: result,
+      });
+    } catch (error: any) {
+      console.error("[MoMo] createPayment error:", error.message);
+      res.status(500).json({
+        success: false,
+        message: error.message || "Lỗi hệ thống khi tạo thanh toán MoMo",
+      });
+    }
+  };
+ 
+  /**
+   * POST /api/payment/momo/ipn
+   * MoMo server gọi tự động — KHÔNG cần auth middleware
+   */
+  public handleMomoIpn = async (
+    req: Request,
+    res: Response,
+  ): Promise<void> => {
+    try {
+      console.log("===== MOMO IPN =====");
+      console.log(JSON.stringify(req.body, null, 2));
+ 
+      const result = await momoService.handleIpn(req.body);
+ 
+      // MoMo yêu cầu trả 200 để không retry
+      res.status(200).json(result);
+    } catch (error: any) {
+      console.error("[MoMo] handleIpn error:", error.message);
+      // Vẫn trả 200 để MoMo không retry liên tục
+      res.status(200).json({ message: error.message });
+    }
+  };
+ 
+  /**
+   * GET /api/payment/momo/return
+   * MoMo redirect user về đây sau khi thanh toán
+   */
+  public handleMomoReturn = async (
+    req: Request,
+    res: Response,
+  ): Promise<void> => {
+    try {
+      console.log("===== MOMO RETURN =====");
+      console.log(JSON.stringify(req.query, null, 2));
+ 
+      const query = req.query as Record<string, string>;
+      const result = await momoService.handleReturn(query);
+ 
+      const frontendUrl =
+        process.env.FRONTEND_URL || "http://localhost:5173";
+ 
+      if (result.status === "thanh_cong") {
+        res.redirect(`${frontendUrl}/orders?payment=success&orderId=${result.oderId}`);
+      } else {
+        res.redirect(`${frontendUrl}/cart?error=payment_failed`);
+      }
+    } catch (error: any) {
+      console.error("[MoMo] handleReturn error:", error.message);
+      const frontendUrl =
+        process.env.FRONTEND_URL || "http://localhost:5173";
       res.redirect(`${frontendUrl}/cart?error=server_error`);
     }
   };
