@@ -23,4 +23,24 @@ router.get(
   paymentController.zaloPayReturn
 );
 
+// ==========================================
+// 2. MOMO
+// ==========================================
+router.post(
+  "/momo/create",
+  authenticateToken,
+  paymentController.createMomoPayment
+);
+
+// IPN: MoMo server gọi trực tiếp — KHÔNG dùng authenticateToken
+router.post(
+  "/momo/ipn",
+  paymentController.handleMomoIpn
+);
+
+router.get(
+  "/momo/return",
+  paymentController.handleMomoReturn
+);
+
 export default router;
