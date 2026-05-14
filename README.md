@@ -28,6 +28,7 @@ Nền tảng thương mại điện tử chuyên kinh doanh thiết bị số v�
 - Tải lên ảnh qua Cloudinary (CDN tối ưu)
 
 ## 📁 Cấu Trúc Dự Án
+```
 Techmart-multi-branch-ecommerce/
 ├── backend/                          # Backend Node.js (TypeScript)
 │   ├── src/
@@ -157,13 +158,17 @@ Techmart-multi-branch-ecommerce/
 │
 ├── docker-compose.yml               # Docker Compose (local dev)
 ├── package.json                     # Dependencies gốc
-├── README.md                        # README
-├── .env                             # File môi trường
+├── README.md                        # README (tiếng Anh)
+├── README_VI.md                     # README (tiếng Việt)
+├── .env.example                     # Mẫu biến môi trường
 ├── fetch-logs.js                    # Script lấy logs
 ├── fetch-logs.py                    # Script lấy logs (Python)
 └── log.json                         # File logs
+```
 
-🛠️ Công Nghệ Sử Dụng
+---
+
+## 🛠️ Công Nghệ Sử Dụng
 ### Backend
 - **Runtime**: Node.js
 - **Language**: TypeScript
@@ -339,15 +344,15 @@ Frontend sẽ chạy tại: **http://localhost:5173**
 ## 📊 Database Schema Chính
 
 ### Bảng Chính:
-1. nguoi_dung - Người dùng
-2. vai_tro - Vai trò phân quyền
-3. san_pham - Sản phẩm
-4. danh_muc - Danh mục sản phẩm
-5. don_hang - Đơn hàng
-6. chi_tiet_don_hang - Chi tiết đơn hàng
-7. thanh_toan - Thanh toán
-8. danh_gia_san_pham - Đánh giá/Review
-9. dia_chi - Địa chỉ giao hàng
+1. **nguoi_dung** - Người dùng
+2. **vai_tro** - Vai trò phân quyền
+3. **san_pham** - Sản phẩm
+4. **danh_muc** - Danh mục sản phẩm
+5. **don_hang** - Đơn hàng
+6. **chi_tiet_don_hang** - Chi tiết đơn hàng
+7. **thanh_toan** - Thanh toán
+8. **danh_gia_san_pham** - Đánh giá/Review
+9. **dia_chi** - Địa chỉ giao hàng
 
 ## 🔒 Bảo Mật
 
