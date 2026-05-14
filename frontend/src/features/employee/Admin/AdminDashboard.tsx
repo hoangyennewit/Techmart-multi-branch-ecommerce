@@ -105,7 +105,7 @@ export const AdminDashboard = () => {
   }, [timeframe]);
 
   return (
-    <div className="min-h-screen bg-[#2c0f48] text-white p-4 sm:p-8 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-white text-gray-900 p-4 sm:p-8 font-sans relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <AdminHeader />
         {/* THANH MENU TABS*/}
@@ -118,7 +118,7 @@ export const AdminDashboard = () => {
           </div>
         ) : (
           /* Khối container lớn bọc toàn bộ giống hình */
-          <div className="bg-[#efebf3] backdrop-blur-xl border border-white/5 rounded-4xl p-6 sm:p-8 shadow-2xl">
+          <div className="bg-gray-50 backdrop-blur-xl border border-gray-200 rounded-4xl p-6 sm:p-8 shadow-sm">
             
             {/* Phần trên: Thẻ thống kê + Bộ lọc thời gian */}
             <div className="flex flex-col xl:flex-row justify-between items-start gap-6 mb-10">
@@ -141,23 +141,23 @@ export const AdminDashboard = () => {
                 <select 
                   value={timeframe}
                   onChange={(e) => setTimeframe(e.target.value)} // Cập nhật state khi User đổi lựa chọn
-                  className="bg-[#2A1B3D] border border-[#3B2556] text-sm text-gray-300 rounded-full px-5 py-2.5 outline-none cursor-pointer appearance-none min-w-30 hover:border-purple-500 transition-colors"
+                  className="bg-white border border-gray-300 text-sm text-gray-700 rounded-full px-5 py-2.5 outline-none cursor-pointer appearance-none min-w-30 hover:border-blue-400 transition-colors"
                 >
                   <option value="year">Năm nay</option>
                   <option value="last_year">Năm trước</option>
                   <option value="month">Tháng này</option>
                 </select>
 
-                <div className="flex items-center gap-2 bg-[#2A1B3D] rounded-full px-4 py-2.5">
+                <div className="flex items-center gap-2 bg-white border border-gray-300 rounded-full px-4 py-2.5">
                   <input 
                       type="date" 
-                      className="bg-transparent text-sm text-gray-200 outline-none cursor-pointer [&::-webkit-calendar-picker-indicator]:invert"
+                      className="bg-transparent text-sm text-gray-700 outline-none cursor-pointer"
                       onChange={(e) => console.log("Từ ngày:", e.target.value)}
                   />
-                  <span className="text-gray-500">-</span>
+                  <span className="text-gray-400">-</span>
                   <input 
                       type="date" 
-                      className="bg-transparent text-sm text-gray-200 outline-none cursor-pointer [&::-webkit-calendar-picker-indicator]:invert"
+                      className="bg-transparent text-sm text-gray-700 outline-none cursor-pointer"
                       onChange={(e) => console.log("Đến ngày:", e.target.value)}
                   />
                 </div>

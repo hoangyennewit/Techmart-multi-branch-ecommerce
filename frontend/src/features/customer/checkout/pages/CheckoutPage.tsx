@@ -15,9 +15,10 @@ import {
   clearCart,
 } from "../../cart/cartSlice";
 // Import API function
-import { createPayment } from "../../payments/api/paymentApi";
+import { createPayment, createMomoPayment } from "../../payments/api/paymentApi";
 import { createOrder } from "../../orders/api/orderApi";
 import { saveRedirectState } from "../../../../utils/redirectStateManager";
+
 export const CheckoutPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -64,43 +65,98 @@ export const CheckoutPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const orderPayload = {
-        items: items,
-        totalAmount: total,
-        shippingFee: shippingFee,
-        shippingInfo: formData,
-        paymentMethod: paymentMethod,
-        userId: user?.id, // NÂNG CẤP CHẶN KHÁCH VÃNG LAI CHƯA ĐĂNG NHẬP, CÓ THỂ LÀM SAO ĐÓ KHÁC ĐỂ VẪN CHO PHÉP KHÁCH VÃNG LAI MUA HÀNG NHƯ TRƯỚC ĐÂY
-      };
-      const dbResponse = await createOrder(orderPayload);
-      const realOrderId = dbResponse.orderId || `ORDER${Date.now()}`;
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   try {
+  //     const orderPayload = {
+  //       items: items,
+  //       totalAmount: total,
+  //       shippingFee: shippingFee,
+  //       shippingInfo: formData,
+  //       paymentMethod: paymentMethod,
+  //       userId: user?.id, // NÂNG CẤP CHẶN KHÁCH VÃNG LAI CHƯA ĐĂNG NHẬP, CÓ THỂ LÀM SAO ĐÓ KHÁC ĐỂ VẪN CHO PHÉP KHÁCH VÃNG LAI MUA HÀNG NHƯ TRƯỚC ĐÂY
+  //     };
+  //     const dbResponse = await createOrder(orderPayload);
+  //     const realOrderId = dbResponse.orderId || `ORDER${Date.now()}`;
 
-      if (paymentMethod === "transfer") {
-        try {
-          const data = await createPayment({
-            amount: grandTotal,
-            orderId: realOrderId.toString(),
-          });
-          if (data && data.url) {
-            window.location.href = data.url; // Chuyển hướng người dùng đến trang thanh toán của VNPAY
-          }
-        } catch (error) {
-          console.error("Error creating payment:", error);
-          alert("Đã có lỗi xảy ra khi tạo thanh toán. Vui lòng thử lại.");
+  //     if (paymentMethod === "transfer") {
+  //       try {
+  //         const data = await createPayment({
+  //           amount: grandTotal,
+  //           orderId: realOrderId.toString(),
+  //         });
+  //         if (data && data.url) {
+  //           window.location.href = data.url; // Chuyển hướng người dùng đến trang thanh toán của VNPAY
+  //         }
+  //       } catch (error) {
+  //         console.error("Error creating payment:", error);
+  //         alert("Đã có lỗi xảy ra khi tạo thanh toán. Vui lòng thử lại.");
+  //       }
+  //     } else {
+  //       setIsSuccess(true);
+  //       dispatch(clearCart());
+  //       window.scrollTo(0, 0);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error creating order:", error);
+  //     alert("Đã có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại.");
+  //   }
+  // };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  try {
+    const orderPayload = {
+      items: items,
+      totalAmount: total,
+      shippingFee: shippingFee,
+      shippingInfo: formData,
+      paymentMethod: paymentMethod,
+      userId: user?.id,
+    };
+    const dbResponse = await createOrder(orderPayload);
+    const realOrderId = dbResponse.orderId || `ORDER${Date.now()}`;
+
+    if (paymentMethod === "transfer") {
+      try {
+        const data = await createPayment({
+          amount: grandTotal,
+          orderId: realOrderId.toString(),
+        });
+        if (data && data.url) {
+          window.location.href = data.url;
         }
-      } else {
-        setIsSuccess(true);
-        dispatch(clearCart());
-        window.scrollTo(0, 0);
+      } catch (error) {
+        console.error("Error creating payment:", error);
+        alert("Đã có lỗi xảy ra khi tạo thanh toán. Vui lòng thử lại.");
       }
-    } catch (error) {
-      console.error("Error creating order:", error);
-      alert("Đã có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại.");
+
+    } else if (paymentMethod === "momo") {
+      try {
+        const data = await createMomoPayment({
+          ma_don_hang: realOrderId.toString(),
+          tong_tien: grandTotal,
+          ghi_chu: formData.note,
+        });
+        if (data && data.url) {
+          window.location.href = data.url;
+        }
+      } catch (error) {
+        console.error("Error creating MoMo payment:", error);
+        alert("Đã có lỗi xảy ra khi tạo thanh toán MoMo. Vui lòng thử lại.");
+      }
+
+    } else {
+      // COD
+      setIsSuccess(true);
+      dispatch(clearCart());
+      window.scrollTo(0, 0);
     }
-  };
+  } catch (error) {
+    console.error("Error creating order:", error);
+    alert("Đã có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại.");
+  }
+};
 
   // Render giao diện thành công nếu isSuccess = true
   if (isSuccess) return <CheckoutSuccess />;
@@ -114,7 +170,7 @@ export const CheckoutPage = () => {
     <div className="min-h-screen bg-gray-50 pb-16">
       <Header />
 
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         {/* Nút Quay lại */}
         <div className="flex items-center gap-3 mb-8">
           <button
