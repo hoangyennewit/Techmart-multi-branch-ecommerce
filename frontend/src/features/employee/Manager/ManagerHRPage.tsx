@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { HrScheduleTab } from '../../../components/Manager/HrScheduleTab';
 import { HrSalaryTab } from '../../../components/Manager/HrSalaryTab';
 import { HrRecordsTab } from '../../../components/Manager/HrRecordsTab';
+import { ManagerHeader } from '../../../components/Manager/ManagerHeader';
 
 export const ManagerHRPage = () => {
   const location = useLocation();
@@ -19,19 +20,7 @@ export const ManagerHRPage = () => {
       <div className="max-w-7xl mx-auto relative">
         
         {/* --- HEADER --- */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-purple-800 tracking-wide">TechStore</h1>
-            <p className="text-gray-500 font-medium text-sm mt-1">Nâng tầm cuộc sống số</p>
-          </div>
-          <div className="flex items-center gap-3 bg-white px-5 py-2.5 rounded-full shadow-sm border border-gray-100">
-            <div className="text-right">
-              <p className="text-purple-600 text-[10px] font-bold uppercase tracking-widest">Quản lý</p>
-              <p className="text-gray-800 font-bold text-sm">Nguyễn Văn Tám</p>
-            </div>
-            <UserCircle size={36} className="text-gray-400" />
-          </div>
-        </div>
+        <ManagerHeader />
 
         {/* --- MAIN MENU TABS --- */}
         <div className="flex gap-3 mb-6 overflow-x-auto pb-2">
