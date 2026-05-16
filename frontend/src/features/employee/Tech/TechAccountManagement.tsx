@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { UserCircle } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { TechAccountCard, TechAccount } from '../../../components/Tech/TechAccountCard';
+import { TechHeader } from '../../../components/Tech/TechHeader';
 
 const roleOptions = ['Giám đốc', 'Bộ phận kĩ thuật', 'Quản lý cửa hàng', 'Quản lý sản phẩm', 'Nhân viên'];
 
@@ -58,19 +58,7 @@ export const TechAccountManagement = () => {
       <div className="max-w-7xl mx-auto relative">
         
         {/* --- HEADER --- */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-purple-800 tracking-wide">TechStore</h1>
-            <p className="text-gray-500 font-medium text-sm mt-1">Nâng tầm cuộc sống số</p>
-          </div>
-          <div className="flex items-center gap-3 bg-white px-5 py-2.5 rounded-full shadow-sm border border-gray-100">
-            <div className="text-right">
-              <p className="text-purple-600 text-[10px] font-bold uppercase tracking-widest">Kỹ thuật</p>
-              <p className="text-gray-800 font-bold text-sm">Nguyễn Văn Chín</p>
-            </div>
-            <UserCircle size={36} className="text-gray-400" />
-          </div>
-        </div>
+        <TechHeader />
 
         {/* --- THANH MENU TABS CÓ ROUTER --- */}
         <div className="flex justify-between items-center mb-6 border-b border-gray-200 pb-4">
