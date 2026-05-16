@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { UserCircle, LogOut } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../features/auth/store/AuthContext';
 
 export const ManagerHeader = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [userInfo, setUserInfo] = useState({ name: '', role: '' });
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const navigate = useNavigate();
+    const { logout } = useAuth();
 
     useEffect(() => {
         // Lấy thông tin user từ localStorage
@@ -36,8 +36,7 @@ export const ManagerHeader = () => {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('techmart_token');
-        navigate('/login');
+        logout();
     };
 
     return (
