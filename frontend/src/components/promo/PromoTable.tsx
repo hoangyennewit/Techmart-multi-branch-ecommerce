@@ -70,16 +70,16 @@ export const PromoTable = ({ onAddClick }: Props) => {
                 </td>
                 <td className="p-4">
                   <div className="flex gap-2 justify-center">
-                    <button className="flex items-center gap-1 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full font-medium transition-colors text-xs">
+                    <button onClick={() => alert("Chức năng đang được phát triển")} className="flex items-center gap-1 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full font-medium transition-colors text-xs">
                       <FileText size={14}/> Chi tiết
                     </button>
-                    <button className="flex items-center gap-1 px-3 py-1.5 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-full font-medium transition-colors text-xs">
+                    <button onClick={() => alert("Chức năng đang được phát triển")} className="flex items-center gap-1 px-3 py-1.5 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-full font-medium transition-colors text-xs">
                       <Edit size={14}/> Sửa
                     </button>
-                    <button className="flex items-center gap-1 px-3 py-1.5 bg-orange-50 hover:bg-orange-100 text-orange-600 rounded-full font-medium transition-colors text-xs">
+                    <button onClick={() => alert("Chức năng đang được phát triển")} className="flex items-center gap-1 px-3 py-1.5 bg-orange-50 hover:bg-orange-100 text-orange-600 rounded-full font-medium transition-colors text-xs">
                       <PauseCircle size={14}/> Dừng
                     </button>
-                    <button className="flex items-center gap-1 px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-full font-medium transition-colors text-xs">
+                    <button onClick={() => alert("Chức năng đang được phát triển")} className="flex items-center gap-1 px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-full font-medium transition-colors text-xs">
                       <XCircle size={14}/> Hủy
                     </button>
                   </div>

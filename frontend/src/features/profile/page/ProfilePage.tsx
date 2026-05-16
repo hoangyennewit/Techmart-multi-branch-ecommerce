@@ -149,6 +149,7 @@ export const ProfilePage = () => {
                     <div className="pt-6 border-t border-gray-50">
                       <button 
                         type="button"
+                        onClick={() => alert("Tính năng cập nhật hồ sơ đang được phát triển")}
                         className="w-full sm:w-auto px-12 py-4 bg-purple-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-purple-700 shadow-xl shadow-purple-200 transition-all hover:-translate-y-1 active:translate-y-0"
                       >
                         Cập nhật hồ sơ

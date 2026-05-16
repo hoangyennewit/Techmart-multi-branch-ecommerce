@@ -240,6 +240,7 @@ export const ProductInfo = ({ product }: Props) => {
 
         <div className="grid grid-cols-2 gap-3">
             <button
+              onClick={() => alert("Tính năng trả góp đang được phát triển")}
               disabled={isOutOfStock}
               className={`flex flex-col items-center justify-center py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-xl shadow-md shadow-blue-200 transition-all active:scale-95 border-none
                             ${

@@ -140,7 +140,7 @@ export const Header = () => {
                   Sản phẩm
                 </button>
                 <button
-                  onClick={() => navigate("/support")}
+                  onClick={() => alert("Tính năng đang được phát triển")}
                   className="text-white font-medium text-sm hover:text-orange-400 transition-colors"
                 >
                   Chăm sóc khách hàng

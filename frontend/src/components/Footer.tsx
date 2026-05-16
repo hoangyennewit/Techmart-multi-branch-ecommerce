@@ -43,7 +43,7 @@ export const Footer = () => {
                             placeholder="Email của bạn..."
                             className="flex-1 px-4 py-2 rounded-l-full text-gray-800 text-sm outline-none"
                         />
-                        <button className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-r-full text-sm font-bold transition-colors whitespace-nowrap">
+                        <button onClick={() => alert("Đăng ký nhận ưu đãi thành công!")} className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-r-full text-sm font-bold transition-colors whitespace-nowrap">
                             Đăng ký
                         </button>
                     </div>
@@ -79,6 +79,7 @@ export const Footer = () => {
                                 <button
                                     key={label}
                                     aria-label={label}
+                                    onClick={() => alert("Chức năng đang được phát triển")}
                                     className={`w-9 h-9 rounded-full bg-white/5 flex items-center justify-center ${color} transition-colors hover:bg-white/10`}
                                 >
                                     <Icon className="w-4 h-4" />
@@ -97,6 +98,7 @@ export const Footer = () => {
                                 {links.map((link) => (
                                     <li key={link}>
                                         <button
+                                            onClick={() => alert("Chức năng đang được phát triển")}
                                             className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-purple-400 transition-colors group"
                                         >
                                             <ChevronRight className="w-3.5 h-3.5 text-gray-600 group-hover:text-purple-400 transition-colors" />
@@ -115,8 +117,8 @@ export const Footer = () => {
                 <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-12 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
                     <span>© 2024 TechMart. Tất cả quyền được bảo lưu.</span>
                     <div className="flex gap-4">
-                        <button className="hover:text-gray-300 transition-colors">Điều khoản sử dụng</button>
-                        <button className="hover:text-gray-300 transition-colors">Chính sách bảo mật</button>
+                        <button onClick={() => alert("Chức năng đang được phát triển")} className="hover:text-gray-300 transition-colors">Điều khoản sử dụng</button>
+                        <button onClick={() => alert("Chức năng đang được phát triển")} className="hover:text-gray-300 transition-colors">Chính sách bảo mật</button>
                     </div>
                 </div>
             </div>
