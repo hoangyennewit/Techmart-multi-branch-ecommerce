@@ -7,6 +7,7 @@ export class ProductService {
       let query = `SELECT
                     ma_san_pham AS id,
                     ma_danh_muc AS categoryId,
+                    ma_hang AS "brandId",
                     ten_san_pham AS name,
                     mo_ta_ngan AS description,
                     gia_ban AS price,
@@ -33,6 +34,7 @@ export class ProductService {
       const formattedProducts = products.map((p: any) => ({
         id: p.id,
         categoryId: p.categoryId,
+        brandId: p.brandId,
         name: p.name,
         description: p.description,
         price: p.price,
@@ -67,6 +69,8 @@ export class ProductService {
       const products: any = await sequelize.query(
         `SELECT
                     sp.ma_san_pham AS id,
+                    sp.ma_danh_muc AS "categoryId",
+                    sp.ma_hang AS "brandId",
                     sp.ten_san_pham AS name,
                     sp.gia_ban AS price,
                     sp.gia_goc AS "originalPrice",
@@ -87,6 +91,8 @@ export class ProductService {
 
       return products.map((p: any) => ({
         id: p.id,
+        categoryId: p.categoryId,
+        brandId: p.brandId,
         name: p.name,
         price: p.price,
         originalPrice: p.originalPrice,

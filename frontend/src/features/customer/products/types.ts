@@ -30,6 +30,7 @@ export interface ProductComment {
 export interface Product {
     id: string;
     categoryId: number;
+    brandId?: number;
     name: string;
     description?: string;
     price: number;
