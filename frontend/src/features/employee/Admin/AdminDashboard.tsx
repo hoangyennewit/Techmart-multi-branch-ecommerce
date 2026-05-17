@@ -66,6 +66,7 @@ export const AdminDashboard = () => {
           // Nếu chọn "Năm nay"
           const currentYear = new Date().getFullYear();
           chartApiUrl = `${apiBase}/api/stats/revenue?timeframe=month&year=${currentYear}`;
+        }
 
         const chartRes = await fetch(chartApiUrl, { headers });
         if (chartRes.ok) {
