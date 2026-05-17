@@ -41,10 +41,10 @@ export const PromoBanner = ({ products }: Props) => {
                     return (
                         <SwiperSlide key={product.id}>
                             <div
-                                className="relative flex items-center justify-between overflow-hidden"
+                                className="relative w-full overflow-hidden grid grid-cols-2"
                                 style={{
                                     background: `linear-gradient(135deg, ${style.bgFrom} 0%, ${style.bgTo} 100%)`,
-                                    minHeight: "clamp(200px, 35vw, 300px)",
+                                    minHeight: "clamp(220px, 35vw, 320px)",
                                 }}
                             >
                                 {/* Glow */}
@@ -55,11 +55,17 @@ export const PromoBanner = ({ products }: Props) => {
                                     }}
                                 />
 
-                                {/* Product Image - Left Side */}
-                                <div className="relative z-10 flex-shrink-0 self-center pl-4 sm:pl-8 lg:pl-12">
+                                {/* Product Image - Left col, fill toàn bộ */}
+                                <div className="relative z-10 flex items-center justify-center h-full overflow-hidden">
                                     <img
-                                        style={{ height: "clamp(140px, 28vw, 280px)" }}
-                                        className="w-auto object-contain drop-shadow-2xl"
+                                        style={{
+                                            height: "clamp(180px, 32vw, 310px)",
+                                            width: "100%",
+                                            objectFit: "contain",
+                                            // Hòa màu ảnh với nền tối, loại bỏ nền trắng
+                                            mixBlendMode: "screen",
+                                            filter: "brightness(1.05) contrast(1.05)",
+                                        }}
                                         src={product.images?.[0]?.url || ""}
                                         alt={product.name}
                                         onError={(e) => {
@@ -70,8 +76,8 @@ export const PromoBanner = ({ products }: Props) => {
                                     />
                                 </div>
 
-                                {/* Text Content - Right Side */}
-                                <div className="relative z-10 flex flex-col gap-2 sm:gap-3 text-white px-5 sm:px-8 lg:px-12 py-6 sm:py-8 max-w-[50%] sm:max-w-lg">
+                                {/* Text Content - Right col, fill toàn bộ */}
+                                <div className="relative z-10 flex flex-col justify-center gap-2 sm:gap-4 text-white px-6 sm:px-10 lg:px-16 py-6 sm:py-8">
                                     {(product.discount ?? 0) > 0 && (
                                         <span className="inline-block w-fit px-3 py-1 bg-purple-600 text-white text-[9px] sm:text-[11px] font-bold rounded-full uppercase tracking-wider">
                                             GIẢM {product.discount}%
@@ -105,4 +111,3 @@ export const PromoBanner = ({ products }: Props) => {
         </div>
     );
 };
-
