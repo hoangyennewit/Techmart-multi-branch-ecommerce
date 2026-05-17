@@ -5,11 +5,14 @@ import { authorize } from "../middlewares/roleMiddleware";
 import { UserRole } from "../interfaces/roleInterface";
 const router = Router();
 
+// Cho phép tất cả các role nhân viên truy cập: CSKH (5), Bán hàng (6), Kho (7)
+const staffRoles = [UserRole.NV_CSKH, UserRole.NV_BAN_HANG, UserRole.NV_KHO];
+
 // 1. Lấy danh sách: GET /api/staff/orders
 router.get(
   "/orders", 
   authenticateToken, 
-  authorize(UserRole.NV_BAN_HANG), // Cho phép tất cả các role nhân viên
+  authorize(...staffRoles),
   staffOrderController.getOrders
 );
 
@@ -17,16 +20,16 @@ router.get(
 router.get(
   "/orders/:id", 
   authenticateToken, 
-  authorize(UserRole.NV_BAN_HANG), 
+  authorize(...staffRoles),
   staffOrderController.getOrderDetailsById
 );
 
-// 3. Cập nhật: PATCH /api/staff/orders/:id/status (Đổi từ PUT sang PATCH)
+// 3. Cập nhật: PATCH /api/staff/orders/:id/status
 router.patch(
   "/orders/:id/status", 
   authenticateToken, 
-  authorize(UserRole.NV_BAN_HANG), 
-  staffOrderController.updateOrderStatus // Đảm bảo tên hàm trong Controller là updateStatus
+  authorize(...staffRoles),
+  staffOrderController.updateOrderStatus
 );
 
-export default router;
+export default router;

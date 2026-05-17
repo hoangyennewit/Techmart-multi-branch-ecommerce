@@ -160,6 +160,98 @@ export const ProfilePage = () => {
               )}
 
               <OrderHistory isActive={activeTab === 'orders'} />
+
+              {activeTab === 'address' && (
+                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="mb-10">
+                    <h2 className="text-2xl font-black text-gray-900 tracking-tight">Địa chỉ nhận hàng</h2>
+                    <p className="text-sm text-gray-500 mt-1">Quản lý địa chỉ giao hàng của bạn</p>
+                  </div>
+
+                  <form className="space-y-6 max-w-2xl">
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.1em] ml-1">Họ và tên người nhận</label>
+                      <input
+                        type="text"
+                        defaultValue={user.ho_ten}
+                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-purple-600 focus:bg-white outline-none transition-all shadow-sm"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.1em] ml-1">Số điện thoại</label>
+                      <input
+                        type="text"
+                        defaultValue={user.so_dien_thoai || ''}
+                        placeholder="Nhập số điện thoại"
+                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-purple-600 focus:bg-white outline-none transition-all shadow-sm placeholder:text-gray-300"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.1em] ml-1">Địa chỉ đầy đủ</label>
+                      <textarea
+                        rows={3}
+                        defaultValue={user.dia_chi || ''}
+                        placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố"
+                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-purple-600 focus:bg-white outline-none transition-all shadow-sm placeholder:text-gray-300 resize-none"
+                      />
+                    </div>
+                    <div className="pt-4 border-t border-gray-50">
+                      <button
+                        type="button"
+                        onClick={() => alert('Tính năng lưu địa chỉ đang được phát triển')}
+                        className="w-full sm:w-auto px-12 py-4 bg-purple-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-purple-700 shadow-xl shadow-purple-200 transition-all hover:-translate-y-1 active:translate-y-0"
+                      >
+                        Lưu địa chỉ
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
+
+              {activeTab === 'password' && (
+                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="mb-10">
+                    <h2 className="text-2xl font-black text-gray-900 tracking-tight">Bảo mật tài khoản</h2>
+                    <p className="text-sm text-gray-500 mt-1">Đổi mật khẩu để bảo vệ tài khoản của bạn</p>
+                  </div>
+
+                  <form className="space-y-6 max-w-lg">
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.1em] ml-1">Mật khẩu hiện tại</label>
+                      <input
+                        type="password"
+                        placeholder="Nhập mật khẩu hiện tại"
+                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-purple-600 focus:bg-white outline-none transition-all shadow-sm placeholder:text-gray-300"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.1em] ml-1">Mật khẩu mới</label>
+                      <input
+                        type="password"
+                        placeholder="Tối thiểu 8 ký tự"
+                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-purple-600 focus:bg-white outline-none transition-all shadow-sm placeholder:text-gray-300"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.1em] ml-1">Xác nhận mật khẩu mới</label>
+                      <input
+                        type="password"
+                        placeholder="Nhập lại mật khẩu mới"
+                        className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-purple-600 focus:bg-white outline-none transition-all shadow-sm placeholder:text-gray-300"
+                      />
+                    </div>
+                    <div className="pt-4 border-t border-gray-50">
+                      <button
+                        type="button"
+                        onClick={() => alert('Tính năng đổi mật khẩu đang được phát triển')}
+                        className="w-full sm:w-auto px-12 py-4 bg-purple-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-purple-700 shadow-xl shadow-purple-200 transition-all hover:-translate-y-1 active:translate-y-0"
+                      >
+                        Đổi mật khẩu
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
             </div>
           </main>
         </div>

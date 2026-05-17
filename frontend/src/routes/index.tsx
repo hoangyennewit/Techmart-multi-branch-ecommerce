@@ -3,6 +3,7 @@ import { LoginPage } from "../features/auth/pages/LoginPage";
 import { RegisterPage } from "../features/auth/pages/RegisterPage";
 import { CustomerRoutes } from "./CustomerRoutes";
 import { EmployeeRoutes } from "./EmployeeRoutes";
+import { NotFoundPage } from "../pages/NotFoundPage";
 
 export const AppRoutes = () => {
   const routes = useRoutes([
@@ -13,6 +14,8 @@ export const AppRoutes = () => {
     ...CustomerRoutes,
     //3. ROUTES DÀNH CHO NHÂN VIÊN VÀ QUẢN LÝ
     ...EmployeeRoutes,
+    //4. TRANG 404 — phải đặt cuối cùng
+    { path: "*", element: <NotFoundPage /> },
   ]);
   return routes;
-};
+};
