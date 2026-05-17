@@ -40,7 +40,8 @@ export const AdminDashboard = () => {
 
         // 1. Gọi API lấy số liệu tổng quan (4 thẻ)
         // Lưu ý: Đảm bảo backend có API này và nhận query timeframe
-        const statsRes = await fetch(`http://localhost:5000/api/dashboard/stats?timeframe=${timeframe}`, { headers });
+        const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const statsRes = await fetch(`${apiBase}/api/dashboard/stats?timeframe=${timeframe}`, { headers });
         if (statsRes.ok) {
           const statsData = await statsRes.json();
           setStats(statsData);
@@ -49,23 +50,22 @@ export const AdminDashboard = () => {
         }
 
         // 2. Gọi API lấy dữ liệu biểu đồ (API chúng ta đã viết bằng Sequelize)
-        let chartApiUrl = `http://localhost:5000/api/stats/revenue?timeframe=month`; // Mặc định vẽ theo tháng của năm nay
+        let chartApiUrl = `${apiBase}/api/stats/revenue?timeframe=month`;
         
         if (timeframe === 'last_year') {
           const lastYear = new Date().getFullYear() - 1;
-          chartApiUrl = `http://localhost:5000/api/stats/revenue?timeframe=month&year=${lastYear}`;
+          chartApiUrl = `${apiBase}/api/stats/revenue?timeframe=month&year=${lastYear}`;
         } 
         else if (timeframe === 'month') {
           // Nếu chọn "Tháng này", lấy dữ liệu của tháng hiện tại chia theo tuần hoặc ngày
           const currentYear = new Date().getFullYear();
           const currentMonth = new Date().getMonth() + 1;
-          chartApiUrl = `http://localhost:5000/api/stats/revenue?timeframe=week&year=${currentYear}&month=${currentMonth}`;
+          chartApiUrl = `${apiBase}/api/stats/revenue?timeframe=week&year=${currentYear}&month=${currentMonth}`;
         } 
         else {
           // Nếu chọn "Năm nay"
           const currentYear = new Date().getFullYear();
-          chartApiUrl = `http://localhost:5000/api/stats/revenue?timeframe=month&year=${currentYear}`;
-        }
+          chartApiUrl = `${apiBase}/api/stats/revenue?timeframe=month&year=${currentYear}`;
 
         const chartRes = await fetch(chartApiUrl, { headers });
         if (chartRes.ok) {
