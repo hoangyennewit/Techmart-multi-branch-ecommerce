@@ -28,7 +28,7 @@ export const createPayment = async (orderData: {
 // MOMO
 // ==========================================
 
-const MOMO_API_URL = ("https://techmartvn.xyz") + "/api/payments";
+const MOMO_API_URL = (import.meta.env.VITE_API_URL || "https://techmartvn.xyz") + "/api/payments";
 export const createMomoPayment = async (orderData: {
   ma_don_hang: string;
   tong_tien: number;

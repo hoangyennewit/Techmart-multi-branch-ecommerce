@@ -11,6 +11,7 @@ env:
   AWS_REGION: ap-southeast-1
   ENV_NAME: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
   DOMAIN_NAME: ${{ github.ref == 'refs/heads/main' && 'techmartvn.xyz' || 'staging.techmartvn.xyz' }}
+  API_URL: ${{ github.ref == 'refs/heads/main' && 'api.techmartvn.xyz' || 'api-staging.techmartvn.xyz' }}
   ECR_REPOSITORY: techmart-${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}-backend
   ECS_CLUSTER: techmart-${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}-cluster
   ECS_SERVICE: techmart-${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}-service
@@ -125,8 +126,8 @@ jobs:
         working-directory: ${{ env.FRONTEND_DIR }}
         id: setup-env
         run: |
-          echo "VITE_API_URL=https://api.${{ env.DOMAIN_NAME }}" >> $GITHUB_ENV
-          echo "VITE_API_URL=https://api.${{ env.DOMAIN_NAME }}" > .env.production
+          echo "VITE_API_URL=https://${{ env.API_URL }}" >> $GITHUB_ENV
+          echo "VITE_API_URL=https://${{ env.API_URL }}" > .env.production
 
       - name: Build
         working-directory: ${{ env.FRONTEND_DIR }}

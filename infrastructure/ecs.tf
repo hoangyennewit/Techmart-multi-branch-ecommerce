@@ -83,7 +83,7 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "GOOGLE_CALLBACK_URL"
-          value = "https://${local.domain_name}/api/auth/google/callback"
+          value = "https://${local.api_domain_name}/api/auth/google/callback"
         },
         {
           name  = "FRONTEND_URL"
@@ -91,7 +91,7 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "GOOGLE_CALLBACK_URL"
-          value = "https://api.${local.domain_name}/api/auth/google/callback"
+          value = "https://${local.api_domain_name}/api/auth/google/callback"
         },
         {
           name  = "ZALOPAY_APP_ID"
@@ -111,7 +111,7 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "ZALOPAY_CALLBACK_URL"
-          value = "https://api.${local.domain_name}/api/payments/zalopay/callback"
+          value = "https://${local.api_domain_name}/api/payments/zalopay/callback"
         },
         {
           name  = "NODE_OPTIONS"
@@ -139,7 +139,7 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "vnp_ReturnUrl"
-          value = "https://${local.domain_name}/api/payment/vnpay_return"
+          value = "https://${local.api_domain_name}/api/payment/vnpay_return"
         },
         {
           name  = "MOMO_PARTNER_CODE"
@@ -156,6 +156,14 @@ resource "aws_ecs_task_definition" "backend" {
         {
           name  = "MOMO_ENDPOINT"
           value = "https://test-payment.momo.vn/v2/gateway/api/create"
+        },
+        {
+          name  = "MOMO_REDIRECT_URL"
+          value = "https://${local.api_domain_name}/api/payments/momo/return"
+        },
+        {
+          name  = "MOMO_IPN_URL"
+          value = "https://${local.api_domain_name}/api/payments/momo/ipn"
         }
       ]
       logConfiguration = {
