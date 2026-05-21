@@ -1,5 +1,5 @@
 resource "aws_security_group" "rds" {
-  name        = "${var.project_name}-rds-sg"
+  name        = "${local.resource_suffix}-rds-sg"
   description = "Security group for RDS instance"
   vpc_id      = aws_vpc.main.id
 
@@ -18,21 +18,21 @@ resource "aws_security_group" "rds" {
   }
 
   tags = {
-    Name = "${var.project_name}-rds-sg"
+    Name = "${local.resource_suffix}-rds-sg"
   }
 }
 
 resource "aws_db_subnet_group" "main" {
-  name       = "${var.project_name}-db-subnet-group"
+  name       = "${local.resource_suffix}-db-subnet-group"
   subnet_ids = [aws_subnet.private_1.id, aws_subnet.private_2.id]
 
   tags = {
-    Name = "${var.project_name}-db-subnet-group"
+    Name = "${local.resource_suffix}-db-subnet-group"
   }
 }
 
 resource "aws_db_instance" "main" {
-  identifier           = "${var.project_name}-db"
+  identifier           = "${local.resource_suffix}-db"
   allocated_storage    = 20
   storage_type         = "gp2"
   engine               = "postgres"
@@ -48,7 +48,7 @@ resource "aws_db_instance" "main" {
   vpc_security_group_ids = [aws_security_group.rds.id]
 
   tags = {
-    Name = "${var.project_name}-db"
+    Name = "${local.resource_suffix}-db"
   }
 }
 

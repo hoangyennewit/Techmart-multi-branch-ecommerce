@@ -17,6 +17,12 @@ provider "aws" {
   region = var.aws_region
 }
 
+locals {
+  env             = terraform.workspace
+  domain_name     = local.env == "production" ? "techmartvn.xyz" : "staging.techmartvn.xyz"
+  resource_suffix = "${var.project_name}-${local.env}"
+}
+
 variable "aws_region" {
   default = "ap-southeast-1"
 }
@@ -100,7 +106,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
 
   tags = {
-    Name = "${var.project_name}-vpc"
+    Name = "${local.resource_suffix}-vpc"
   }
 }
 
@@ -108,7 +114,7 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "${var.project_name}-igw"
+    Name = "${local.resource_suffix}-igw"
   }
 }
 
@@ -119,7 +125,7 @@ resource "aws_subnet" "public_1" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.project_name}-public-1"
+    Name = "${local.resource_suffix}-public-1"
   }
 }
 
@@ -130,7 +136,7 @@ resource "aws_subnet" "public_2" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.project_name}-public-2"
+    Name = "${local.resource_suffix}-public-2"
   }
 }
 
@@ -140,7 +146,7 @@ resource "aws_subnet" "private_1" {
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = "${var.project_name}-private-1"
+    Name = "${local.resource_suffix}-private-1"
   }
 }
 
@@ -150,7 +156,7 @@ resource "aws_subnet" "private_2" {
   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = "${var.project_name}-private-2"
+    Name = "${local.resource_suffix}-private-2"
   }
 }
 
@@ -164,7 +170,7 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-    Name = "${var.project_name}-public-rt"
+    Name = "${local.resource_suffix}-public-rt"
   }
 }
 
