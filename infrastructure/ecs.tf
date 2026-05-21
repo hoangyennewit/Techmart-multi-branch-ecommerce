@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "backend" {
-  name                 = "${var.project_name}-backend"
+  name                 = "${local.resource_suffix}-backend"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -8,11 +8,11 @@ resource "aws_ecr_repository" "backend" {
 }
 
 resource "aws_ecs_cluster" "main" {
-  name = "${var.project_name}-cluster"
+  name = "${local.resource_suffix}-cluster"
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "${var.project_name}-ecs-execution-role"
+  name = "${local.resource_suffix}-ecs-execution-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -34,12 +34,12 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
 }
 
 resource "aws_cloudwatch_log_group" "ecs_logs" {
-  name              = "/ecs/${var.project_name}-backend"
+  name              = "/ecs/${local.resource_suffix}-backend"
   retention_in_days = 7
 }
 
 resource "aws_ecs_task_definition" "backend" {
-  family                   = "${var.project_name}-backend"
+  family                   = "${local.resource_suffix}-backend"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = 256
@@ -83,15 +83,15 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "GOOGLE_CALLBACK_URL"
-          value = "https://techmartvn.xyz/api/auth/google/callback"
+          value = "https://${local.domain_name}/api/auth/google/callback"
         },
         {
           name  = "FRONTEND_URL"
-          value = "https://techmartvn.xyz"
+          value = "https://${local.domain_name}"
         },
         {
           name  = "GOOGLE_CALLBACK_URL"
-          value = "https://api.techmartvn.xyz/api/auth/google/callback"
+          value = "https://api.${local.domain_name}/api/auth/google/callback"
         },
         {
           name  = "ZALOPAY_APP_ID"
@@ -111,7 +111,7 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "ZALOPAY_CALLBACK_URL"
-          value = "https://api.techmartvn.xyz/api/payments/zalopay/callback"
+          value = "https://api.${local.domain_name}/api/payments/zalopay/callback"
         },
         {
           name  = "NODE_OPTIONS"
@@ -139,7 +139,7 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "vnp_ReturnUrl"
-          value = "https://techmartvn.xyz/api/payment/vnpay_return"
+          value = "https://${local.domain_name}/api/payment/vnpay_return"
         },
         {
           name  = "MOMO_PARTNER_CODE"
@@ -171,7 +171,7 @@ resource "aws_ecs_task_definition" "backend" {
 }
 
 resource "aws_security_group" "alb" {
-  name        = "${var.project_name}-alb-sg"
+  name        = "${local.resource_suffix}-alb-sg"
   description = "Allow inbound traffic to ALB"
   vpc_id      = aws_vpc.main.id
 
@@ -191,7 +191,7 @@ resource "aws_security_group" "alb" {
 }
 
 resource "aws_security_group" "ecs_tasks" {
-  name        = "${var.project_name}-ecs-tasks-sg"
+  name        = "${local.resource_suffix}-ecs-tasks-sg"
   description = "Allow inbound access from the ALB only"
   vpc_id      = aws_vpc.main.id
 
@@ -211,7 +211,7 @@ resource "aws_security_group" "ecs_tasks" {
 }
 
 resource "aws_lb" "main" {
-  name               = "${var.project_name}-alb"
+  name               = "${local.resource_suffix}-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
@@ -219,7 +219,7 @@ resource "aws_lb" "main" {
 }
 
 resource "aws_lb_target_group" "backend" {
-  name        = "${var.project_name}-tg"
+  name        = "${local.resource_suffix}-tg"
   port        = 5000
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
@@ -247,7 +247,7 @@ resource "aws_lb_listener" "http" {
 }
 
 resource "aws_ecs_service" "main" {
-  name            = "${var.project_name}-service"
+  name            = "${local.resource_suffix}-service"
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.backend.arn
   desired_count   = 1
