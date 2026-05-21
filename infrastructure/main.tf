@@ -20,6 +20,7 @@ provider "aws" {
 locals {
   env             = terraform.workspace
   domain_name     = local.env == "production" ? "techmartvn.xyz" : "staging.techmartvn.xyz"
+  api_domain_name = local.env == "production" ? "api.techmartvn.xyz" : "api-staging.techmartvn.xyz"
   resource_suffix = "${var.project_name}-${local.env}"
 }
 
