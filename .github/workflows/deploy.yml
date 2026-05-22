@@ -4,13 +4,16 @@ on:
   push:
     branches:
       - main
-      - dangnhap
+      - develop
 
 env:
   AWS_REGION: ap-southeast-1
-  ECR_REPOSITORY: techmart-backend
-  ECS_CLUSTER: techmart-cluster
-  ECS_SERVICE: techmart-service
+  ENV_NAME: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+  DOMAIN_NAME: ${{ github.ref == 'refs/heads/main' && 'techmartvn.xyz' || 'staging.techmartvn.xyz' }}
+  API_URL: ${{ github.ref == 'refs/heads/main' && 'api.techmartvn.xyz' || 'api-staging.techmartvn.xyz' }}
+  ECR_REPOSITORY: techmart-${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}-backend
+  ECS_CLUSTER: techmart-${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}-cluster
+  ECS_SERVICE: techmart-${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}-service
   FRONTEND_DIR: ./frontend
   BACKEND_DIR: ./backend
 
@@ -68,6 +71,11 @@ jobs:
         working-directory: ./infrastructure
         run: terraform init
 
+      - name: Terraform Workspace Select/Create
+        working-directory: ./infrastructure
+        run: |
+          terraform workspace select ${{ env.ENV_NAME }} || terraform workspace new ${{ env.ENV_NAME }}
+
       - name: Terraform Apply
         working-directory: ./infrastructure
         run: terraform apply -auto-approve
@@ -123,7 +131,7 @@ jobs:
 
   deploy-frontend:
     name: Build and Deploy Frontend
-    needs: deploy-infrastructure
+    needs: [test-backend, deploy-infrastructure]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -149,8 +157,8 @@ jobs:
         working-directory: ${{ env.FRONTEND_DIR }}
         id: setup-env
         run: |
-          echo "VITE_API_URL=https://api.techmartvn.xyz" >> $GITHUB_ENV
-          echo "VITE_API_URL=https://api.techmartvn.xyz" > .env.production
+          echo "VITE_API_URL=https://${{ env.API_URL }}" >> $GITHUB_ENV
+          echo "VITE_API_URL=https://${{ env.API_URL }}" > .env.production
 
       - name: Build
         working-directory: ${{ env.FRONTEND_DIR }}
@@ -159,4 +167,4 @@ jobs:
       - name: Deploy to S3
         working-directory: ${{ env.FRONTEND_DIR }}/dist
         run: |
-          aws s3 sync . s3://techmartvn.xyz --delete
+          aws s3 sync . s3://${{ env.DOMAIN_NAME }} --delete
