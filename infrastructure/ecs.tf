@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "backend" {
       environment = [
         {
           name  = "DB_HOST"
-          value = aws_db_instance.main.address
+          value = local.db_host
         },
         {
           name  = "DB_USER"
