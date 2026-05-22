@@ -71,7 +71,7 @@ resource "aws_ecs_task_definition" "backend" {
         },
         {
           name  = "DB_NAME"
-          value = "techmart_db"
+          value = local.env == "production" ? "techmart_db_production" : "techmart_db_staging"
         },
         {
           name  = "GOOGLE_CLIENT_ID"
