@@ -27,6 +27,7 @@ services:
       - ./backend:/app
       - /app/node_modules
       - ./.env:/app/.env
+    command: sh -c "npm run start >> /app/app.log 2>&1"
     environment:
       - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
@@ -49,6 +50,17 @@ services:
       - /app/node_modules
     environment:
       - VITE_PORT=5173
+    depends_on:
+      - backend
+
+  promtail:
+    image: grafana/promtail:2.9.0
+    container_name: promtail_agent
+    restart: unless-stopped
+    command: -config.file=/etc/promtail/config.yml
+    volumes:
+      - ./promtail-config.yml:/etc/promtail/config.yml
+      - ./backend:/var/log/backend_logs
     depends_on:
       - backend
 
