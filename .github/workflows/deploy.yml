@@ -52,6 +52,7 @@ jobs:
           retention-days: 7
   deploy-infrastructure:
     name: Provision Infrastructure
+    needs: [test-backend]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
