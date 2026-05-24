@@ -64,7 +64,7 @@ jobs:
       - name: Download coverage report from previous job
         uses: actions/download-artifact@v4
         with:
-          name: coverage-report
+          name: coverage-report-${{ github.sha }}
           path: backend/coverage/
 
       - name: Setup Node.js
