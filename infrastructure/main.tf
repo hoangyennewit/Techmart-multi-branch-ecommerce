@@ -17,8 +17,6 @@ provider "aws" {
   region = var.aws_region
 }
 
-<<<<<<< HEAD
-=======
 locals {
   env             = terraform.workspace
   domain_name     = local.env == "production" ? "techmartvn.xyz" : "staging.techmartvn.xyz"
@@ -27,7 +25,6 @@ locals {
   db_host         = local.env == "staging" ? aws_db_instance.main[0].address : data.aws_db_instance.staging[0].address
 }
 
->>>>>>> 71b99dfc365610a61c2d2c4fabf4670f32a4f965
 variable "aws_region" {
   default = "ap-southeast-1"
 }
@@ -111,11 +108,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
 
   tags = {
-<<<<<<< HEAD
-    Name = "${var.project_name}-vpc"
-=======
     Name = "${local.resource_suffix}-vpc"
->>>>>>> 71b99dfc365610a61c2d2c4fabf4670f32a4f965
   }
 }
 
@@ -123,11 +116,7 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-<<<<<<< HEAD
-    Name = "${var.project_name}-igw"
-=======
     Name = "${local.resource_suffix}-igw"
->>>>>>> 71b99dfc365610a61c2d2c4fabf4670f32a4f965
   }
 }
 
@@ -138,11 +127,7 @@ resource "aws_subnet" "public_1" {
   map_public_ip_on_launch = true
 
   tags = {
-<<<<<<< HEAD
-    Name = "${var.project_name}-public-1"
-=======
     Name = "${local.resource_suffix}-public-1"
->>>>>>> 71b99dfc365610a61c2d2c4fabf4670f32a4f965
   }
 }
 
@@ -153,11 +138,7 @@ resource "aws_subnet" "public_2" {
   map_public_ip_on_launch = true
 
   tags = {
-<<<<<<< HEAD
-    Name = "${var.project_name}-public-2"
-=======
     Name = "${local.resource_suffix}-public-2"
->>>>>>> 71b99dfc365610a61c2d2c4fabf4670f32a4f965
   }
 }
 
@@ -167,11 +148,7 @@ resource "aws_subnet" "private_1" {
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-<<<<<<< HEAD
-    Name = "${var.project_name}-private-1"
-=======
     Name = "${local.resource_suffix}-private-1"
->>>>>>> 71b99dfc365610a61c2d2c4fabf4670f32a4f965
   }
 }
 
@@ -181,11 +158,7 @@ resource "aws_subnet" "private_2" {
   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
-<<<<<<< HEAD
-    Name = "${var.project_name}-private-2"
-=======
     Name = "${local.resource_suffix}-private-2"
->>>>>>> 71b99dfc365610a61c2d2c4fabf4670f32a4f965
   }
 }
 
@@ -199,11 +172,7 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-<<<<<<< HEAD
-    Name = "${var.project_name}-public-rt"
-=======
     Name = "${local.resource_suffix}-public-rt"
->>>>>>> 71b99dfc365610a61c2d2c4fabf4670f32a4f965
   }
 }
 
@@ -216,4 +185,3 @@ resource "aws_route_table_association" "public_2" {
   subnet_id      = aws_subnet.public_2.id
   route_table_id = aws_route_table.public.id
 }
-
