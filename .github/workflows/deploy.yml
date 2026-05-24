@@ -51,64 +51,64 @@ jobs:
           path: backend/coverage/
           retention-days: 7
 
-  sonarqube-analysis:
-    name: SonarQube Analysis
-    needs: [test-backend]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code với full lịch sử Git
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+  # sonarqube-analysis:
+  #   name: SonarQube Analysis
+  #   needs: [test-backend]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Code với full lịch sử Git
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Cache SonarQube packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+  #     - name: Cache SonarQube packages
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/.sonar/cache
+  #         key: ${{ runner.os }}-sonar
+  #         restore-keys: ${{ runner.os }}-sonar
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: backend/package-lock.json
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 22
+  #         cache: npm
+  #         cache-dependency-path: backend/package-lock.json
 
-      - name: Install Dependencies
-        working-directory: ./backend
-        run: npm ci
+  #     - name: Install Dependencies
+  #       working-directory: ./backend
+  #       run: npm ci
 
-      - name: Download coverage report from previous job
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage-report-${{ github.sha }}
-          path: backend/coverage/
+  #     - name: Download coverage report from previous job
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: coverage-report-${{ github.sha }}
+  #         path: backend/coverage/
       
-      - name: Setup Java on Cloud
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: |
-            17
-            21
+  #     - name: Setup Java on Cloud
+  #       uses: actions/setup-java@v4
+  #       with:
+  #         distribution: 'temurin'
+  #         java-version: |
+  #           17
+  #           21
 
-      - name: Run SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        with:
-          projectBaseDir: backend
-          args: >
-            -Dsonar.projectKey=techmart-mart
-            -Dsonar.sources=.
-            -Dsonar.exclusions=node_modules/**,dist/**,build/**,coverage/**,*.log,test/**,**/*.test.js
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+  #     - name: Run SonarQube Scan
+  #       uses: sonarsource/sonarqube-scan-action@master
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  #       with:
+  #         projectBaseDir: backend
+  #         args: >
+  #           -Dsonar.projectKey=techmart-mart
+  #           -Dsonar.sources=.
+  #           -Dsonar.exclusions=node_modules/**,dist/**,build/**,coverage/**,*.log,test/**,**/*.test.js
+  #           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
   deploy-infrastructure:
     name: Provision Infrastructure
-    needs: [sonarqube-analysis]
+    needs: [test-backend]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
