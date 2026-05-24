@@ -50,9 +50,49 @@ jobs:
           name: coverage-report-${{ github.sha }}
           path: backend/coverage/
           retention-days: 7
+
+  sonarqube-analysis:
+    name: SonarQube Analysis
+    needs: [test-backend]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download coverage report from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: backend/coverage/
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Run SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v3
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          projectBaseDir: backend
+          args: >
+            -Dsonar.projectKey=techmart-mart
+            -Dsonar.sources=.
+            -Dsonar.exclusions=node_modules/**,dist/**,build/**
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+
   deploy-infrastructure:
     name: Provision Infrastructure
-    needs: [test-backend]
+    needs: [sonarqube-analysis]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -96,7 +136,7 @@ jobs:
 
   deploy-backend:
     name: Build and Deploy Backend
-    needs: [test-backend, deploy-infrastructure]
+    needs: [sonarqube-analysis, deploy-infrastructure]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
