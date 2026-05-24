@@ -137,7 +137,7 @@ export const AdminDashboard = () => {
               </div>
 
               {/* Bộ lọc góc phải */}
-              <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
+              <div className="flex items-center gap-3">
                 <select 
                   value={timeframe}
                   onChange={(e) => setTimeframe(e.target.value)} // Cập nhật state khi User đổi lựa chọn

@@ -4,35 +4,19 @@ import ReviewForm from "./ReviewForm";
 import RatingSummary from "./RatingSumary";
 import ReviewFilter from "./ReviewFilter";
 import ReviewItem from "./ReviewItem";
-import { MessageSquare, LogIn } from "lucide-react";
-import { ProductAPI } from "../../api/productApi";
-import { useAuth } from "../../../../auth/store/AuthContext";
-import { Link } from "react-router-dom";
+import { MessageSquare } from "lucide-react";
 
 type Props = {
     product: Product;
 };
 
 export const ProductComments = ({ product }: Props) => {
-    const { isAuthenticated, user } = useAuth();
-    const [comments, setComments] = useState<ProductComment[]>([]);
+    const [comments, setComments] = useState<ProductComment[]>(product.comments || []);
     const [filterRating, setFilterRating] = useState<number>(0);
-
-    const fetchReviews = async () => {
-        if (!product.id) return;
-        try {
-            const data = await ProductAPI.getReviews(product.id);
-            setComments(data || []);
-        } catch (error) {
-            console.error("Lỗi khi tải đánh giá:", error);
-        }
-    };
-
     useEffect(() => {
-        fetchReviews();
+        setComments(product.comments || []);
         setFilterRating(0);
-    }, [product.id]);
-    
+    }, [product.id, product.comments]);
     const totalReviews = comments.length;
     
     // Calculate Average Rating
@@ -49,24 +33,22 @@ export const ProductComments = ({ product }: Props) => {
     });
 
     // Handle posting new review
-    const handleAddReview = async (data: { comment: string; rating: number }) => {
-        if (!isAuthenticated) {
-            alert("Bạn cần đăng nhập để đánh giá sản phẩm này.");
-            return;
-        }
+    const handleAddReview = (data: { comment: string; rating: number }) => {
+        const newReview: ProductComment = {
+            id: `new-${Date.now()}`,
+            productId: product.id,
+            userId: "u-guest",
+            userName: "Khách hàng",
+            content: data.comment,
+            stars: data.rating,
+            createdAt: new Date().toISOString()
+        };
         
         try {
-            const newReview = await ProductAPI.addReview(product.id, {
-                ma_nguoi_dung: user?.id,
-                noi_dung: data.comment,
-                so_sao: data.rating
-            });
-            // Tải lại danh sách đánh giá sau khi thêm
-            fetchReviews();
+            setComments([newReview, ...comments]); 
         }
         catch (error) {
             console.error("Lỗi khi thêm đánh giá mới:", error);
-            alert("Đã xảy ra lỗi khi gửi đánh giá. Vui lòng thử lại sau.");
         }
     };
 
@@ -92,25 +74,13 @@ export const ProductComments = ({ product }: Props) => {
             />
 
             {/* Form Gửi Đánh Giá */}
-            {isAuthenticated ? (
-                <div className="mb-10 bg-gray-50 p-6 rounded-xl border border-gray-100">
-                    <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                        <MessageSquare className="w-5 h-5 text-purple-600" />
-                        Viết đánh giá của bạn
-                    </h3>
-                    <ReviewForm onSubmit={handleAddReview} />
-                </div>
-            ) : (
-                <div className="mb-10 bg-gray-50 p-6 rounded-xl border border-gray-100 text-center">
-                    <MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                    <h3 className="font-bold text-gray-800 mb-2">Đăng nhập để đánh giá</h3>
-                    <p className="text-gray-500 mb-4 text-sm">Vui lòng đăng nhập để chia sẻ cảm nhận của bạn về sản phẩm này.</p>
-                    <Link to="/login" className="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-purple-700 transition-colors">
-                        <LogIn className="w-4 h-4" />
-                        Đăng nhập ngay
-                    </Link>
-                </div>
-            )}
+            <div className="mb-10 bg-gray-50 p-6 rounded-xl border border-gray-100">
+                <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5 text-purple-600" />
+                    Viết đánh giá của bạn
+                </h3>
+                <ReviewForm onSubmit={handleAddReview} />
+            </div>
 
             {/* Filter Section */}
             {totalReviews > 0 && (

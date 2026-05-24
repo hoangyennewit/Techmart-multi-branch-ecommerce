@@ -193,9 +193,8 @@ export const Header = () => {
                             alt={product.name}
                             className="w-10 h-10 object-cover rounded"
                             onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.onerror = null;
-                              target.src = "/vite.svg";
+                              (e.target as HTMLImageElement).src =
+                                "/placeholder.png";
                             }}
                           />
                           <div className="flex-1 min-w-0">
@@ -224,10 +223,10 @@ export const Header = () => {
             </div>
 
             {/* Right Section */}
-            <div className="flex items-center gap-1 sm:gap-4 flex-shrink-0">
+            <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
               {/* Search Icon — mobile and tablet */}
               <button
-                className="md:hidden p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors"
                 onClick={() => setSearchOpen(!searchOpen)}
                 aria-label="Tìm kiếm"
               >
@@ -237,7 +236,7 @@ export const Header = () => {
               {/* Cart */}
               <button
                 onClick={() => navigate("/cart")}
-                className="relative p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="relative p-2 rounded-full hover:bg-white/10 transition-colors"
                 aria-label="Giỏ hàng"
               >
                 <ShoppingCart className="w-5 h-5 text-white" />
@@ -253,7 +252,7 @@ export const Header = () => {
 
               {/* User Profile */}
               <button
-                className="p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="p-2 rounded-full hover:bg-white/10 transition-colors"
                 title="Tài khoản"
                 onClick={() => user ? navigate("/profile") : navigate("/login")}
               >
@@ -262,7 +261,7 @@ export const Header = () => {
 
               {/* Hamburger — mobile only */}
               <button
-                className="sm:hidden p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="sm:hidden p-2 rounded-full hover:bg-white/10 transition-colors"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Menu"
               >
@@ -310,9 +309,7 @@ export const Header = () => {
                       alt={product.name}
                       className="w-8 h-8 object-cover rounded"
                       onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.onerror = null;
-                        target.src = "/vite.svg";
+                        (e.target as HTMLImageElement).src = "/placeholder.png";
                       }}
                     />
                     <div className="flex-1 min-w-0">
@@ -367,7 +364,7 @@ export const Header = () => {
               setMenuOpen(false);
             }}
             className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                   text-gray-200 hover:bg-white/5 hover:text-cyan-400 transition-colors"
+                                   text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
           >
             <Home className="w-4 h-4" />
             Trang chủ
@@ -381,7 +378,7 @@ export const Header = () => {
                 setMenuOpen(false);
               }}
               className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                       text-gray-200 hover:bg-white/5 hover:text-cyan-400 transition-colors"
+                                       text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
             >
               <Icon className="w-4 h-4 text-cyan-400" />
               {name}
@@ -394,7 +391,7 @@ export const Header = () => {
               setMenuOpen(false);
             }}
             className="w-full flex items-center gap-3 px-5 py-3.5 text-sm font-medium
-                                   text-gray-200 hover:bg-white/5 hover:text-cyan-400 transition-colors"
+                                   text-gray-700 hover:bg-white/5 hover:text-cyan-400 transition-colors"
           >
             <Package className="w-4 h-4 text-cyan-400" />
             Đơn hàng của tôi

@@ -43,8 +43,8 @@ export const AdminHeader = () => {
   return (
     <div className="flex justify-between items-center mb-8 relative">
       <div>
-        <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-purple-400 to-purple-200">TechMart</h1>
-        <p className="text-sm text-purple-300 opacity-70 italic">Nâng tầm cuộc sống số</p>
+        <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-blue-600 to-blue-400">TechStore</h1>
+        <p className="text-sm text-gray-600 opacity-70 italic">Nâng tầm cuộc sống số</p>
       </div>
 
       <div className="relative" ref={dropdownRef}>

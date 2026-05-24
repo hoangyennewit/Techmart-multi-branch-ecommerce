@@ -9,7 +9,6 @@ import { Product } from "../types";
 import { ProductAPI } from "../api/productApi";
 import { useState, useEffect } from "react";
 import { ChevronRight, Home, Star } from "lucide-react";
-import { Footer } from "@/components/Footer";
 
 export const ProductDetailPage = () => {
     const { id } = useParams<{ id: string }>();    
@@ -153,8 +152,6 @@ export const ProductDetailPage = () => {
                     </div>
                 </div>
             </div>
-            
-            <Footer />
         </div>
     );
 };

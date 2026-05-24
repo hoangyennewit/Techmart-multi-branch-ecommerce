@@ -20,7 +20,7 @@ export const FeaturedProducts = ({ products }: Props) => {
 
     const filtered = products.filter((item) => {
         if (activeTab === "all") return true;
-        return Number(item.categoryId) === Number(activeTab);
+        return item.categoryId === activeTab;
     });
 
     // 4. Render giao diện

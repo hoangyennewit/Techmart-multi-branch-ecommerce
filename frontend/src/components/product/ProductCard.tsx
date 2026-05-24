@@ -108,9 +108,7 @@ export const ProductCard = ({ product }: ProductProps) => {
           className="w-full h-full object-contain p-4 mix-blend-multiply
                                group-hover:scale-105 transition-transform duration-500"
           onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.onerror = null;
-            target.src = '/vite.svg';
+            (e.target as HTMLImageElement).src = '/placeholder.png';
           }}
         />
       </div>
@@ -178,8 +176,8 @@ export const ProductCard = ({ product }: ProductProps) => {
         {/* Add to Cart Button */}
         <button
           onClick={handleAddToCart}
-          className={`mt-2 w-full flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-2 sm:px-3
-                               font-semibold text-xs sm:text-sm rounded-xl transition-all duration-200
+          className={`mt-2 w-full flex items-center justify-center gap-2 py-2.5 px-3
+                               font-semibold text-sm rounded-xl transition-all duration-200
                                ${
                                  added
                                    ? "bg-green-500 text-white border-green-500 border"
@@ -189,13 +187,13 @@ export const ProductCard = ({ product }: ProductProps) => {
         >
           {added ? (
             <>
-              <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              <span className="truncate">Đã thêm!</span>
+              <Check className="w-4 h-4" />
+              Đã thêm!
             </>
           ) : (
             <>
-              <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              <span className="truncate">Thêm vào giỏ</span>
+              <ShoppingCart className="w-4 h-4" />
+              Thêm vào giỏ
             </>
           )}
         </button>

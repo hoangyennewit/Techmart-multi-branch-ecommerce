@@ -33,7 +33,7 @@ export const CategoryBar = () => {
         </div>
 
         {/* VÙNG CHỨA ICON: Dùng flex-1 để giãn rộng ra sát nút gợi ý */}
-        <div className="flex-1 flex items-center justify-start sm:justify-around px-6 sm:px-12 overflow-x-auto scrollbar-hide gap-6 sm:gap-2">
+        <div className="flex-1 flex items-center justify-around px-6 sm:px-12">
           {categories.map((cat) => {
             const isActive = location.pathname.includes(`/category/${cat.slug}`);
             return (

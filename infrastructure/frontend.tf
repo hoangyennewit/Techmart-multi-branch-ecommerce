@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "frontend" {
-  bucket        = "techmartvn.xyz"
+  bucket        = local.domain_name
   force_destroy = true
 }
 

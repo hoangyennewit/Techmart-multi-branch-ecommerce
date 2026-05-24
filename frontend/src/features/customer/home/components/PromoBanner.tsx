@@ -63,9 +63,7 @@ export const PromoBanner = ({ products }: Props) => {
                                         src={product.images?.[0]?.url || ""}
                                         alt={product.name}
                                         onError={(e) => {
-                                            const target = e.target as HTMLImageElement;
-                                            target.onerror = null;
-                                            target.src = '/vite.svg';
+                                            (e.target as HTMLImageElement).src = '/placeholder.png';
                                         }}
                                     />
                                 </div>

@@ -287,7 +287,7 @@ export const OrderProcessing = () => {
             <option value="da_huy">Đã hủy</option>
           </select>
 
-          <div className="relative w-full sm:w-72">
+          <div className="relative w-72">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
             <input
               type="text"

@@ -102,7 +102,7 @@ export const ProfilePage = () => {
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="mb-10">
                     <h2 className="text-2xl font-black text-gray-900 tracking-tight">Hồ sơ cá nhân</h2>
-                    <p className="text-sm text-gray-500 mt-1">Quản lý và bảo mật thông tin tài khoản TechMart của bạn</p>
+                    <p className="text-sm text-gray-500 mt-1">Quản lý và bảo mật thông tin tài khoản Techmart của bạn</p>
                   </div>
                   
                   <form className="space-y-8 max-w-2xl">
@@ -141,7 +141,7 @@ export const ProfilePage = () => {
                       <textarea 
                         rows={3}
                         defaultValue={user.dia_chi || ""} 
-                        placeholder="Nhập địa chỉ của bạn để TechMart giao hàng nhanh nhất"
+                        placeholder="Nhập địa chỉ của bạn để Techmart giao hàng nhanh nhất"
                         className="w-full bg-gray-50 border-2 border-transparent rounded-2xl px-5 py-3.5 text-sm font-medium focus:border-purple-600 focus:bg-white outline-none transition-all shadow-sm placeholder:text-gray-300 resize-none" 
                       />
                     </div>

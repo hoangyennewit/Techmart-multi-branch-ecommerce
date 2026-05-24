@@ -4,7 +4,6 @@ import { BrandFilter } from "../components/BrandFilter";
 import { useState, useEffect } from "react";
 import { ProductSection } from "../components/ProductSection";
 import { ProductAPI } from "../api/productApi";
-import { Footer } from "@/components/Footer";
 
 export const ProductListPage = () => {
     const [filteredBrand, setFilteredBrand] = useState<string | null>(null);
@@ -63,7 +62,6 @@ export const ProductListPage = () => {
                     </>
                 )}
             </div>
-            <Footer />
         </div>
     );
 }

@@ -53,24 +53,4 @@ export const ProductAPI = {
       return [];
     }
   },
-
-  getReviews: async (productId: string | number): Promise<any[]> => {
-    try {
-      const response = await apiClient.get(`/products/${productId}/reviews`);
-      return response.data;
-    } catch (error) {
-      console.error("Lỗi khi lấy đánh giá:", error);
-      return [];
-    }
-  },
-
-  addReview: async (productId: string | number, data: { ma_nguoi_dung?: number; noi_dung: string; so_sao: number }): Promise<any> => {
-    try {
-      const response = await apiClient.post(`/products/${productId}/reviews`, data);
-      return response.data;
-    } catch (error) {
-      console.error("Lỗi khi gửi đánh giá:", error);
-      throw error;
-    }
-  }
 };

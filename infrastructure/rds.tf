@@ -1,13 +1,14 @@
 resource "aws_security_group" "rds" {
-  name        = "${var.project_name}-rds-sg"
+  count       = local.env == "staging" ? 1 : 0
+  name        = "${local.resource_suffix}-rds-sg"
   description = "Security group for RDS instance"
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port       = 5432
-    to_port         = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.ecs_tasks.id]
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Allow public connections so production ECS tasks can connect
   }
 
   egress {
@@ -18,21 +19,23 @@ resource "aws_security_group" "rds" {
   }
 
   tags = {
-    Name = "${var.project_name}-rds-sg"
+    Name = "${local.resource_suffix}-rds-sg"
   }
 }
 
 resource "aws_db_subnet_group" "main" {
-  name       = "${var.project_name}-db-subnet-group"
-  subnet_ids = [aws_subnet.private_1.id, aws_subnet.private_2.id]
+  count      = local.env == "staging" ? 1 : 0
+  name       = "${local.resource_suffix}-db-subnet-group"
+  subnet_ids = [aws_subnet.public_1.id, aws_subnet.public_2.id] # Place in public subnets for public access
 
   tags = {
-    Name = "${var.project_name}-db-subnet-group"
+    Name = "${local.resource_suffix}-db-subnet-group"
   }
 }
 
 resource "aws_db_instance" "main" {
-  identifier           = "${var.project_name}-db"
+  count                = local.env == "staging" ? 1 : 0
+  identifier           = "${local.resource_suffix}-db"
   allocated_storage    = 20
   storage_type         = "gp2"
   engine               = "postgres"
@@ -43,15 +46,22 @@ resource "aws_db_instance" "main" {
   password             = var.db_password
   parameter_group_name = "default.postgres15"
   skip_final_snapshot  = true
+  publicly_accessible  = true # Enable public access for shared database use
 
-  db_subnet_group_name   = aws_db_subnet_group.main.name
-  vpc_security_group_ids = [aws_security_group.rds.id]
+  db_subnet_group_name   = aws_db_subnet_group.main[0].name
+  vpc_security_group_ids = [aws_security_group.rds[0].id]
 
   tags = {
-    Name = "${var.project_name}-db"
+    Name = "${local.resource_suffix}-db"
   }
 }
 
+# Lookup the staging DB instance in the production workspace
+data "aws_db_instance" "staging" {
+  count                  = local.env == "production" ? 1 : 0
+  db_instance_identifier = "techmart-staging-db"
+}
+
 output "db_endpoint" {
-  value = aws_db_instance.main.endpoint
+  value = local.env == "staging" ? aws_db_instance.main[0].endpoint : data.aws_db_instance.staging[0].endpoint
 }

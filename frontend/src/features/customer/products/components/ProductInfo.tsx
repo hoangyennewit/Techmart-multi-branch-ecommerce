@@ -78,29 +78,6 @@ export const ProductInfo = ({ product }: Props) => {
     setShowToast(true);
   };
 
-  const handleBuyNow = () => {
-    if (isOutOfStock) return;
-
-    const cartItem = {
-      id: product.id,
-      name: `${product.name} - ${currentVariant?.name || ""}`,
-      price: displayPrice,
-      originalPrice: product.originalPrice || displayPrice,
-      imageUrl: product.images[0]?.url || "",
-      color: currentColor?.name || selectedColor,
-      quantity: 1,
-    };
-
-    if (!isAuthenticated) {
-      savePendingCartItem(cartItem);
-      navigate("/login");
-      return;
-    }
-
-    dispatch(addToCart(cartItem));
-    navigate("/checkout");
-  };
-
   useEffect(() => {
     if (showToast) {
       const timer = setTimeout(() => setShowToast(false), 3000);
@@ -223,7 +200,6 @@ export const ProductInfo = ({ product }: Props) => {
       {/* Action Buttons */}
       <div className="mt-6 flex flex-col gap-3">
         <button
-          onClick={handleBuyNow}
           disabled={isOutOfStock}
           className={`w-full flex flex-col items-center justify-center py-4 rounded-xl shadow-lg transition-all border-none
                          ${
