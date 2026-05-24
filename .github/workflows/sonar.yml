@@ -33,6 +33,6 @@ jobs:
         with:
           projectBaseDir: backend
           args: >
-            -Dsonar.projectKey=Techmart-multi-branch-ecommerce
+            -Dsonar.projectKey=techmart-mart
             -Dsonar.sources=.
             -Dsonar.exclusions=node_modules/**,dist/**,build/**
