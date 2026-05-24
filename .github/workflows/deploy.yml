@@ -56,7 +56,7 @@ jobs:
     needs: [test-backend]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout Code với full lịch sử Git
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -68,11 +68,22 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Download Workspace Artifact
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install Dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      - name: Download coverage report from previous job
         uses: actions/download-artifact@v4
         with:
-          name: backend-workspace-${{ github.sha }}
-          path: backend/
+          name: coverage-report-${{ github.sha }}
+          path: backend/coverage/
 
       - name: Run SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@v3
@@ -84,7 +95,7 @@ jobs:
           args: >
             -Dsonar.projectKey=techmart-mart
             -Dsonar.sources=.
-            -Dsonar.exclusions=node_modules/**,dist/**,build/**
+            -Dsonar.exclusions=node_modules/**,dist/**,build/**,coverage/**,*.log,test/**,**/*.test.js
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
   deploy-infrastructure:
