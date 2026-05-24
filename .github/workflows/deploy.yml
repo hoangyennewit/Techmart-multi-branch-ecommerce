@@ -243,7 +243,7 @@ jobs:
           positions:
             filename: /tmp/positions.yaml
           clients:
-            - url: http://192.168.56.102:3100/loki/api/v1/push
+            - url: https://5793d50834c385e4-27-71-65-213.serveousercontent.com/loki/api/v1/push
           scrape_configs:
             - job_name: ecommerce-aws-backend-logs
               static_configs:
