@@ -3,7 +3,6 @@ name: SonarQube Quality Check
 on:
   push:
     branches:
-      - main
       - develop
 
 jobs:
@@ -17,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-size: 20
+          node-version: 20
 
       - name: Install Dependencies
         run: |
