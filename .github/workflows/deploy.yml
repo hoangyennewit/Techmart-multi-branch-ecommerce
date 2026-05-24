@@ -256,7 +256,7 @@ jobs:
                     job: ecommerce-v1-backend
                     env: ${{ env.ENV_NAME }}
                     provider: aws-ecs
-                    __path__: /var/log/backend_logs/app.log
+                    __path__: /var/lib/docker/containers/*/*.log
             - job_name: ecommerce-aws-frontend-logs
               static_configs:
                 - targets: [localhost]
@@ -264,7 +264,7 @@ jobs:
                     job: ecommerce-v1-frontend
                     env: ${{ env.ENV_NAME }}
                     provider: aws-s3
-                    __path__: /var/log/frontend_logs/access.log
+                    __path__: /var/lib/docker/containers/*/*.log
           EOF
 
       - name: Configure AWS Credentials
