@@ -6,7 +6,10 @@ positions:
   filename: /tmp/positions.yaml
 
 clients:
-  - url: http://192.168.56.102:3100/loki/api/v1/push 
+  - url: https://logs-prod-020.grafana.net/loki/api/v1/push
+    basic_auth:
+      username: "1665378"
+      password: "[DÁN_TOKEN_CỦA_BẠN_VÀO_ĐÂY]"
 
 scrape_configs:
   - job_name: ecommerce-file-logs
