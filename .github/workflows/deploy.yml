@@ -149,6 +149,7 @@ jobs:
           TF_VAR_momo_secret_key: ${{ secrets.MOMO_SECRET_KEY }}
           TF_VAR_zalopay_key1: ${{ secrets.ZALOPAY_KEY1 }}
           TF_VAR_zalopay_key2: ${{ secrets.ZALOPAY_KEY2 }}
+          TF_VAR_grafana_loki_token: ${{ secrets.GRAFANA_LOKI_TOKEN }}
 
   deploy-backend:
     name: Build and Deploy Backend

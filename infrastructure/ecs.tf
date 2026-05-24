@@ -189,7 +189,13 @@ resource "aws_ecs_task_definition" "backend" {
       essential = false
       entryPoint = ["sh", "-c"]
       command = [
-        "cat << 'EOF' > /etc/promtail/config.yml\n${file("${path.module}/../promtail-config.yml")}\nEOF\n/usr/bin/promtail -config.file=/etc/promtail/config.yml"
+        "cat << 'EOF' > /etc/promtail/config.yml\n${file("${path.module}/../promtail-config.yml")}\nEOF\n/usr/bin/promtail -config.expand-env=true -config.file=/etc/promtail/config.yml"
+      ]
+      environment = [
+        {
+          name  = "GRAFANA_LOKI_TOKEN"
+          value = var.grafana_loki_token
+        }
       ]
       mountPoints = [
         {

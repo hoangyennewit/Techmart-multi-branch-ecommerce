@@ -8,8 +8,8 @@ positions:
 clients:
   - url: https://logs-prod-020.grafana.net/loki/api/v1/push
     basic_auth:
-      username: "1665378"
-      password: "[DÁN_TOKEN_CỦA_BẠN_VÀO_ĐÂY]"
+      username: "1623165"
+      password: "${GRAFANA_LOKI_TOKEN}"
 
 scrape_configs:
   - job_name: ecommerce-file-logs
