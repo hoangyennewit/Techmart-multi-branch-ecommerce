@@ -84,6 +84,14 @@ jobs:
         with:
           name: coverage-report-${{ github.sha }}
           path: backend/coverage/
+      
+      - name: Setup Java on Cloud
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: |
+            17
+            21
 
       - name: Run SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
