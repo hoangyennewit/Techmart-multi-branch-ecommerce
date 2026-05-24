@@ -29,6 +29,7 @@
       "src/middlewares/**/*.ts",
       "!src/controllers/categoryController.ts",
       "!src/controllers/paymentController.ts",
+      "!src/controllers/reviewController.ts",
       "!src/middlewares/roleMiddleware.ts",
       "!src/middlewares/uploadCloud.ts"
     ]
