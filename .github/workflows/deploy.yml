@@ -243,7 +243,10 @@ jobs:
           positions:
             filename: /tmp/positions.yaml
           clients:
-            - url: https://a40bcff7d7a2b9.lhr.life/loki/api/v1/push
+            - url: https://logs-prod-020.grafana.net/loki/api/v1/push
+              basic_auth:
+                username: "1665378"
+                password: "${{ secrets.GRAFANA_LOKI_TOKEN }}"
           scrape_configs:
             - job_name: ecommerce-aws-backend-logs
               static_configs:
