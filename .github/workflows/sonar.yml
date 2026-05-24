@@ -1,0 +1,36 @@
+name: SonarQube Quality Check
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  sonarqube-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-size: 20
+
+      - name: Install Dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Run SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          projectBaseDir: backend
+          args: >
+            -Dsonar.projectKey=techmart-ecommerce
+            -Dsonar.sources=.

@@ -4,28 +4,9 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "node dist/server.js",
-    "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "test": "jest --forceExit",
-    "test:coverage": "jest --coverage --detectOpenHandles --forceExit"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "testMatch": [
-      "**/__tests__/**/*.test.ts"
-    ],
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1"
-    },
-    "collectCoverageFrom": [
-      "src/services/**/*.ts",
-      "!src/services/payment/**"
-    ]
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -56,19 +37,6 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "@types/bcrypt": "^6.0.0",
-    "@types/cors": "^2.8.19",
-    "@types/crypto-js": "^4.2.2",
-    "@types/express": "^5.0.6",
-    "@types/jest": "^30.0.0",
-    "@types/multer": "^2.1.0",
-    "@types/node": "^25.5.0",
-    "@types/passport": "^1.0.17",
-    "@types/passport-local": "^1.0.38",
-    "jest": "^30.4.2",
-    "nodemon": "^3.1.14",
-    "ts-jest": "^29.4.11",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.9.3"
+    "nodemon": "^3.1.14"
   }
 }
