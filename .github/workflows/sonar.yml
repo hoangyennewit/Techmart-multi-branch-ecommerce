@@ -32,4 +32,4 @@ jobs:
           projectBaseDir: backend
           args: >
             -Dsonar.projectKey=Techmart-multi-branch-ecommerce
-            -Dsonar.sources=.S
+            -Dsonar.sources=.
