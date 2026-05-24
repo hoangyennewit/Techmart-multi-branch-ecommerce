@@ -61,21 +61,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download coverage report from previous job
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Download Workspace Artifact
         uses: actions/download-artifact@v4
         with:
-          name: coverage-report-${{ github.sha }}
-          path: backend/coverage/
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Install Dependencies
-        run: |
-          cd backend
-          npm install
+          name: backend-workspace-${{ github.sha }}
+          path: backend/
 
       - name: Run SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@v3
