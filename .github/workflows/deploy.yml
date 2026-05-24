@@ -246,7 +246,7 @@ jobs:
           clients:
             - url: https://logs-prod-020.grafana.net/loki/api/v1/push
               basic_auth:
-                username: "1665378"
+                username: "1623165"
                 password: "${{ secrets.GRAFANA_LOKI_TOKEN }}"
           scrape_configs:
             - job_name: ecommerce-aws-backend-logs
