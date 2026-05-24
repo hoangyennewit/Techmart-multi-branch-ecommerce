@@ -24,7 +24,13 @@
     },
     "collectCoverageFrom": [
       "src/services/**/*.ts",
-      "!src/services/payment/**"
+      "!src/services/payment/**",
+      "src/controllers/**/*.ts",
+      "src/middlewares/**/*.ts",
+      "!src/controllers/categoryController.ts",
+      "!src/controllers/paymentController.ts",
+      "!src/middlewares/roleMiddleware.ts",
+      "!src/middlewares/uploadCloud.ts"
     ]
   },
   "keywords": [],
@@ -65,8 +71,10 @@
     "@types/node": "^25.5.0",
     "@types/passport": "^1.0.17",
     "@types/passport-local": "^1.0.38",
+    "@types/supertest": "^7.2.0",
     "jest": "^30.4.2",
     "nodemon": "^3.1.14",
+    "supertest": "^7.2.2",
     "ts-jest": "^29.4.11",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
