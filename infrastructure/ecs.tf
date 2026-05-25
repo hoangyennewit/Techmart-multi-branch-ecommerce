@@ -47,10 +47,21 @@ resource "aws_ecs_task_definition" "backend" {
   memory                   = 512
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
 
+  volume {
+    name = "backend_logs"
+  }
+
   container_definitions = jsonencode([
     {
       name  = "backend"
       image = "${aws_ecr_repository.backend.repository_url}:latest"
+      command = ["sh", "-c", "npm run start 2>&1 | tee /var/log/backend_logs/app.log"]
+      mountPoints = [
+        {
+          sourceVolume  = "backend_logs"
+          containerPath = "/var/log/backend_logs"
+        }
+      ]
       portMappings = [
         {
           containerPort = 5000
@@ -169,6 +180,35 @@ resource "aws_ecs_task_definition" "backend" {
           "awslogs-group"         = aws_cloudwatch_log_group.ecs_logs.name
           "awslogs-region"        = var.aws_region
           "awslogs-stream-prefix" = "ecs"
+        }
+      }
+    },
+    {
+      name  = "promtail"
+      image = "grafana/promtail:2.9.0"
+      essential = false
+      entryPoint = ["sh", "-c"]
+      command = [
+        "cat << 'EOF' > /etc/promtail/config.yml\n${file("${path.module}/../promtail-config.yml")}\nEOF\n/usr/bin/promtail -config.expand-env=true -config.file=/etc/promtail/config.yml"
+      ]
+      environment = [
+        {
+          name  = "GRAFANA_LOKI_TOKEN"
+          value = var.grafana_loki_token
+        }
+      ]
+      mountPoints = [
+        {
+          sourceVolume  = "backend_logs"
+          containerPath = "/var/log/backend_logs"
+        }
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = aws_cloudwatch_log_group.ecs_logs.name
+          "awslogs-region"        = var.aws_region
+          "awslogs-stream-prefix" = "promtail"
         }
       }
     }

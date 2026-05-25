@@ -94,8 +94,16 @@ variable "zalopay_key1" {
 }
 
 variable "zalopay_key2" {
-  description = "ZaloPay Key 2"
+  description = "Zalopay Key2"
+  type        = string
   sensitive   = true
+}
+
+variable "grafana_loki_token" {
+  description = "Grafana Cloud Loki Token"
+  type        = string
+  sensitive   = true
+  default     = ""
 }
 
 data "aws_availability_zones" "available" {
