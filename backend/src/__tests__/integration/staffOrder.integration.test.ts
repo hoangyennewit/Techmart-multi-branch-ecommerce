@@ -22,21 +22,21 @@ jest.mock("../../services/staff/staffOrderService", () => ({
  * Source code dùng exact match nên director (role=2) bị từ chối khi
  * route khai báo authorize(NV_BAN_HANG=6) — phải mock để test đúng business logic.
  */
-// jest.mock("../../middlewares/roleMiddleware", () => ({
-//   authorize: (...allowedRoles: number[]) => {
-//     return (req: any, res: any, next: any) => {
-//       const user = req.user;
-//       if (!user) {
-//         return res.status(401).json({ message: "Người dùng chưa xác thực." });
-//       }
-//       const maxAllowedRole = Math.max(...allowedRoles);
-//       if (user.ma_vai_tro > maxAllowedRole) {
-//         return res.status(403).json({ message: "Bạn không có quyền truy cập vào chức năng này." });
-//       }
-//       next();
-//     };
-//   },
-// }));
+jest.mock("../../middlewares/roleMiddleware", () => ({
+  authorize: (...allowedRoles: number[]) => {
+    return (req: any, res: any, next: any) => {
+      const user = req.user;
+      if (!user) {
+        return res.status(401).json({ message: "Người dùng chưa xác thực." });
+      }
+      const maxAllowedRole = Math.max(...allowedRoles);
+      if (user.ma_vai_tro > maxAllowedRole) {
+        return res.status(403).json({ message: "Bạn không có quyền truy cập vào chức năng này." });
+      }
+      next();
+    };
+  },
+}));
 
 import request from "supertest";
 import { createApp } from "./helpers/app";
