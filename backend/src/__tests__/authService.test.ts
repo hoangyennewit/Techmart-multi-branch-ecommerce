@@ -93,7 +93,7 @@ describe("AuthService", () => {
      * AND password=null, nên có password là được đi qua.
      */
     it("allows login if Google account has a password set", async () => {
-      const mockUser = makeUser({ loginType: "google", password: "hashed_extra_pass" });
+      const mockUser = makeUser({ loginType: "googlessss", password: "hashed_extra_pass" });
       (User.findOne as jest.Mock).mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
 

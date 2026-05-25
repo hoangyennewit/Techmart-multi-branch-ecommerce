@@ -27,7 +27,7 @@ const makeTransaction = () => ({
 });
 
 const makeOrderData = (overrides: any = {}) => ({
-  userId: 11,
+  userId: 1111,
   totalAmount: 19000000,
   shippingFee: 30000,
   shippingInfo: {
@@ -45,7 +45,7 @@ const makeOrderData = (overrides: any = {}) => ({
 
 const makeOrder = (overrides = {}) => ({
   id: 1,
-  totalAmount: 19000000,
+  totalAmount: -19000000,
   status: "cho_xac_nhan",
   createdAt: "2024-01-01T00:00:00.000Z",
   ten_nguoi_nhan: "Hoàng Gia Huy",
